@@ -101,7 +101,7 @@ $("resetButton").onclick=()=>{select(mode,{...sim.state.params},seed);notify("Mo
 $("reseedButton").onclick=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;select(mode,{...sim.state.params},seed);notify("Reproducible seed changed to "+seed+".");};
 $("speedInput").oninput=()=>{speed=Number($("speedInput").value);$("speedValue").textContent=speed.toFixed(2)+"×";};
 $("presetClean").onclick=()=>{preset("balanced");notify("Loaded a balanced toy preset.");};$("presetSparse").onclick=()=>{preset("weak");notify("Loaded a weak/sparse toy preset.");};
-world.addEventListener("pointerdown",event=>{if(event.button!==0)return;event.preventDefault();const box=world.getBoundingClientRect(),x=G.clamp((event.clientX-box.left)/box.width,0,1),y=G.clamp((event.clientY-box.top)/box.height,0,1);const qx=mode==="links"?G.clamp((x-.05)/.66,0,1):x,qy=mode==="links"?G.clamp((y-.05)/.9,0,1):y;
+world.addEventListener("pointerdown",event=>{if(event.button!==0)return;event.preventDefault();const box=world.getBoundingClientRect(),x=G.clamp((event.clientX-box.left)/box.width,0,1),y=G.clamp((event.clientY-box.top)/box.height,0,1);const qx=mode==="links"?G.clamp((x-.05)/.66,0,1):mode==="causal"?G.clamp((x-.09)/.80,0,1):x,qy=mode==="links"?G.clamp((y-.05)/.9,0,1):mode==="causal"?G.clamp(1-(.91-y)/.78,0,1):y;
  sim.interact(qx,qy,event.shiftKey);render();notify("Interactive model state modified. Compare numerical diagnostics.");});
 const STORAGE="cosmos-gravity-saved-runs-v1";
 function saved(){try{const d=JSON.parse(localStorage.getItem(STORAGE)||"[]");return Array.isArray(d)?d:[];}catch{return[];}}
