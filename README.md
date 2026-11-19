@@ -1,6 +1,27 @@
 # COSMOS LAB — The Mathematical Universe
 
-## COSMOS ∞ Unified Hub — 41 searchable models in 8 workspaces
+## Research Radar — live papers, scientific news and cautious implications
+
+**Website and Android shell:** https://cosmos-lab-v3.vercel.app/radar.html
+
+The installed COSMOS Android APK opens the All Labs hub, therefore this website feature is accessible through the existing APK after deployment.
+
+### Real sources and controls
+- arXiv Atom API for original preprints with titles, dates, authors and abstracts. OpenAlex is a bibliographic fallback.
+- Official institutional news: NASA Science, CERN and APS Physics RSS.
+- Filters: cosmology, gravity, quantum, particle physics, theoretical unification; time windows of 7, 30 or 90 days; source and local text search.
+- Bookmarks stored locally in the device WebView; real paper titles previewed in the All Labs hub.
+
+### Important scientific interpretation limits
+Every item displays (1) a source excerpt, (2) a strictly conditional interpretation of what it might imply if confirmed, (3) what is NOT established. A new preprint is NOT a confirmed discovery. News announcements need not represent peer-reviewed papers.
+
+The implication is a **predefined, cautious, topic-specific text heuristic** and NOT independent AI full-paper reading, paper fact-checking or translation. Original abstracts remain in English when published in English. No invented citations, discoveries, probabilities or peer-review claims. When feeds fail, the UI shows a transparent error instead of synthetic news.
+
+### Implementation
+Vercel /api/radar provides bounded, cached fetches from fixed source URLs. The frontend consists of radar.html, radar.css, radar.js, radar-core.js and radar-preview.js. Node checks: node tests/radar-smoke.cjs. The tests use XML fixtures, not live upstream connections.
+
+
+## COSMOS ∞ Unified Hub — 41 searchable models in 9 workspaces
 
 **Entry:** https://cosmos-lab-v3.vercel.app/hub.html (after deployment).
 
