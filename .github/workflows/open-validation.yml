@@ -1,0 +1,28 @@
+name: COSMOS Open Problems integrity
+on:
+  push:
+    paths:
+      - 'open-core.js'
+      - 'open.js'
+      - 'open.html'
+      - 'open.css'
+      - 'tests/open-smoke.cjs'
+      - '.github/workflows/open-validation.yml'
+  pull_request:
+    paths:
+      - 'open-core.js'
+      - 'open.js'
+      - 'open.html'
+      - 'open.css'
+      - 'tests/open-smoke.cjs'
+permissions:
+  contents: read
+jobs:
+  scientific-numerics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/open-smoke.cjs
