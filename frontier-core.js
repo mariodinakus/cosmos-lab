@@ -45,7 +45,7 @@ function make(id,settings={},seed=2026){
  if(id==="laws"||id==="intervene"){let row=new Uint8Array(w);for(let i=0;i<w;i++)row[i]=rng()<p.density?1:0;row[w>>1]=1;state.rows=[row];if(id==="intervene"){state.reference=row.slice();state.difference=0;state.edits=0;}}
  if(id==="baryogenesis"){state.X=1;state.Y=0;state.time=0;}
  if(id==="bell"){state.measured={sum:[0,0,0,0],count:[0,0,0,0],total:0};state.recent=[];state.focus=0;}
- if(id==="decoherence"){state.time=0;state.phase=0;state.trail=[];}
+ if(id==="decoherence"){state.time=0;state.phase0=0;state.phase=0;state.trail=[];}
  if(id==="entropy"){state.particles=Array.from({length:240},()=>({x:.14+rng()*.1,v:(rng()*2-1)*.007*p.speed}));}
  };
  function metric(){
@@ -78,7 +78,7 @@ function make(id,settings={},seed=2026){
       if(i===state.focus){state.recent.push({A,B});if(state.recent.length>160)state.recent.shift();}
     }}
   }
-  if(id==="decoherence"){state.time+=.09;state.phase=p.omega*state.time;const r=Math.exp(-p.gamma*state.time);state.trail.push({x:r*Math.cos(state.phase),y:r*Math.sin(state.phase)});if(state.trail.length>180)state.trail.shift();}
+  if(id==="decoherence"){state.time+=.09;state.phase=state.phase0+p.omega*state.time;const r=Math.exp(-p.gamma*state.time);state.trail.push({x:r*Math.cos(state.phase),y:r*Math.sin(state.phase)});if(state.trail.length>180)state.trail.shift();}
   if(id==="entropy"){for(const particle of state.particles){particle.v=clamp(particle.v+(rng()-.5)*.0015*p.noise,-.03,.03);particle.x=(particle.x+particle.v+1)%1;}}
   const value=metric().value;if(state.step%2===0){state.history.push({t:state.step,y:value});if(state.history.length>380)state.history.shift();}
   return value;
@@ -91,7 +91,7 @@ function make(id,settings={},seed=2026){
    let diff=0;for(let i=0;i<w;i++)if(state.reference[i]!==last[i])diff++;state.difference=diff/w;}
   if(id==="baryogenesis"){p.epsilon=-.3+.6*x;state.X=1;state.Y=0;state.time=0;state.history=[];state.step=0;}
   if(id==="bell"){state.focus=Math.min(3,Math.floor(x*4));}
-  if(id==="decoherence"){state.time=0;state.phase=2*PI*x;state.trail=[];state.step=0;state.history=[];}
+  if(id==="decoherence"){state.time=0;state.phase0=2*PI*x;state.phase=state.phase0;state.trail=[];state.step=0;state.history=[];}
   if(id==="entropy"){for(const q of state.particles){q.x=clamp(x+(rng()-.5)*.07,0,.999);q.v=(rng()*2-1)*.006*p.speed;}}
   if(id==="tunnel")p.energy=clamp(.2+4.8*x,.2,5);
   if(id==="inflation"){state.phi=.5+3.5*x;state.N=0;state.H=Math.sqrt(scalarV(state.phi,p)/3);state.step=0;state.history=[];}
