@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COSMOS LAB — Frontier Questions</title>
+<meta name="theme-color" content="#080e11">
+<meta name="description" content="Play with mathematical toy models for the origin of the Universe, quantum vacuum, laws of nature, gravity, gauge unification and the limits of scientific explanations. No false claims of a Theory of Everything.">
+<link rel="icon" href="/assets/favicon.ico"><link rel="apple-touch-icon" href="/assets/icon-180.png">
+<link rel="stylesheet" href="/frontier.css">
+</head><body>
+<div class="ticker"><span>COSMOS / FRONTIER QUESTIONS</span><span>THE UNIVERSE, ITS LAWS AND THE LIMITS OF EXPLANATION</span></div>
+<header class="mast">
+<a class="brand" href="/"><img src="/assets/icon-64.png" alt="COSMOS LAB"><span>COSMOS<b>.</b><small>MATHEMATICAL UNIVERSE</small></span></a>
+<nav aria-label="COSMOS navigation"><a href="/">ATLAS</a><a href="/toybox.html">TOY UNIVERSE</a><a href="/chaos.html">CHAOS FORGE</a><a href="/observatory.html">OBSERVATORY</a><a class="active" href="/frontier.html">FRONTIER</a></nav>
+</header>
+<main>
+<section class="hero">
+<div><div class="kicker">THE FRONTIER OF REALITY / 10 INTERACTIVE EXPERIMENTS</div>
+<h1>WHY IS THERE<br><em>ANYTHING?</em></h1>
+<p>Why these laws? Can a Universe run without intervention? Where do gravity and quantum mechanics collide? Could forces converge into one theory? Explore the questions with equations, animated toy models and clearly marked limits.</p>
+<div class="hero-actions"><a class="primary" href="#lab">▶ ENTER THE QUESTION LAB</a><a href="#boundaries" class="secondary">WHAT WE CANNOT CLAIM ↗</a></div>
+</div>
+<div class="hero-art" aria-hidden="true"><div class="halo halo1"></div><div class="halo halo2"></div><div class="spark"></div><p>Rμν − ½Rgμν = 8πGTμν<br>iℏ∂ψ/∂t = Ĥψ</p></div>
+</section>
+<section class="numbers"><div><strong>10</strong><small>PLAYABLE MATHEMATICAL TOYS</small></div><div><strong>3</strong><small>LEVELS OF CLAIMS</small></div><div><strong>∞?</strong><small>QUESTIONS STILL OPEN</small></div><div><strong>0</strong><small>FALSE PROOFS OF GOD OR A TOE</small></div></section>
+<section id="lab" class="lab">
+<aside class="selector">
+<div class="selector-head"><span>01 / CHOOSE A FUNDAMENTAL QUESTION</span><strong>10</strong></div>
+<label for="searchMode">SEARCH</label><input id="searchMode" type="search" placeholder="vacuum, God, gravity, time…" autocomplete="off">
+<div id="modeList" class="mode-list" role="group" aria-label="Foundational toy model experiments"></div>
+<p class="sidebar-note">Every model presupposes a mathematical framework. A successful computation is not a discovery of ultimate reality.</p>
+</aside>
+<div class="experiment">
+<div class="experiment-head"><div><span class="kicker" id="modelTag">NOTHING / VACUUM</span><h2 id="modelTitle">IS THE VACUUM NOTHING?</h2><p id="modelQuestion">Why is there something rather than nothing?</p></div><span id="running" class="live">● RUNNING</span></div>
+<div class="toolstrip">
+<button type="button" class="primary" id="play">Ⅱ PAUSE</button><button type="button" id="step">STEP +1</button><button type="button" id="reset">↻ RESET</button><button type="button" id="reseed">⤨ RESEED</button>
+<label for="speed">SPEED <input id="speed" type="range" min=".25" max="5" step=".25" value="1"><output id="speedValue">1.00×</output></label>
+</div>
+<div class="plot-panel"><div class="panel-header"><span>02 / DYNAMIC MODEL VISUALIZATION</span><span>INTERACTIVE · COMPUTED IN YOUR BROWSER</span></div>
+<canvas id="world" width="1100" height="570" tabindex="0" aria-label="Interactive mathematical toy model animation"></canvas>
+<div class="interaction-hint"><span id="touchHint">Tap to modify the model.</span><span>CLICK OR TAP TO EXPERIMENT</span></div></div>
+<div class="grid-bottom">
+<section class="chartbox"><div class="panel-header"><span>03 / NUMERICAL DIAGNOSTIC</span><span>ACTUAL MODEL OUTPUT</span></div>
+<canvas id="chart" width="800" height="290" aria-label="Live numerical diagnostic"></canvas>
+<div class="chart-tip">This chart is mathematical output under stated assumptions, not observational data.</div></section>
+<section class="readouts"><span class="kicker">LIVE READOUT</span><strong id="metric">—</strong><small id="metricUnit">units</small><p id="metricDetail">Calculated from the model.</p><div class="grid-reads"><div><small>STEP</small><strong id="steps">0</strong></div><div><small>SEED</small><strong id="seedLabel">2026</strong></div></div></section>
+</div>
+<div class="lower">
+<section class="parameters"><div class="panel-header"><span>04 / CHANGE THE ASSUMPTIONS</span><span>BOUNDED PARAMETERS</span></div><div id="parameters"></div></section>
+<section class="explain"><div class="panel-header"><span>05 / EXPLANATION & LIMITS</span><span>NO FALSE INFERENCES</span></div>
+<code id="equation">E₀ = ℏω/2</code><div class="level" id="evidenceLevel">Established QM model</div>
+<h3>WHAT THE EXPERIMENT SHOWS</h3><p id="what">A mathematical relationship.</p>
+<h3>WHAT IT DOES NOT SHOW</h3><p id="limit">The limits of this model.</p>
+<div id="nothingPanel" class="special" hidden><label for="nothingSelect">WHAT DO YOU MEAN BY "NOTHING"?</label>
+<select id="nothingSelect"><option value="quantum">Quantum vacuum (physical system)</option><option value="empty">Classical empty space (physical spacetime)</option><option value="absolute">Absolute philosophical nothing (no defined physics)</option></select>
+<p id="nothingExplain"></p></div>
+<div class="export"><button id="exportCsv">↓ CSV</button><button id="exportJson">↓ JSON</button><button id="exportPng">↓ PNG</button><button id="share">↗ SHARE SETUP</button></div>
+<div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+</section>
+</div>
+</div>
+</section>
+<section class="philosophy" id="boundaries">
+<div><span class="kicker">06 / QUESTIONS PHYSICS DOES NOT AUTOMATICALLY SETTLE</span><h2>CAN THE UNIVERSE<br>FUNCTION <em>WITHOUT GOD?</em></h2>
+<p>A mathematical system can evolve using internally stated rules without intervention. That is not evidence that God does not exist — and it does not establish a divine explanation. Science tests specific empirical claims; many general metaphysical claims lie outside the reach of these toys.</p></div>
+<div class="positions">
+<button class="position active" data-position="science">PHYSICAL EXPLANATION</button>
+<button class="position" data-position="theism">THEISTIC INTERPRETATION</button>
+<button class="position" data-position="naturalism">NATURALIST INTERPRETATION</button>
+<button class="position" data-position="agnostic">SUSPENDED JUDGMENT</button>
+<div id="positionDescription" class="position-text">Physics models observed regularities and mechanisms under assumed mathematical rules. It does not, merely by computing a solution, determine why laws exist.</div>
+<div class="disclaimer">These are frameworks for interpretation, not measured probabilities or an automated test for God's existence.</div>
+</div>
+</section>
+<section class="sources"><span class="kicker">07 / SCIENTIFIC REFERENCES & INTERPRETIVE LIMITS</span>
+<h2>RESEARCH, NOT MAGIC.</h2>
+<div class="sources-grid">
+<article><strong>PHILOSOPHY OF COSMOLOGY</strong><p>Physical vacuum is not metaphysical nothing. Cosmological models have limited explanatory domains.</p><a href="https://plato.stanford.edu/entries/cosmology/" target="_blank" rel="noopener noreferrer">Stanford Encyclopedia of Philosophy ↗</a></article>
+<article><strong>STANDARD MODEL GAUGE RUNNING</strong><p>One-loop beta coefficients (SU(5) normalized): 41/10, −19/6 and −7.</p><a href="https://indico.cern.ch/event/84560/attachments/1075209/1533472/eberl_PiP10.pdf" target="_blank" rel="noopener noreferrer">CERN research lecture ↗</a></article>
+<article><strong>THEORETICAL LIMITATIONS</strong><p>Minimum-length proposals and emergent-geometric analogies are exploratory, not confirmed explanations of ultimate reality.</p><a href="https://academic.oup.com/ptep/article/2016/4/043B02/2461130" target="_blank" rel="noopener noreferrer">Peer-reviewed gauge-coupling analysis ↗</a></article>
+</div>
+</section>
+</main><footer><span>COSMOS LAB / FRONTIER QUESTIONS</span><span>COMPUTATION ≠ PHYSICAL PROOF ≠ METAPHYSICAL PROOF</span><a href="/toybox.html">MORE TOY MODELS ↗</a></footer>
+<script src="/frontier-core.js"></script><script src="/frontier.js"></script>
+</body></html>
