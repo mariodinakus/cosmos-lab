@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>COSMOS ∞ — Reality Engine | COSMOS LAB</title>
+<meta name="theme-color" content="#080e11"/><meta name="description" content="COSMOS ∞ Reality Engine: 10 browser-run experiments for custom universes, scientific law stress-tests, real data imports, model selection, black holes, two-qubit circuits, initial conditions, equations, entanglement and research sweeps."/>
+<link rel="icon" href="/assets/favicon.ico"/><link rel="stylesheet" href="/reality.css"/></head><body>
+<div class="ticker"><span>COSMOS ∞ / REALITY ENGINE</span><span>BUILD A WORLD · CHANGE THE RULES · TEST THE RESULT</span></div>
+<header class="mast">
+<a href="/" class="brand"><img src="/assets/icon-64.png" alt="COSMOS LAB"/><span>COSMOS<b>∞</b><small>THE REALITY ENGINE</small></span></a>
+<nav aria-label="Main navigation"><a href="/">ATLAS</a><a href="/reality.html" class="active">REALITY ENGINE</a><a href="/studio.html">STUDIO</a><a href="/observatory.html">OBSERVATORY</a><a href="/frontier.html">FRONTIER</a><a href="/gravity.html">QUANTUM GRAVITY</a></nav>
+</header>
+<main>
+<section class="hero">
+<div class="hero-copy"><div class="eyebrow">COSMOS LAB / INTERACTIVE RESEARCH EXPERIMENTS</div>
+<h1>CREATE.<br/>DISTURB.<br/><em>DISCOVER?</em></h1>
+<p>Make your own mathematical universe. Break a numerical approximation. Run a quantum circuit. Test equations against data. Every result is computed, documented and constrained by its assumptions.</p>
+<div class="hero-actions"><a href="#lab" class="primary-link">▶ ENTER THE ENGINE</a><a href="#workspaces" class="secondary-link">EXPLORE ALL WORKSPACES ↗</a></div>
+</div><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 530 400"><g stroke="#00d4e8" fill="none"><circle cx="265" cy="200" r="166"/><ellipse cx="265" cy="200" rx="210" ry="79" transform="rotate(-28 265 200)"/><ellipse cx="265" cy="200" rx="170" ry="130" transform="rotate(45 265 200)" stroke="#ffffff" opacity=".65"/><path d="M65 330Q200 31 465 340" stroke-width="1.2" stroke-dasharray="5 7"/><path d="M60 280Q260 100 470 280" opacity=".7"/></g><g fill="#00d4e8"><circle cx="103" cy="186" r="8"/><circle cx="360" cy="68" r="6"/><circle cx="399" cy="310" r="8"/><circle cx="166" cy="266" r="7"/></g><circle cx="265" cy="200" r="14" fill="#fff"/></svg><small>NOT A PHYSICALLY COMPLETE UNIVERSE</small></div>
+</section>
+<div class="stats"><div><strong>10</strong><small>NEW COMPUTATIONAL MODULES</small></div><div><strong>7</strong><small>CONNECTED LAB SPACES</small></div><div><strong>LIVE</strong><small>ANIMATED NUMERICAL GRAPHICS</small></div><div><strong>CSV</strong><small>DATA · MODEL COMPARISONS</small></div></div>
+<section class="app" id="lab">
+<aside class="model-nav"><div class="nav-head"><span>01 / SELECT EXPERIMENT</span><strong>10</strong></div>
+<label for="modelSearch">SEARCH THE ENGINE</label><input type="search" id="modelSearch" placeholder="Black hole, quantum, data…" autocomplete="off"/>
+<div id="modelList" class="model-list" role="group" aria-label="Choose numerical model"></div>
+<div class="aside-note">All ten experiments are toy or limited-domain numerical calculations. Where the physics is unknown, the model explicitly stops short of claiming an answer.</div>
+</aside>
+<div class="lab-main">
+<div class="module-heading"><div><div id="tag" class="eyebrow">CUSTOM COSMOS</div><h2 id="moduleTitle">UNIVERSE CREATOR</h2><p id="moduleQuestion">What structures arise from different assumptions?</p></div><span class="status-pill" id="runBadge">● RUNNING</span></div>
+<div class="transport"><button id="play" class="primary-btn">Ⅱ PAUSE</button><button id="step">STEP +1</button><button id="reset">↻ RESET</button><button id="reseed">⤨ RESEED</button><label for="speed">SPEED <input id="speed" type="range" min=".25" max="5" step=".25" value="1"/><output id="speedOutput">1.00×</output></label></div>
+<section class="screen"><div class="screen-header"><span>02 / MODEL VISUALIZATION</span><span>LIVE BROWSER COMPUTATION</span></div>
+<canvas id="worldCanvas" width="1100" height="570" tabindex="0" aria-label="Interactive world simulation, click to modify"></canvas>
+<div class="screen-foot"><span id="canvasHelp">Click to perturb the model.</span><span>CLICK / TAP / SHIFT+CLICK</span></div></section>
+<div class="diagnostics">
+<section class="chart"><div class="screen-header"><span>03 / COMPUTED MEASUREMENTS</span><span id="seriesLegend">LIVE SERIES</span></div>
+<canvas id="chartCanvas" width="850" height="270" aria-label="Numerical diagnostics and model comparison chart"></canvas>
+<div class="chart-bottom" id="dataOrigin">Data: synthetic or computed; import CSV to analyze measurements.</div></section>
+<section class="readout"><span class="eyebrow">PRIMARY DIAGNOSTIC</span><strong id="metric">—</strong><small id="unit">model units</small>
+<p id="detail">Calculated from current state.</p><div class="reading-grid"><div><small>TIME STEP</small><strong id="tick">0</strong></div><div><small>SEED</small><strong id="seed">2026</strong></div></div></section>
+</div>
+<div class="bottom-panels"><section class="parameters"><div class="screen-header"><span>04 / CHANGE THE MODEL</span><span>REPRODUCIBLE INPUTS</span></div>
+<div id="paramList" class="param-list"></div>
+<div id="actionArea" class="action-area"></div>
+<div class="data-import" id="dataImport">
+<label for="csvFile">IMPORT NUMERIC CSV (x, y) — optional</label><input type="file" id="csvFile" accept=".csv,.txt,text/csv,text/plain"/>
+<span id="csvStatus">No file imported. Demonstration data are synthetic.</span>
+</div></section>
+<section class="explanation"><div class="screen-header"><span>05 / WHAT THIS ACTUALLY MEANS</span><span>NO FALSE DISCOVERIES</span></div>
+<code id="formula"></code><h3>WHAT THE TOY CALCULATES</h3><p id="what"></p><h3>WHAT THE TOY CANNOT CLAIM</h3><p id="limits"></p>
+<div class="export-buttons"><button id="saveA">☆ SAVE A</button><button id="compareB">⇆ COMPARE B</button><button id="downloadCsv">↓ CSV</button><button id="downloadJson">↓ JSON</button><button id="downloadPng">↓ PNG</button><button id="share">↗ LINK</button></div>
+<div id="message" class="message" role="status" aria-live="polite"></div>
+</section></div>
+</div></section>
+<section class="sources" id="real-data"><div class="kicker">REAL SCIENCE DATA / VERIFIED EXTERNAL CATALOGS</div><h2>BRING THE<br/><em>REAL UNIVERSE.</em></h2>
+<p>The engine does not disguise synthetic demonstrations as observational evidence. Use the official archives below, export a suitable two-column numeric CSV and import it in the Data, Theory Tournament or Equation Discovery modules.</p>
+<div class="source-grid"><a href="https://gwosc.org/api/" target="_blank" rel="noopener noreferrer"><strong>GWOSC / LIGO–VIRGO–KAGRA</strong><span>Gravitational-wave catalogs, strain and datasets; public API.</span><b>OPEN OFFICIAL DATA ↗</b></a>
+<a href="https://opendata.cern.ch/" target="_blank" rel="noopener noreferrer"><strong>CERN OPEN DATA</strong><span>Released particle-physics data and documentation.</span><b>OPEN OFFICIAL DATA ↗</b></a>
+<a href="https://pla.esac.esa.int/" target="_blank" rel="noopener noreferrer"><strong>ESA PLANCK LEGACY ARCHIVE</strong><span>Official Planck products, maps and catalogs.</span><b>OPEN OFFICIAL DATA ↗</b></a></div>
+<div class="source-foot">Import supports 2 numeric columns (x,y) in CSV/TSV. Multi-dimensional scientific formats such as FITS, HDF5 and ROOT require separate preprocessing. No live third-party data ingestion is claimed.</div></section>
+<section class="hub" id="workspaces"><div class="kicker">THE COMPLETE COSMOS LAB / CONNECTED WORKSPACES</div><h2>ONE UNIVERSE.<br/><em>EVERY LAB.</em></h2><p>The new Reality Engine lives beside every earlier experiment. Nothing has been removed.</p>
+<div class="hub-grid">
+<a href="/"><span>00</span><strong>MODEL ATLAS</strong><small>Models, equations and research journal</small><b>OPEN ↗</b></a>
+<a href="/studio.html"><span>01</span><strong>VISUAL STUDIO</strong><small>Animated physics and numerical diagnostics</small><b>OPEN ↗</b></a>
+<a href="/observatory.html"><span>02</span><strong>RESEARCH OBSERVATORY</strong><small>Cosmological inference and comparative analysis</small><b>OPEN ↗</b></a>
+<a href="/chaos.html"><span>03</span><strong>CHAOS FORGE</strong><small>Bifurcations, Lyapunov and twin trajectories</small><b>OPEN ↗</b></a>
+<a href="/toybox.html"><span>04</span><strong>TOY UNIVERSE</strong><small>15 interactive computational worlds</small><b>OPEN ↗</b></a>
+<a href="/frontier.html"><span>05</span><strong>FRONTIER QUESTIONS</strong><small>13 fundamental physics and philosophy toys</small><b>OPEN ↗</b></a>
+<a href="/gravity.html"><span>06</span><strong>QUANTUM GRAVITY</strong><small>Entanglement networks, causal order and Page-like curves</small><b>OPEN ↗</b></a>
+<a href="/reality.html"><span>07</span><strong>COSMOS ∞ / REALITY ENGINE</strong><small>10 new connected, tested numerical modules</small><b>CURRENT LAB ↗</b></a>
+</div></section>
+</main><footer><span>COSMOS ∞ / REALITY ENGINE</span><span>SYNTHETIC ≠ EMPIRICAL · CORRELATION ≠ PHYSICAL CAUSATION</span><a href="/frontier.html">RETURN TO FRONTIER ↗</a></footer>
+<script src="/reality-core.js"></script><script src="/reality.js"></script>
+</body></html>
