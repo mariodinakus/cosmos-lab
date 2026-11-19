@@ -36,7 +36,7 @@ function parseRSS(xml,source="NASA Science"){
 }
 function dedupe(items){const seen=new Set;return items.filter(x=>{if(!x||!x.url||seen.has(x.url))return false;seen.add(x.url);return true;}).sort((a,b)=>Date.parse(b.published)-Date.parse(a.published));}
 function relevant(item,topic){if(topic==="all")return true;const words=TOPICS[topic]?.keywords||[];return words.some(k=>(item.title+" "+item.abstract).toLowerCase().includes(k));}
-function classify(text){const s=String(text).toLowerCase();if(/\b(review|survey|meta-analysis|overview)\b/.test(s))return{tag:"Ανασκόπηση",kind:"review"};if(/\b(we (observed|observe|measured|measure|detected|detect)|experimentally|observational data|experimental results)\b/.test(s))return{tag:"Μετρήσεις (κατά το abstract)",kind:"empirical"};if(/\b(we simulate|numerical simulations|monte carlo|simulations show|computational)\b/.test(s))return{tag:"Αριθμητική μελέτη",kind:"simulation"};if(/\b(we propose|we introduce|we develop|we derive|we demonstrate|theoretical framework)\b/.test(s))return{tag:"Θεωρητική εργασία",kind:"theory"};return{tag:"Τύπος μελέτης μη επαληθευμένος",kind:"other"};}
+function classify(text){const s=String(text).toLowerCase();if(/\b(review|survey|meta-analysis|overview)\b/.test(s))return{tag:"Ανασκόπηση",kind:"review"};if(/\b(we (observed|observe|measured|measure|detected|detect)|experimentally|observational data|experimental results)\b/.test(s))return{tag:"Μετρήσεις (κατά το abstract)",kind:"empirical"};if(/\b(we simulate|numerical simulations|monte carlo|simulations show|computational)\b/.test(s))return{tag:"Αριθμητική μελέτη",kind:"simulation"};if(/\b(we propose|we introduce|we develop|we derive|we demonstrate|theoretical framework|thought experiment|analytic treatment|theoretical model)\b/.test(s))return{tag:"Θεωρητική εργασία",kind:"theory"};return{tag:"Τύπος μελέτης μη επαληθευμένος",kind:"other"};}
 const LIMITS={
  cosmology:"Δεν τεκμηριώνεται από το abstract ότι το αποτέλεσμα ισχύει για όλο το παρατηρήσιμο Σύμπαν ή ότι αποκλείει άλλες κοσμολογίες.",
  gravity:"Δεν συνεπάγεται από μόνο του λύση για την κβαντική βαρύτητα ή επιβεβαίωση νέας θεωρίας χωροχρόνου.",
@@ -99,7 +99,7 @@ const METHOD_INTROS={
 const METHODS=[
  {re:/\b(we (study|investigate|analy[sz]e|examine|explore|consider|focus on|aim to|test)|this (paper|study|work) (studies|investigates|examines|explores)|our goal|we address)\b/i,weight:3,category:"objective"},
  {re:/\b(we (use|utilize|employ|simulate|model|compute|calculate|derive|perform|construct|develop|apply|fit|train|measure|observe|analy[sz]e)|using|based on|numerical simulation|monte carlo|experimental setup|observations from|data from|observational data|we solve)\b/i,weight:3,category:"method"},
- {re:/\b(we (find|show|demonstrate|observe|detect|measure|report|obtain|prove|conclude|establish|predict)|our results|results (show|indicate|suggest|reveal|demonstrate)|we confirm|we identify|we discover|we estimate|we constrain|we rule out|evidence for|the main result|we uncover)\b/i,weight:5,category:"result"},
+ {re:/\b(we (find|show|demonstrate|observe|detect|measure|report|obtain|prove|conclude|establish|predict)|our results|results (show|indicate|suggest|reveal|demonstrate)|we confirm|we identify|we discover|we estimate|we constrain|we rule out|evidence for|the main result|we uncover|this phenomenon|this effect|for energies|we further show|we also find|in contrast)\b/i,weight:5,category:"result"},
  {re:/\b(however|although|nevertheless|preliminary|limitation|limited to|within our model|within the model|under (the|these|our) assumptions|may not|cannot|does not|do not|future work|remain(s)? (unknown|open|unclear)|further (studies|work|observations)|uncertainties|subject to)\b/i,weight:5,category:"caution"}
 ];
 function abstractSentences(raw){
@@ -127,7 +127,7 @@ function summaryBreakdown(item){
  const method=pickSentence(sentences,"method",used);if(method)used.push(method.index);
  const firstResult=pickSentence(sentences,"result",[]);const result=firstResult||null;
  const secondResult=firstResult?pickSentence(sentences,"result",[firstResult.index]):null;
- const independentResults=[firstResult,secondResult].filter((x,i)=>x&&x.score>=5&&(i===0||x.index!==firstResult.index)&&!(i===1&&x.score<6));
+ const independentResults=[firstResult,secondResult].filter((x,i)=>x&&x.score>=5&&(i===0||x.index!==firstResult.index)&&!(i===1&&(x.score<5||Math.abs(x.index-firstResult.index)>3)));
  const caution=pickSentence(sentences,"caution",independentResults.map(x=>x.index));
  const topic=item.topic==="all"||!TOPICS[item.topic]?detectTopic(item):item.topic;
  const c=classify(raw||item.title),paper=item.kind==="paper";
