@@ -1,1 +1,19 @@
-{"version":2,"cleanUrls":true,"trailingSlash":false,"rewrites":[{"source":"/atlas","destination":"/index.html"},{"source":"/lab","destination":"/index.html"}]}
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/atlas",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lab",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/studio",
+      "destination": "/studio.html"
+    }
+  ]
+}
