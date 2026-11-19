@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">COSMOS ∞</string>
+    <string name="loading">Φόρτωση του COSMOS LAB…</string>
+    <string name="offline_title">Δεν φορτώνει το COSMOS LAB</string>
+    <string name="offline_detail">Έλεγξε τη σύνδεση στο διαδίκτυο και προσπάθησε ξανά.</string>
+    <string name="retry">Δοκίμασε ξανά</string>
+    <string name="choose_file">Επιλογή αρχείου</string>
+    <string name="download_saved">Αποθηκεύτηκε στο φάκελο Λήψεις/COSMOS</string>
+    <string name="download_failed">Η λήψη απέτυχε</string>
+</resources>
