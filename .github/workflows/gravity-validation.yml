@@ -1,0 +1,28 @@
+name: Quantum Gravity Playground tests
+on:
+  push:
+    paths:
+      - 'gravity-core.js'
+      - 'gravity.js'
+      - 'gravity.css'
+      - 'gravity.html'
+      - 'tests/gravity_smoke.cjs'
+      - '.github/workflows/gravity-validation.yml'
+  pull_request:
+    paths:
+      - 'gravity-core.js'
+      - 'gravity.js'
+      - 'gravity.css'
+      - 'gravity.html'
+      - 'tests/gravity_smoke.cjs'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/gravity_smoke.cjs
