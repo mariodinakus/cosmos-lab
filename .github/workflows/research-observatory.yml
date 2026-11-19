@@ -1,0 +1,20 @@
+name: COSMOS Observatory numerical checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  numerical:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Model atlas smoke tests
+        run: node tests/smoke.cjs
+      - name: Visual physics simulation tests
+        run: node tests/studio_smoke.cjs
+      - name: Observatory numerical and integration tests
+        run: node tests/observatory_smoke.cjs
