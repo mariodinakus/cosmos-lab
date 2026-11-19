@@ -1,5 +1,30 @@
 # COSMOS LAB — The Mathematical Universe
 
+## COSMOS ∞ — Reality Engine (10 interactive modules)
+
+Entry: **https://cosmos-lab-v3.vercel.app/reality.html** (after production deployment).
+
+The Reality Engine integrates with the previous Atlas, Visual Studio, Observatory, Chaos Forge, Toy Universe (15 models), Frontier Questions (13 models) and Quantum Gravity Playground (3 models). These existing modules are not replaced or removed.
+
+**Ten browser-computed modules:**
+1. **Universe Creator:** softened 2D Newtonian N-body with adjustable attraction, an explicitly invented outward term, initial swirl, particle count and click-to-inject clusters; **not** general-relativistic cosmogenesis.
+2. **Break the Laws:** explicit Euler vs velocity-Verlet vs exact harmonic oscillator, numerical drift and convergence; failure of an integrator **not** failure of physics.
+3. **Real Universe Data:** CSV/TSV import of two numeric columns x,y, with provenance flagged. Demo curves are labeled **synthetic** until a user imports measurements. Sources: [GWOSC](https://gwosc.org/api/), [CERN Open Data](https://opendata.cern.ch/) and [ESA Planck Legacy Archive](https://pla.esac.esa.int/); no claim of automatic remote measurement ingestion.
+4. **Theory Tournament:** bounded least-squares comparison of polynomial, fixed-frequency sinusoidal and exponential-basis models with 25% interleaved held-out points, training AICc and held-out RMSE. Does not infer causality or perform prospective time-series validation.
+5. **Black Hole Explorer:** integrated Schwarzschild null-geodesic equation using RK4, with impact parameter/closest approach and weak-field estimate. No Kerr rotation, accretion or full image ray tracing.
+6. **Quantum Computer Lab:** exact ideal two-qubit state amplitudes and gates H, X, CNOT, Rx, Rz, Bell preparation and seeded projective measurement, with entanglement entropy.
+7. **Initial Conditions Machine:** 1D seeded Fourier field, adjustable tilt, damping and arbitrary growth exponent. Not real CMB or a Boltzmann solver.
+8. **Equation Discovery:** restricted fixed function library fitted to synthetic or imported two-column data, with held-out error and AICc; not a general symbolic theorem prover.
+9. **Emergent Spacetime Arena:** independent pure link-pair graph, exactly computed cut entropy and interactive link changes, **not** derived spacetime or Einstein field equations.
+10. **Research Autopilot:** reproducible, **local deterministic parameter sweep** recovering a spring constant from synthetic observations with holdout. This is **not an LLM agent**, does not read papers or work asynchronously.
+
+The common environment includes Play/Pause/Step/Reset, adjustable speed and model parameters, interaction on the numerical canvas, seeded links, local Save A/Compare B where compatible, CSV/JSON/PNG export and responsive Vox-style cyan/white/black UI.
+
+Scientific data ingestion accepts only **a numeric two-column CSV** with 12–3,000 rows (2 MB max input), rejects duplicate x values and does not silently interpret HDF5, FITS or ROOT files. Format and unit checks remain the user's responsibility; an arbitrary CSV is not a verified scientific dataset by itself.
+
+**Validation:** \`node tests/reality-smoke.cjs\`. All computations are local JavaScript and use no remote AI credentials. Main numerical core \`reality-core.js\`, UI \`reality.js\`, page \`reality.html\`, stylesheet \`reality.css\`.
+
+
 ## Quantum Gravity Playground — entanglement, causality and information
 
 **Entry:** https://cosmos-lab-v3.vercel.app/gravity.html — a separate playground linked from the Atlas, Frontier Questions, Toy Universe, Chaos Forge, Studio and Observatory.
