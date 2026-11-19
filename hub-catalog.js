@@ -1,4 +1,4 @@
-/* Catalog generated from actual COSMOS model engines; static navigation only. */
+/* Static catalog compiled from COSMOS model engines — 54 direct simulation links. */
 window.COSMOS_HUB_MODELS=[
   {
     "id": "wave",
@@ -312,5 +312,109 @@ window.COSMOS_HUB_MODELS=[
     "category": "reality",
     "href": "/reality.html?model=research",
     "question": "What can an automated numerical search actually establish?"
+  },
+  {
+    "id": "universe",
+    "title": "UNIVERSE: ON / OFF",
+    "tag": "Φυσική & κοσμολογία",
+    "category": "open",
+    "href": "/open.html?model=universe",
+    "question": "Στο toy «υπάρχει» ενεργή κατάσταση μόνο αν ξεπεραστεί ένα κατώφλι εκκίνησης."
+  },
+  {
+    "id": "collatz",
+    "title": "COLLATZ EXPLORER",
+    "tag": "Άλυτα μαθηματικά",
+    "category": "open",
+    "href": "/open.html?model=collatz",
+    "question": "Έλεγξε μια τροχιά ακεραίων και δες αν φτάνει στο 1."
+  },
+  {
+    "id": "contagion",
+    "title": "BANK CONTAGION",
+    "tag": "Ανοιχτά οικονομικά",
+    "category": "open",
+    "href": "/open.html?model=contagion",
+    "question": "Δίκτυο τραπεζών με έκθεση σε ορισμένους αντισυμβαλλομένους και κεφαλαιακά όρια."
+  },
+  {
+    "id": "reaction",
+    "title": "REACTION–DIFFUSION",
+    "tag": "Άλυτη χημεία",
+    "category": "open",
+    "href": "/open.html?model=reaction",
+    "question": "Μοτίβα Gray–Scott από δύο υποθετικές χημικές ουσίες που αντιδρούν και διαχέονται."
+  },
+  {
+    "id": "autocatalysis",
+    "title": "AUTOCATALYTIC NETWORK",
+    "tag": "Άλυτη χημεία",
+    "category": "open",
+    "href": "/open.html?model=autocatalysis",
+    "question": "Μια υποθετική αντίδραση που καταναλώνει A και παράγει περισσότερο B υπό συνεχή τροφοδοσία."
+  },
+  {
+    "id": "folding",
+    "title": "MOLECULAR LANDSCAPE",
+    "tag": "Άλυτη χημεία",
+    "category": "open",
+    "href": "/open.html?model=folding",
+    "question": "Τυχαία κίνηση ενός βαθμού ελευθερίας σε διπλό ενεργειακό πηγάδι."
+  },
+  {
+    "id": "predator",
+    "title": "ECOSYSTEM DYNAMICS",
+    "tag": "Άλυτη βιολογία",
+    "category": "open",
+    "href": "/open.html?model=predator",
+    "question": "Δύο αλληλεπιδρώντες πληθυσμοί θηραμάτων και θηρευτών."
+  },
+  {
+    "id": "genetics",
+    "title": "EVOLUTION / GENETIC DRIFT",
+    "tag": "Άλυτη βιολογία",
+    "category": "open",
+    "href": "/open.html?model=genetics",
+    "question": "Στοχαστική μεταβολή συχνότητας ενός αλληλομόρφου σε πεπερασμένο πληθυσμό."
+  },
+  {
+    "id": "aging",
+    "title": "CELL DAMAGE VS REPAIR",
+    "tag": "Άλυτη βιολογία",
+    "category": "open",
+    "href": "/open.html?model=aging",
+    "question": "Ισορροπία υποθετικής κυτταρικής βλάβης και επιδιόρθωσης."
+  },
+  {
+    "id": "decision",
+    "title": "DECISION UNDER UNCERTAINTY",
+    "tag": "Ψυχολογία & συνείδηση",
+    "category": "open",
+    "href": "/open.html?model=decision",
+    "question": "Συσσώρευση θορυβώδους πληροφορίας μέχρι να φτάσει σε όριο απόφασης."
+  },
+  {
+    "id": "learning",
+    "title": "REWARD LEARNING",
+    "tag": "Ψυχολογία & συνείδηση",
+    "category": "open",
+    "href": "/open.html?model=learning",
+    "question": "Δύο επιλογές ανταμοιβής και εκμάθηση προσδοκιών με σφάλμα πρόβλεψης."
+  },
+  {
+    "id": "memory",
+    "title": "MEMORY & INTERFERENCE",
+    "tag": "Ψυχολογία & συνείδηση",
+    "category": "open",
+    "href": "/open.html?model=memory",
+    "question": "Απλή καμπύλη αποδυνάμωσης και ανανέωσης συμβολικής μνημονικής ισχύος."
+  },
+  {
+    "id": "workspace",
+    "title": "GLOBAL BROADCAST TOY",
+    "tag": "Ψυχολογία & συνείδηση",
+    "category": "open",
+    "href": "/open.html?model=workspace",
+    "question": "Δίκτυο κόμβων όπου μια ενεργή είσοδος μπορεί να διαδοθεί καθολικά."
   }
 ];
