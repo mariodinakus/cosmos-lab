@@ -67,13 +67,13 @@ function make(id,settings={},seed=2026){
  }
  function interact(x,y,alt=false){
   x=clamp(x,0,.999999);y=clamp(y,0,.999999);state.mouse={x,y,alt};
-  if(id==="vacuum"){const sx=Math.sqrt(p.hbar/(2*p.mass*p.omega)),sp=Math.sqrt(p.hbar*p.mass*p.omega/2);state.shiftX=(x-.5)*5*sx;state.shiftP=(.5-y)*5*sp;}
+  if(id==="vacuum"){const sx=Math.sqrt(p.hbar/(2*p.mass*p.omega)),sp=Math.sqrt(p.hbar*p.mass*p.omega/2);state.shiftX=(x-.5)*5*sx;state.shiftP=(.5-y)*5*sp;state.samples=[];state.meanSq=0;state.count=0;state.history=[];state.step=0;}
   if(id==="laws"){const last=state.rows.at(-1),index=Math.floor(x*w);last[index]^=1;}
   if(id==="intervene"){const last=state.rows.at(-1),index=Math.floor(x*w);last[index]^=1;state.edits++;
    let diff=0;for(let i=0;i<w;i++)if(state.reference[i]!==last[i])diff++;state.difference=diff/w;}
   if(id==="entropy"){for(const q of state.particles){q.x=clamp(x+(rng()-.5)*.07,0,.999);q.v=(rng()*2-1)*.006*p.speed;}}
   if(id==="tunnel")p.energy=clamp(.2+4.8*x,.2,5);
-  if(id==="inflation"){state.phi=.5+3.5*x;state.N=0;}
+  if(id==="inflation"){state.phi=.5+3.5*x;state.N=0;state.H=Math.sqrt(scalarV(state.phi,p)/3);state.step=0;state.history=[];}
   if(id==="geometry"){p.temp=.2+3.8*x;}
   if(id==="crossover"){p.logmass=-3+6*x;}
   if(id==="gup"){p.momentum=.1+7.9*x;}
