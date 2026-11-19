@@ -130,7 +130,7 @@ function analytics(){
  if(mode==="vacuum"&&nothing!=="quantum"){clear(cg,W,H);drawText(cg,nothing==="absolute"?"NOT DEFINED: NO PHYSICAL DYNAMICS":"NO QUANTUM MODEL FOR CLASSICAL EMPTY SPACE",W/2,H/2,CYAN,17,"center");return;}
  if(mode==="bell"){
  const expected=2*Math.SQRT2*p.visibility,end=Math.max(10,s.step);
- plotCurves(cg,W,H,[{points:s.history.map(a=>({x:a.t,y:a.y})),color:CYAN},{points:[{x:0,y:expected},{x:end,y:expected}],color:WHITE,dash:[6,5]},{points:[{x:0,y:2},{x:end,y:2}],color:"#85a3b0",dash:[2,4]}],0,end,0,3.3);
+ plotCurves(cg,W,H,[{points:s.history.map(a=>({x:a.t,y:a.y})),color:CYAN},{points:[{x:0,y:expected},{x:end,y:expected}],color:WHITE,dash:[6,5]},{points:[{x:0,y:2},{x:end,y:2}],color:"#85a3b0",dash:[2,4]}],0,end,0,4.1);
  drawText(cg,"CYAN SAMPLE / WHITE QUANTUM EXPECTATION / DIM LOCAL BOUND",75,22,WHITE,11);return;
  }
  if(mode==="decoherence"){
