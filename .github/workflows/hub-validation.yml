@@ -1,0 +1,28 @@
+name: COSMOS Hub catalog integrity
+on:
+  push:
+    paths:
+      - 'hub.html'
+      - 'hub.css'
+      - 'hub-catalog.js'
+      - 'hub.js'
+      - 'tests/hub-smoke.cjs'
+      - '.github/workflows/hub-validation.yml'
+  pull_request:
+    paths:
+      - 'hub.html'
+      - 'hub.css'
+      - 'hub-catalog.js'
+      - 'hub.js'
+      - 'tests/hub-smoke.cjs'
+permissions:
+  contents: read
+jobs:
+  directory-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020c
+        with:
+          node-version: '22'
+      - run: node tests/hub-smoke.cjs
