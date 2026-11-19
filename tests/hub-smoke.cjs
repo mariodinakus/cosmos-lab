@@ -33,10 +33,10 @@ for(const id of ["results","resultCount","search","filters","random","emptyMessa
 for(const name of ["index.html","reality.html","gravity.html","frontier.html","toybox.html","chaos.html","studio.html","observatory.html"]){
  assert(load(name).includes('href="/hub.html"'),"missing all-labs navigation "+name);
 }
-const workspacePaths=["/","/studio.html","/observatory.html","/chaos.html","/toybox.html","/frontier.html","/gravity.html","/reality.html"];
+const workspacePaths=["/","/studio.html","/observatory.html","/chaos.html","/toybox.html","/frontier.html","/gravity.html","/reality.html","/radar.html"];
 for(const href of workspacePaths)assert(page.includes('href="'+href+'"'),"workspace not found "+href);
 for(const file of ["hub.html","hub.css","hub-catalog.js","hub.js"])assert(fs.existsSync(path.join(root,file)),file+" missing");
 assert.doesNotThrow(()=>new Function(load("hub.js")),"hub script syntax");
 const vercel=JSON.parse(load("vercel.json"));
 for(const source of ["/hub","/all"])assert(vercel.rewrites.some(r=>r.source===source&&r.destination==="/hub.html"),"missing route "+source);
-console.log("PASS COSMOS Hub: 41 verified models, 8 laboratories, deep links, menus, route config and syntax");
+console.log("PASS COSMOS Hub: 41 verified models, 9 laboratories, deep links, menus, route config and syntax");
