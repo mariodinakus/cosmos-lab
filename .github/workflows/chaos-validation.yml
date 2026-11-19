@@ -1,0 +1,27 @@
+name: Chaos Forge numerical checks
+on:
+  push:
+    paths:
+      - 'chaos*.js'
+      - 'chaos*.css'
+      - 'chaos*.html'
+      - 'tests/chaos_smoke.cjs'
+      - '.github/workflows/chaos-validation.yml'
+  pull_request:
+    paths:
+      - 'chaos*.js'
+      - 'chaos*.css'
+      - 'chaos*.html'
+      - 'tests/chaos_smoke.cjs'
+jobs:
+  chaos-validation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check numerical core and site assets
+        run: node tests/chaos_smoke.cjs
