@@ -77,3 +77,7 @@ Models are simplified and often normalized. They are educational/numerical exper
 - `studio.html` — animated physics and image analysis UI
 - `studio.css`, `studio.js`, `studio-engine.js` — visual studio styles, interactivity and physics engine
 - `tests/studio_smoke.cjs` — simulation numerical smoke tests
+
+## Research Observatory 4.1
+
+Open `/observatory.html` or `/observatory` for four synchronized animated physics systems (Lorenz, gravitational N-body, free quantum Gaussian and Ising), each with live numerical traces, pause/step/speed, and PNG capture. Includes a bounded flat wCDM/ΛCDM model comparator with uploaded CSV `z,value,sigma`, weighted χ² fitting, residuals, parameter likelihood heatmaps, normalized distance and lookback-time integrals. A QR polynomial family (degrees 1–4) compares empirical candidates using AICc, with a numerical assumption inspector, Planck-scale logarithmic ruler and local research notebook with JSON export. The default dataset is **synthetic** and not real measurements. Mathematical model fits are not discoveries or observational confirmation. Test with `node tests/observatory_smoke.cjs`.
