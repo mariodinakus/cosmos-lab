@@ -1,6 +1,5 @@
-/* Research Radar — displays real source metadata, never fabricates a paper.
- * The "what it suggests" text is an explicitly generic conditional interpretation,
- * NOT an LLM evaluation or a claim to have read the complete paper.
+/* Research Radar — source-extractive summaries with Greek contextual explanations.
+ * No fabricated finding, guessed translation or claim to read full papers.
  */
 (()=>{"use strict";
 const R=window.CosmosRadarCore;if(!R)throw Error("Radar parser not loaded");
@@ -29,13 +28,26 @@ function card(item){const meta=R.explain(item),article=el("article","paper");
  const title=el("h3","",item.title),author=item.authors?.length?item.authors.join(", "):"Στοιχεία συγγραφέων μη διαθέσιμα";
  const info=el("div","meta");info.append(el("b","",greekDate(item.published)+" · "+meta.method),el("div","",item.kind==="paper"?short(author,150):"Επίσημη πηγή: "+item.source));
  header.append(badges,title,info);article.appendChild(header);
- const body=el("div","analysis");
- addSection(body,"source","01 / ΤΙ ΑΝΑΦΕΡΕΙ Η ΠΗΓΗ (ΑΠΟΣΠΑΣΜΑ)",short(meta.claim,450));
- addSection(body,"implication","02 / ΤΙ ΜΠΟΡΕΙ ΝΑ ΥΠΟΔΗΛΩΝΕΙ",meta.implication);
- addSection(body,"limit","03 / ΤΙ ΔΕΝ ΕΧΕΙ ΑΠΟΔΕΙΧΘΕΙ",meta.caveat);
- const details=el("details"),summary=el("summary","","Διάβασε μεγαλύτερο απόσπασμα του αρχικού abstract / άρθρου");
- details.append(summary,el("p","",short(item.abstract||item.title,2800)));body.appendChild(details);
- const method=el("p","",meta.basis);method.style.fontSize="10px";method.style.marginTop="11px";body.appendChild(method);
+ const body=el("div","analysis"),expanded=meta.expanded||{};
+ addSection(body,"overview","ΜΕ ΑΠΛΑ ΛΟΓΙΑ / ΤΟ ΠΛΑΙΣΙΟ",expanded.intro||"Η πηγή δεν περιγράφει επαρκώς το θέμα.");
+ addSection(body,"finding","ΤΙ ΑΝΑΦΕΡΟΥΝ ΩΣ ΚΥΡΙΟ ΕΥΡΗΜΑ",short(expanded.finding||meta.claim,850));
+ addSection(body,"implication","ΤΙ ΜΠΟΡΕΙ ΝΑ ΣΗΜΑΙΝΕΙ",expanded.implication||meta.implication);
+ addSection(body,"limit","ΤΙ ΔΕΝ ΕΧΕΙ ΑΠΟΔΕΙΧΘΕΙ",expanded.validation||meta.caveat);
+ const deep=el("details","deep-dive"),deepTitle=el("summary","","Αναλυτικότερα: ερώτημα, μεθοδολογία, επιφυλάξεις και όροι");
+ deep.appendChild(deepTitle);
+ addSection(deep,"objective","ΤΙ ΠΡΟΣΠΑΘΟΥΝ ΝΑ ΑΠΑΝΤΗΣΟΥΝ",expanded.objective||"Δεν προσδιορίζεται στο διαθέσιμο abstract.");
+ addSection(deep,"method","ΠΩΣ ΤΟ ΕΞΕΤΑΣΑΝ",expanded.method||"Δεν προσδιορίζεται στο διαθέσιμο abstract.");
+ addSection(deep,"actual-limit","ΠΕΡΙΟΡΙΣΜΟΙ ΠΟΥ ΑΝΑΦΕΡΕΙ ΤΟ ΚΕΙΜΕΝΟ",expanded.actualLimit||"Δεν προσδιορίζονται στο διαθέσιμο abstract.");
+ if(expanded.terms?.length){
+ const terms=el("div","glossary"),heading=el("strong","","ΒΑΣΙΚΟΙ ΟΡΟΙ ΜΕ ΑΠΛΑ ΛΟΓΙΑ");terms.appendChild(heading);
+ for(const term of expanded.terms){const p=el("p",""),title=el("b","",term.name+" — ");p.append(title,document.createTextNode(term.definition));terms.appendChild(p);}
+ deep.appendChild(terms);
+ }
+ const original=el("details","original-abstract"),origTitle=el("summary","","Διάβασε το πλήρες διαθέσιμο abstract / απόσπασμα");
+ original.append(origTitle,el("p","",short(item.abstract||item.title,8000)));deep.appendChild(original);
+ deep.appendChild(el("p","summary-quality",expanded.quality||meta.basis));
+ body.appendChild(deep);
+ body.appendChild(el("p","summary-basis","Αυτόματη, αποσπασματική ανάγνωση της πρωτογενούς πηγής · τα αγγλικά αποσπάσματα διατηρούν την αυθεντική διατύπωση."));
  article.appendChild(body);
  const actions=el("div","paper-actions"),link=el("a","",item.kind==="paper"?"ΠΡΩΤΟΤΥΠΟ PAPER ↗":"ΠΗΓΗ ΕΙΔΗΣΗΣ ↗");link.href=R.safeUrl(item.url)||"#";link.target="_blank";link.rel="noopener noreferrer";actions.appendChild(link);
  if(item.pdfUrl&&R.safeUrl(item.pdfUrl)){const pdf=el("a","","PDF ↗");pdf.href=R.safeUrl(item.pdfUrl);pdf.target="_blank";pdf.rel="noopener noreferrer";actions.appendChild(pdf);}
