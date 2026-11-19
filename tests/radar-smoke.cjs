@@ -1,15 +1,15 @@
 "use strict";
 const assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path");
 const R=require("../radar-core.js"),root=path.resolve(__dirname,"..");
-const atom=\`<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom">
+const atom=`<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom">
 <entry><id>http://arxiv.org/abs/2611.12345v1</id><title>Quantum gravity &amp; causal correlations</title>
 <published>2026-11-19T16:00:00Z</published><updated>2026-11-19T17:00:00Z</updated>
 <summary>We present a numerical toy model of correlated geometries. We do not derive Einstein equations.</summary>
 <author><name>Researcher A</name></author>
-<arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="gr-qc"/></entry></feed>\`;
-const rss=\`<rss version="2.0"><channel><item><title><![CDATA[New detector results &amp; next steps]]></title>
+<arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="gr-qc"/></entry></feed>`;
+const rss=`<rss version="2.0"><channel><item><title><![CDATA[New detector results &amp; next steps]]></title>
 <link>https://science.nasa.gov/example/</link><pubDate>Thu, 19 Nov 2026 12:00:00 GMT</pubDate>
-<description><![CDATA[<p>Scientists report new measurements under review.</p>]]></description></item></channel></rss>\`;
+<description><![CDATA[<p>Scientists report new measurements under review.</p>]]></description></item></channel></rss>`;
 const papers=R.parseAtom(atom,"gravity");assert.equal(papers.length,1);
 assert.equal(papers[0].source,"arXiv");
 assert.equal(papers[0].url,"https://arxiv.org/abs/2611.12345v1");
