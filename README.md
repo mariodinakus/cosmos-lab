@@ -1,5 +1,50 @@
 # COSMOS LAB — The Mathematical Universe
 
+## Quantum Gravity Playground — entanglement, causality and information
+
+**Entry:** https://cosmos-lab-v3.vercel.app/gravity.html — a separate playground linked from the Atlas, Frontier Questions, Toy Universe, Chaos Forge, Studio and Observatory.
+
+This is a collection of **three interactive, finite and explicit toy models**, not a quantum-gravity solver. No model derives Einstein's equations or supplies evidence that spacetime fundamentally arises from entanglement.
+
+### Model 1. Independent entangled links / toy geometry
+
+Each edge (i,j) owns a **separate qubit at each endpoint**, prepared in the pure two-qubit state
+
+\`|ψ_e⟩ = √p_e |00⟩ + √(1−p_e)|11⟩\`.
+
+The global many-qubit state is the **tensor product of pure link states**. For a chosen node partition A, the reduced-state von Neumann entropy is exactly
+
+\`S(A) = Σ_{edges crossing A|not-A} H₂(p_e)\` bits,
+
+where \`H₂(p) = −p log₂(p) − (1−p) log₂(1−p)\`. The UI also computes an **exact combinatorial s–t minimum graph cut** and Dijkstra shortest path for **assigned** edge length \`1/(0.05+H₂(p_e))\`. That length is a **designer-chosen heuristic**, not a gravitational distance.
+
+Click nodes to toggle region A. Click a link or Shift-click to modify its entanglement. Sliders alter the strength, disorder, optional long edges and an **externally driven** link-weight sequence. There is no Hamiltonian dynamics and **no Ryu–Takayanagi identity** between these different graph calculations.
+
+### Model 2. Sprinkled causal order
+
+A finite set of uniformly sampled coordinate events is embedded in **already existing, flat 1+1-dimensional Minkowski spacetime**. Event i precedes j iff \`t_j > t_i\` and \`|x_j−x_i| ≤ c(t_j−t_i)\`. The mathematical simulator counts causal pairs, the longest chain and events in a selected causal interval.
+
+Adjust event density, light-cone slope and spatial extent. Click two visible events to examine a causal interval. *No spacetime is derived from quantum entanglement*: the metric and coordinates are chosen first. These are finite-size order statistics, not a validated causal-set cosmology.
+
+### Model 3. Pure-pair Page-shaped entropy
+
+For an even total \`N\` qubits, construct a **fresh, prescribed pure state** at each radiation count \`k\`. It contains \`min(k,N−k)\` independent entangled pairs crossing the radiation–interior partition and local pure qubits for the rest. Therefore
+
+\`S_R(k) = Σ_{j=1}^{min(k,N−k)} H₂(p_j)\`
+
+is the **exact radiation entropy of this constructed family**, with a symmetric Page-shaped envelope. Vary total qubits, link-state parameters and disorder. Click horizontally to scrub through the radiation count. Compare with a naive monotonic \`k·H₂(p)\` reference (not a Hawking radiation calculation).
+
+**Critical:** these states are explicitly re-paired at each k and are **not** produced by a continuous unitary evaporation Hamiltonian. This model does not solve the black-hole information paradox, derive the semiclassical island formula, or reproduce the exact Page theorem for Haar-random states.
+
+### Shared controls and reproducibility
+
+Play/Pause, Step, Reset, Reseed, speed, presets, direct canvas interaction, live numerical diagnostics, local **Save A / Compare B**, CSV/JSON/PNG exports and seeded initial-setup URL links. Manual canvas edits are **not** replayed from shared initial-setup links.
+
+* Files: \`gravity.html\`, \`gravity.css\`, \`gravity-core.js\`, \`gravity.js\`.
+* Tests: \`node tests/gravity_smoke.cjs\` and GitHub Actions \`.github/workflows/gravity-validation.yml\`.
+* Scientific context: [Ryu–Takayanagi (2006)](https://arxiv.org/abs/hep-th/0603001); [causal-set review (2019)](https://link.springer.com/article/10.1007/s41114-019-0023-1); [Page, Information in Black Hole Radiation (1993)](https://arxiv.org/abs/hep-th/9306083).
+
+
 ## Frontier Questions — foundational physics & the limits of explanation
 
 Interactive lab: **https://cosmos-lab-v3.vercel.app/frontier.html**
