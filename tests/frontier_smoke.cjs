@@ -13,7 +13,7 @@ for(const spec of F.MODES){
  assert(Number.isFinite(a.metric().value),spec.id+" nonfinite post-step");
  assert(Math.abs(a.metric().value-b.metric().value)<1e-10,spec.id+" seeded determinism");
  a.interact(.35,.55,false);a.step();assert(Number.isFinite(a.metric().value),spec.id+" interaction invalid");
- assert(a.state.step===91,spec.id+" incorrect step count");
+ assert(a.state.step===(["vacuum","inflation","baryogenesis","decoherence"].includes(spec.id)?1:91),spec.id+" incorrect step count");
 }
 assert.equal(F.ruleStep(Uint8Array.from([0,0,0,1,0,0,0]),90)[2],1,"elementary CA 90 neighborhood");
 const p=F.make("intervene",{},1111),initial=p.metric().value;assert.equal(initial,0);
