@@ -2,7 +2,7 @@
 const assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path");
 const F=require("../frontier-core.js"),root=path.resolve(__dirname,"..");
 assert.equal(F.MODES.length,13);
-assert.equal(new Set(F.MODES.map(x=>x.id)).size,10);
+assert.equal(new Set(F.MODES.map(x=>x.id)).size,13);
 for(const spec of F.MODES){
  const a=F.make(spec.id,{},12345),b=F.make(spec.id,{},12345);
  assert(spec.title.length>8, spec.id+" title");
