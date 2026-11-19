@@ -14,6 +14,10 @@
     {
       "source": "/studio",
       "destination": "/studio.html"
+    },
+    {
+      "source": "/observatory",
+      "destination": "/observatory.html"
     }
   ]
 }
