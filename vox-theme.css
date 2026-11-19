@@ -1,0 +1,101 @@
+/* COSMOS LAB — VOX EDITORIAL / CYAN × WHITE × BLACK — 2026-11-19
+   Shared visual skin. Functional engines and calculations are untouched. */
+:root{
+ color-scheme:light;--cyan:#00d4e8;--cyan-strong:#007d8d;--ink:#080e11;
+ --text:#080e11;--black:#080e11;--paper:#ffffff;--bg:#ffffff;
+ --panel:#ffffff;--panel2:#edfafd;--soft:#e9faff;--deep:#071115;
+ --stroke:#a7c3c9;--border:#b9ccd1;--line:#c2d5d9;
+ --muted:#354c55;--yellow:#00d4e8;--red:#007d8d;
+ --pink:#ffffff;--amber:#91c1ca;--gold:#ffffff;
+}
+html{color-scheme:light}
+body{background:#fff!important;color:#080e11!important;font-family:Inter,Arial,Helvetica,sans-serif!important}
+button,input,textarea,select{font-family:inherit}
+a,button{transition:background-color .16s ease,color .16s ease,border-color .16s ease}
+:focus-visible{outline:3px solid #00d4e8!important;outline-offset:3px}
+::selection{background:#00d4e8;color:#080e11}
+:where(.ticker,.topline,.top-stripe){background:#00d4e8!important;color:#061012!important;border-bottom:2px solid #080e11!important}
+:where(.ticker,.topline,.top-stripe) :is(span,strong,b){color:#061012}
+:where(.header,.shell-header,.mast){background:#080e11!important;color:#fff!important;border-bottom:3px solid #00d4e8!important}
+:where(.header,.shell-header,.mast) :is(.brand,.brand small,.nav a,nav a){color:#fff!important}
+:where(.header,.shell-header,.mast) :is(.here,.active,.nav-current,nav a:hover){color:#00d4e8!important;border-color:#00d4e8!important}
+:where(.header,.shell-header,.mast) .session{color:#e6f6f9;border-color:#47757c}
+:where(.header,.shell-header,.mast) .session b{color:#00d4e8}
+:where(.header,.shell-header,.mast) .live-pill{border-color:#00d4e8;color:#00d4e8}
+:where(.header,.shell-header,.mast) .brand img{border:2px solid #00d4e8!important;border-radius:5px}
+:where(.eyebrow,.accent,.cyan,.tiny-dot,.dot,.headline-dot){color:#007d8d!important}
+:where(.hero h1,.intro h1,.section-heading h2,.section-head h2,.section-top h2,.research-log h2){color:#080e11}
+:where(.hero h1 em,.intro h1 em,.section-heading h2 em,.section-head h2 em,.section-top h2 em,.research-log h2 em){
+ color:#080e11!important;background:#00d4e8;padding:0 .065em;font-style:normal;
+ box-decoration-break:clone;-webkit-box-decoration-break:clone
+}
+:where(.hero .lede,.hero p,.intro-copy,.section-heading p:not(.eyebrow),.section-head p,.section-top p,.research-log p){
+ color:#23383f!important
+}
+:where(.hero-visual,.hero-art){background:radial-gradient(circle at 50% 46%,#153b46 0%,#080e11 64%,#030607 100%)!important}
+:where(.hero-visual,.hero-art) :is(.ring,.hero-ring,.orbital){border-color:#00d4e8!important;box-shadow:none!important}
+:where(.nucleus,.hero-nucleus,.core-dot){background:#00d4e8!important;box-shadow:0 0 0 12px #00d4e826,0 0 44px #00d4e875!important}
+:where(.hero-art,.hero-visual) :is(p,.formula-label,.art-caption,.hero-equation){color:#e5fdff!important}
+:where(.ribbon,.metrics){background:#080e11!important;color:#fff!important;border-color:#080e11!important}
+:where(.ribbon,.metrics)>div{border-color:#41606a!important}
+:where(.ribbon,.metrics) strong,:where(.ribbon,.metrics) .metric span{color:#00d4e8!important}
+:where(.ribbon,.metrics) small{color:#fff!important}
+:where(.solid,.primary,.primary-action,.run-button,.button-primary,.button.active){
+ background:#00d4e8!important;border:2px solid #080e11!important;color:#080e11!important;font-weight:950
+}
+:where(.solid,.primary,.primary-action,.run-button,.button-primary,.button.active):hover{
+ background:#080e11!important;color:#00d4e8!important;border-color:#00d4e8!important
+}
+:where(.hollow,.secondary-action,.outline){background:#fff!important;color:#080e11!important;border:2px solid #080e11!important}
+:where(.hollow,.secondary-action,.outline):hover{background:#00d4e8!important;color:#080e11!important}
+:where(.section,.other-labs,.research-log){border-color:#95b6bc!important}
+:where(.status,.live-status,.section-tag){background:#e2faff!important;color:#075363!important;border-color:#00abc3!important}
+:where(.controlbar,.controls,.settings,.monitor,.view-panel,.parameter-box,.analysis-box,.chart-panel,.panel,.scale-panel,.notebook-box,.triple-metrics,.analytic-cards,.catalog-nav,.model-browser,.workbench,.verification-tile,.journal-entry,.journal-item,.image-input,.image-output,.theory-details){
+ background:#fff!important;color:#080e11!important;border-color:#a6c2c9!important
+}
+:where(.panel-top,.strip,.panel-head,.section-label,.form-head,.list-top,.viz-header){
+ background:#080e11!important;color:#fff!important;border-color:#080e11!important
+}
+:where(.panel-top,.strip,.panel-head,.section-label,.form-head,.list-top,.viz-header) :is(span,small,strong,h3){color:#fff!important}
+:where(.panel-top,.strip,.panel-head,.section-label,.form-head,.list-top,.viz-header) .panel-status{color:#00d4e8!important}
+:where(.monitor-label strong,.monitor-label small,.monitor-foot,.metric-name,.metric-detail,.analysis-grid strong,.big-readout strong,.slider-header label,.slider-header output,.triple-metrics strong,.analytic-cards strong,.analytic-cards span,.scale-header strong,.scale-ends,.saved-entry,.saved-entry small,.saved-entry strong){
+ color:#080e11!important
+}
+:where(.footnote,.muted,.warning-text,.outputnote,.small-print,.field-help,.chart-legend,.diagnostic,
+ .upload small,.sidebar-small,.plot-footer,.metric-detail,.theory-details p,.theory-note,.intro-copy,
+ .model-card p,.journal-entry small,.journal-item small){color:#35545d!important}
+:where(.slider-header label,.upload label,.scale-panel label,.notebook-box label,.param-row label,.results small,.triple-metrics small,.analytic-cards small,.analysis-grid small){color:#29444c!important}
+:where(.monitor-foot output,.slider-header output,.controlbar output,.param-row output,.big-readout span){color:#007d8d!important}
+:where(.controlbar label,.speed-label,.current-time,.current-time strong){color:#080e11!important}
+:where(.monitor canvas,.mini-chart,.chart-panel canvas,.view-panel canvas,#plot){background:#071115!important}
+:where(.param-info,.outputnote,.formula-box){background:#e9faff!important;color:#07232a!important;border-left:5px solid #00d4e8!important}
+:where(.formula-box code,.formula-box span,.param-info,.outputnote){color:#07232a!important}
+:where(.discovery-output,.checklist,.status-message,.notebook-items){color:#075a68!important}
+:where(.settings input,.notebook-box textarea,.bench-left textarea,.bench-left input,.catalog-nav input){
+ background:#f7fcfd!important;color:#080e11!important;border:1px solid #7096a0!important
+}
+:where(input[type=range]){accent-color:#00bcd5!important}
+:where(.scale-panel canvas,.image-input canvas,.image-output canvas){background:#071115!important}
+:where(.scene-option){color:#fff!important}
+:where(.sidebar){background:#080e11!important;border:2px solid #080e11!important}
+:where(.sidebar-label){background:#080e11!important;color:#fff!important}
+:where(.sidebar-small,.sidebar-small span){color:#b4d6dc!important}
+:where(.scene-option small){color:#c9e4e8!important}
+:where(.scene-option:hover,.scene-option.active){background:#00d4e8!important;color:#080e11!important;border-color:#00d4e8!important}
+:where(.scene-option.active) :is(strong,small,.scene-index){color:#080e11!important}
+:where(.theory-network){background-color:#071115!important;background-image:radial-gradient(#2c6872 1px,transparent 1px)!important}
+:where(.theory-node){background:#0e242c!important;color:#fff!important;border-color:#00d4e8!important}
+:where(.theory-node.active){background:#00d4e8!important;color:#080e11!important}
+:where(.theory-details code){color:#007d8d!important}
+:where(.intro-tags span,.model-cat,.model-id){background:#d8faff!important;color:#080e11!important;border-color:#00abc3!important}
+:where(.model-card:hover,.method.active,.categories button.active){background:#00d4e8!important;color:#080e11!important}
+:where(.frontier){background:#080e11!important;color:#fff!important}
+:where(.frontier) :is(h2,h2 em,p,.eyebrow){color:#fff!important}
+:where(.frontier) h2 em{color:#080e11!important;background:#00d4e8!important}
+:where(.frontier-right){background:#080e11!important;color:#fff!important}
+:where(footer){background:#080e11!important;color:#fff!important;border-top:4px solid #00d4e8!important}
+:where(footer) :is(strong,a){color:#00d4e8!important}
+:where(.topline,.ticker,.top-stripe) .signal{background:#080e11!important;box-shadow:none!important}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
