@@ -30,6 +30,10 @@
     {
       "source": "/frontier",
       "destination": "/frontier.html"
+    },
+    {
+      "source": "/gravity",
+      "destination": "/gravity.html"
     }
   ]
 }
