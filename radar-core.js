@@ -54,12 +54,12 @@ const IMPLICATIONS={
  all:"Αν το εύρημα επιβεβαιωθεί ανεξάρτητα, μπορεί να αποτελέσει αφετηρία για νέους ελέγχους ή περιορισμούς στο σχετικό μοντέλο."
 };
 function detectTopic(item){const s=(item.title+" "+item.abstract).toLowerCase();let best="all",score=0;for(const [key,obj]of Object.entries(TOPICS)){if(key==="all")continue;const matches=obj.keywords.reduce((n,w)=>n+(s.includes(w)?1:0),0);if(matches>score){best=key;score=matches;}}return best;}
-function extractClaim(abstract){const txt=clean(abstract);if(!txt)return"Δεν διατίθεται κείμενο abstract στο διαθέσιμο feed.";const sentences=txt.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g)||[txt];const found=sentences.find(x=>/\b(we find|we show|we demonstrate|we observe|we present|we report|our results|we propose|we derive|we detect|results show)\b/i.test(x));return clean(found||sentences[0]).slice(0,500);}
+function extractClaim(abstract){const txt=clean(abstract);if(!txt)return"Δεν διατίθεται κείμενο abstract στο διαθέσιμο feed.";const sentences=txt.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g)||[txt];const found=sentences.find(x=>/\b(we find|our results|results show|we show|we demonstrate|we observe|we detected|we detect|we measure|we conclude)\b/i.test(x))||sentences.find(x=>/\b(we present|we report|we propose|we derive|we introduce)\b/i.test(x));return clean(found||sentences[0]).slice(0,500);}
 function explain(item){const topic=item.topic==="all"||!TOPICS[item.topic]?detectTopic(item):item.topic,method=classify(item.abstract||item.title),paper=item.kind==="paper";
  return{basis:paper?"Αυτόματη πρώτη ανάγνωση του abstract · όχι αξιολόγηση του πλήρους paper":"Περίληψη ανακοίνωσης φορέα · όχι ανεξάρτητος έλεγχος",
  claim:extractClaim(item.abstract||item.title),
  method:paper?method.tag:"Ανακοίνωση επιστημονικού φορέα",
- implication:IMPLICATIONS[topic],
+ implication:IMPLICATIONS[topic]+(method.kind==="simulation"?" Η σύνδεση αφορά τα αποτελέσματα της προσομοίωσης, όχι άμεση παρατήρηση της φύσης.":method.kind==="theory"?" Πρόκειται για θεωρητικό συμπέρασμα που χρειάζεται ανεξάρτητες συνέπειες ή εμπειρικούς ελέγχους.":method.kind==="empirical"?" Η ισχύς της ερμηνείας εξαρτάται από αβεβαιότητες, ελέγχους και ανεξάρτητη επανάληψη των μετρήσεων.":method.kind==="review"?" Η ανασκόπηση οργανώνει υπάρχοντα στοιχεία και δεν σημαίνει κατ' ανάγκη νέο πειραματικό εύρημα.":""),
  caveat:(paper?"Το arXiv δημοσιεύει preprints· η παρουσία στο arXiv δεν επιβεβαιώνει επιστημονική αξιολόγηση από ομοτίμους. ":"Μια ανακοίνωση δεν ταυτίζεται απαραίτητα με νέα peer-reviewed ανακάλυψη. ")+LIMITS[topic],
  status:paper?"PREPRINT / PEER REVIEW UNVERIFIED":"INSTITUTIONAL NEWS"};
 }
