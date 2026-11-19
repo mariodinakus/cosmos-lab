@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COSMOS LAB — Toy Universe</title>
+<meta name="description" content="15 interactive toy science models with real-time physics and mathematics, hands-on controls, live graphs, experiment exports and shareable scenarios.">
+<meta name="theme-color" content="#080e11">
+<link rel="icon" href="/assets/favicon.ico"><link rel="apple-touch-icon" href="/assets/icon-180.png">
+<link rel="stylesheet" href="/toybox.css">
+</head><body>
+<div class="ticker"><span>COSMOS / PHYSICS YOU CAN TOUCH</span><span>15 PLAYABLE MODELS · NUMERICAL EXPERIMENTS · RESEARCH PREVIEW</span></div>
+<header class="mast">
+<a class="brand" href="/"><img src="/assets/icon-64.png" alt="COSMOS favicon"><span>COSMOS<b>.</b><small>MATHEMATICAL UNIVERSE</small></span></a>
+<nav aria-label="COSMOS navigation"><a href="/">ATLAS</a><a href="/studio.html">VISUAL STUDIO</a><a href="/observatory.html">OBSERVATORY</a><a href="/chaos.html">CHAOS</a><a href="/toybox.html" class="active">TOY UNIVERSE</a></nav>
+</header>
+<main>
+<section class="hero">
+<div class="hero-inner"><span class="section-tag">COSMOS LAB · THE EXPERIMENTAL PLAYGROUND / 2026</span>
+<h1>CHANGE THE RULES.<br><em>WATCH WHAT HAPPENS.</em></h1>
+<p>Make waves. Build electric fields. Seed new worlds. Change gravity. Create chaos and watch order emerge. Every animation is calculated from a documented toy model — not prerecorded video.</p>
+<div class="hero-actions"><a href="#lab" class="primary">▶ OPEN THE TOY LAB</a><a href="#catalog" class="light">EXPLORE ALL 15 MODELS ↗</a></div></div>
+<div class="hero-art" aria-hidden="true"><div class="art-grid"></div><div class="orbit a"></div><div class="orbit b"></div><div class="art-dot"></div><div class="art-caption">∇²u · ∑F · ∂T/∂t · z³−1</div></div>
+</section>
+<section class="statbar" aria-label="Laboratory statistics">
+<div><strong>15</strong><small>TOY UNIVERSES</small></div><div><strong>LIVE</strong><small>ANIMATED OUTPUT</small></div><div><strong>CLICK</strong><small>CHANGE THE WORLD</small></div><div><strong>CSV / PNG</strong><small>EXPERIMENT EXPORTS</small></div>
+</section>
+<section class="lab-shell" id="lab">
+<aside class="model-drawer" id="catalog">
+<div class="drawer-heading"><span>01 / CHOOSE A WORLD</span><strong id="modelCount">15</strong></div>
+<label class="filter-label" for="filterModels">FILTER MODELS</label>
+<input type="search" id="filterModels" placeholder="Search science or model…" autocomplete="off">
+<div id="modelList" class="model-list" role="group" aria-label="Toy models"></div>
+<div class="drawer-foot">MODELS ARE SIMPLIFIED. OUTCOMES DEPEND ON NUMERICAL RESOLUTION, SEED AND ASSUMPTIONS. NOT EXPERIMENTAL PROOF.</div>
+</aside>
+<div class="right-lab">
+<div class="topline">
+<div><div class="kicker" id="modelTag">WAVES / MODEL 01</div><h2 id="modelName">WAVE UNIVERSE</h2><p id="modelDesc">Tap the canvas to create wave pulses.</p></div>
+<div class="running" id="runStatus">● RUNNING</div>
+</div>
+<div class="controlbar">
+<button type="button" id="playButton" class="primary">Ⅱ PAUSE</button>
+<button type="button" id="stepButton">STEP +1</button>
+<button type="button" id="resetButton">↻ RESET</button>
+<button type="button" id="reseedButton">⤨ RESEED</button>
+<label class="speed-label" for="simSpeed">SPEED <input type="range" id="simSpeed" min=".25" max="4" step=".25" value="1"><output id="simSpeedOut">1.00×</output></label>
+</div>
+<div class="simulation">
+<div class="screen-top"><span>02 / INTERACTIVE EXPERIMENT</span><span>◉ CALCULATED IN YOUR BROWSER</span></div>
+<canvas id="toyCanvas" width="960" height="560" tabindex="0" aria-label="Interactive scientific simulation canvas, click or tap to interact"></canvas>
+<div class="screen-bottom"><span id="interactionHelp">Tap the simulation to interact.</span><span>CLICK / TAP · SHIFT+CLICK / RIGHT CLICK</span></div>
+</div>
+<div class="analysis-row">
+<section class="graph-panel">
+<div class="screen-top"><span>03 / LIVE MEASUREMENT</span><span id="graphLabel">MEASURING</span></div>
+<canvas id="metricCanvas" width="960" height="228" aria-label="Rolling numerical model measurement graph"></canvas>
+<div class="graph-foot">LIVE TIME-SERIES · RESULTS SHOWN IN NORMALIZED OR MODEL-SPECIFIC UNITS</div>
+</section>
+<section class="readout">
+<span class="kicker">MEASURED OUTPUT</span>
+<h3 id="metricName">SIMULATION METRIC</h3>
+<strong id="metricValue">—</strong><small id="metricUnit">normalized</small>
+<div class="detail" id="metricDetail">Calculated from the current model state.</div>
+<div class="mini-reads"><div><small>STEP</small><strong id="modelTime">0</strong></div><div><small>SEED</small><strong id="seedValue">1729</strong></div></div>
+</section>
+</div>
+<div class="bottom">
+<section class="params"><div class="sectionbar"><strong>04 / MODIFY THE LAWS</strong><span>CHANGES RESET THE MODEL</span></div><div class="param-grid" id="paramGrid"></div>
+<div class="under-note">Parameters are bounded for numerical stability. Results are synthetic computational examples.</div>
+</section>
+<section class="equation"><div class="sectionbar"><strong>05 / MATHEMATICAL MODEL</strong><span>ASSUMPTIONS MATTER</span></div>
+<code id="formula">∂²u/∂t² = c²∇²u</code><p id="modelHelp">Tap to experiment.</p>
+<div class="downloads"><button id="savePng">↓ PNG SNAPSHOT</button><button id="saveCsv">↓ CSV SERIES</button><button id="saveJson">↓ JSON EXPERIMENT</button><button id="shareLink">↗ COPY LINK</button></div>
+<div id="actionStatus" role="status" aria-live="polite"></div>
+</section>
+</div>
+</div>
+</section>
+<section class="principles"><div><span class="kicker">THE IDEA BEHIND COSMOS TOY UNIVERSE</span><h2>DO NOT JUST<br>READ SCIENCE.<br><em>BREAK THE MODEL.</em></h2><p>Use a simple world, introduce a perturbation, change a physical constant or numerical parameter, and observe the consequences. Run a second scenario and compare the results.</p></div>
+<div class="principle-list"><article><strong>01 / INTERACT</strong><p>Tap, paint, inject, launch, charge, seed or infect. Every world has a concrete interaction.</p></article><article><strong>02 / COMPUTE</strong><p>Dynamics run from algorithms, recurrence relations and finite-difference approximations.</p></article><article><strong>03 / MEASURE</strong><p>View rolling metrics and export data for analysis instead of relying only on animation.</p></article><article><strong>04 / VERIFY</strong><p>Numerical output is not proof of a physical theory. Read the model limits.</p></article></div>
+</section>
+</main><footer><span>COSMOS LAB — TOY UNIVERSE</span><span>CYAN × WHITE × BLACK · MODEL / PLAY / MEASURE</span><a href="/chaos.html">MORE CHAOS ↗</a></footer>
+<script src="/toy-core.js"></script><script src="/toybox.js"></script>
+</body></html>
