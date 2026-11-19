@@ -50,6 +50,14 @@
     {
       "source": "/radar",
       "destination": "/radar.html"
+    },
+    {
+      "source": "/open",
+      "destination": "/open.html"
+    },
+    {
+      "source": "/open-problems",
+      "destination": "/open.html"
     }
   ]
 }
