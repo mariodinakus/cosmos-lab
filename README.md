@@ -2,9 +2,23 @@
 
 A standalone, browser-based mathematical research workbench, prepared for GitHub and Vercel. New visual identity includes a real tab favicon (`assets/favicon.ico`, `assets/icon-64.png`), Android/PWA icons, and a manifest.
 
+## Visual Research Studio 4.0
+
+Visit `/studio.html` or `/studio` for ten **animated, interactive** physical and mathematical experiments with live analytical time-series graphs, sliders, pause, speed, step and restart.
+
+- Lorenz attractor, nonlinear double pendulum and softened N-body gravity (RK4 and velocity Verlet).
+- Wave interference, analytic free Gaussian quantum packet and Bloch-sphere precession.
+- Gray–Scott reaction–diffusion, 2D Ising Metropolis Monte Carlo, flat wCDM expansion and chaotic advection.
+- Experiment snapshots and CSV exports, local saved configurations, conceptual theory graph.
+- Local pixel image analysis: RGB histograms and Sobel edge maps. No image data is uploaded to the application server. Pixel analysis is not scientific chart calibration or image classification.
+- `studio-engine.js` keeps mathematical simulation routines separate from drawing code; `studio.js` and `studio.css` contain rendering and interface styles.
+- `tests/studio_smoke.cjs` validates finite numerical output and selected conserved quantities.
+
+Every model uses simplified or normalized conditions. Numerical convergence and energy drift checks are not experimental confirmation. The original 301-expression Atlas and 11 original workbench methods remain available.
+
 ## Current features
 
-- A source-controlled catalog of 167 explicitly specified real-valued mathematical expressions spanning 16 disciplines. Every entry has formula, domain, two parameters, and a statement of approximation/meaning.
+- A source-controlled catalog of 301 explicitly specified real-valued mathematical expressions spanning 31 categories. Every entry has formula, domain, two parameters, and a statement of approximation/meaning.
 - Eleven executable experiment types: function explorer, numerical differentiation, trapezoidal integration, bisection root finding, RK4 differential equations, seeded Monte Carlo quadrature, grid-plus-golden-section minimization, Lorenz dynamics, SIR compartment dynamics, quantum two-level probability density and discrete Fourier transform.
 - Seven-curve parameter sweeps, responsive 2D plots, finite-value checks, local experiment journal, JSON and CSV export.
 - Safe, restricted expression parser. No `eval`, `new Function` or arbitrary Python/JavaScript execution.
@@ -59,3 +73,7 @@ Models are simplified and often normalized. They are educational/numerical exper
 - `assets` — favicons, PWA images
 - `manifest.webmanifest`, `vercel.json` — deployment settings
 - `tests/smoke.cjs` — metadata validation
+
+- `studio.html` — animated physics and image analysis UI
+- `studio.css`, `studio.js`, `studio-engine.js` — visual studio styles, interactivity and physics engine
+- `tests/studio_smoke.cjs` — simulation numerical smoke tests
