@@ -46,6 +46,10 @@
     {
       "source": "/all",
       "destination": "/hub.html"
+    },
+    {
+      "source": "/radar",
+      "destination": "/radar.html"
     }
   ]
 }
