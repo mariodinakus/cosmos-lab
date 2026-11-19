@@ -120,7 +120,7 @@ function feedback(s){$("feedback").textContent=s;}
 function pos(evt){const b=world.getBoundingClientRect();return{x:F.clamp((evt.clientX-b.left)/b.width,0,.9999),y:F.clamp((evt.clientY-b.top)/b.height,0,.9999)};}
 world.addEventListener("pointerdown",evt=>{if(evt.button!==0)return;evt.preventDefault();const p=pos(evt);if(mode==="vacuum"&&nothing!=="quantum"){feedback("Absolute nothing or classical empty spacetime is not a quantum-oscillator state.");return;}
 sim.interact(p.x,p.y,evt.shiftKey);syncSliders();render();feedback("Manual experiment intervention: x="+p.x.toFixed(2)+" y="+p.y.toFixed(2));});
-$("play").onclick=()=>{playing=!playing;render();};$("step").onclick=()=>{playing=false;sim.step();render();};$("reset").onclick=()=>{select(mode,{...sim.state.p},seed);feedback("Model restarted. Parameters preserved.");};
+$("play").onclick=()=>{playing=!playing;render();};$("step").onclick=()=>{playing=false;if(mode==="vacuum"&&nothing!=="quantum"){render();feedback("No numerical dynamics exist for this definition of nothing.");return;}sim.step();render();};$("reset").onclick=()=>{select(mode,{...sim.state.p},seed);feedback("Model restarted. Parameters preserved.");};
 $("reseed").onclick=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;select(mode,{...sim.state.p},seed);feedback("Seed changed to "+seed);};
 $("speed").oninput=()=>{speed=Number($("speed").value);$("speedValue").textContent=speed.toFixed(2)+"×";};
 $("searchMode").oninput=()=>{filter=$("searchMode").value.toLowerCase().trim();modelList();};
