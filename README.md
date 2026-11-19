@@ -1,5 +1,16 @@
 # COSMOS LAB — The Mathematical Universe
 
+## COSMOS ∞ Unified Hub — 41 searchable models in 8 workspaces
+
+**Entry:** https://cosmos-lab-v3.vercel.app/hub.html (after deployment).
+
+The hub is a **unified research directory**, not a replacement for or automatic coupling of the numerical engines. It links the eight existing scientific workspaces (Atlas, Visual Studio, Research Observatory, Chaos Forge, Toy Universe, Frontier Questions, Quantum Gravity Playground, Reality Engine). It provides a curated entry from foundational questions and 41 *verified*, directly linked model URLs: 15 Toy Universe + 13 Frontier Questions + 3 Quantum Gravity + 10 Reality Engine. The additional four workspaces are included as full pages.
+
+Catalog is checked against each source core; the portal contains text search, exact lab filters and a random experiment selector. Each playable model deep-links using the target engine's existing `model` URL parameter. No model is claimed to have independently solved a theoretical physics problem; every toy retains its existing limitations.
+
+Files: `hub.html`, `hub.css`, `hub.js`, `hub-catalog.js`, `tests/hub-smoke.cjs`, `.github/workflows/hub-validation.yml`.
+
+
 ## COSMOS ∞ — Reality Engine (10 interactive modules)
 
 Entry: **https://cosmos-lab-v3.vercel.app/reality.html** (after production deployment).
