@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#080e11"/><meta name="description" content="COSMOS LAB Chaos Forge: live bifurcation, Lyapunov exponent, cobweb and sensitivity graphs for the logistic map."/>
+<title>COSMOS LAB — Chaos Forge</title>
+<link rel="icon" href="/assets/favicon.ico"/><link rel="stylesheet" href="/chaos.css"/>
+</head><body>
+<div class="ticker"><span>◉ COSMOS LAB / LIVE MATHEMATICS</span><span>DETERMINISTIC SYSTEMS · TESTED EQUATIONS</span></div>
+<header class="mast"><a class="brand" href="/"><img src="/assets/icon-64.png" alt="COSMOS LAB"/> COSMOS<span>.</span></a>
+<nav aria-label="Navigation"><a href="/">MODEL ATLAS</a><a href="/studio.html">VISUAL STUDIO</a><a href="/observatory.html">OBSERVATORY</a><a class="selected" href="/chaos.html">CHAOS FORGE</a></nav></header>
+<main>
+<section class="hero">
+<div><p class="kicker">COSMOS LAB / EXPERIMENT 001 · NONLINEAR DYNAMICS</p><h1>ORDER<br/>BECOMES <em>CHAOS.</em></h1>
+<p class="subtitle">One simple equation. Infinitely complex behavior. Watch bifurcations, attractors and sensitivity to initial conditions unfold from actual iterations of the logistic map.</p>
+<div class="hero-buttons"><a class="cta" href="#workspace">▶ RUN THE EXPERIMENT</a><a class="outline-cta" href="#science">THE SCIENCE ↗</a></div></div>
+<div class="hero-graphic" aria-hidden="true"><svg viewBox="0 0 420 290" role="presentation"><g fill="none" stroke="#00d4e8" stroke-width="1.5">
+<path d="M15 275Q60 8 95 275Q140 8 175 275Q220 8 255 275Q300 8 335 275Q380 8 405 275"/>
+<path d="M15 275Q100 36 145 275Q200 36 245 275Q305 36 390 275" opacity=".46"/><path d="M10 200H410M10 132H410M10 64H410" opacity=".19" stroke-dasharray="4 5"/></g>
+<circle cx="210" cy="130" r="11" fill="#fff"/><circle cx="210" cy="130" r="5" fill="#080e11"/></svg>
+<span>xₙ₊₁ = r xₙ(1−xₙ)</span></div>
+</section>
+<section class="overview"><div><strong>05</strong><small>LIVE VISUALIZATIONS</small></div><div><strong>∞</strong><small>ITERATIVE EVOLUTION</small></div><div><strong id="headlineR">3.9000</strong><small>CONTROL PARAMETER / r</small></div><div><strong id="headlineLyap">—</strong><small>FINITE-TIME LYAPUNOV</small></div></section>
+<section id="workspace" class="workspace">
+<aside class="controls"><div class="overline">01 / EXPERIMENT CONTROLS</div>
+<h2>CONTROL<br/>REALITY<span>.</span></h2>
+<div class="field"><label for="preset">SCENARIO PRESET</label><select id="preset">
+<option value="3.9">Chaotic orbit / 3.90</option><option value="2.8">Stable fixed point / 2.80</option><option value="3.2">Period two / 3.20</option><option value="3.5">Period four / 3.50</option><option value="3.569945672">Onset of chaos / 3.5699</option><option value="4">Full chaos / 4.00</option></select></div>
+<div class="field"><div class="field-title"><label for="rInput">CONTROL PARAMETER / r</label><output id="rOut">3.9000</output></div><input id="rInput" type="range" min="2.7" max="4" value="3.9" step=".0001"/><div class="rangeends"><span>2.700</span><span>4.000</span></div></div>
+<div class="field"><div class="field-title"><label for="xInput">INITIAL CONDITION / x₀</label><output id="xOut">0.21330</output></div><input id="xInput" type="range" min=".001" max=".999" value=".2133" step=".0001"/></div>
+<div class="field"><div class="field-title"><label for="epsInput">INITIAL PERTURBATION / δ₀</label><output id="epsOut">1e−8</output></div><input id="epsInput" type="range" min="-12" max="-3" value="-8" step="1"/></div>
+<div class="field"><div class="field-title"><label for="speedInput">ANIMATION SPEED</label><output id="speedOut">1.0×</output></div><input id="speedInput" type="range" min=".25" max="8" step=".25" value="1"/></div>
+<div class="buttons"><button class="primary" id="playButton">Ⅱ PAUSE</button><button id="stepButton">STEP +1</button><button id="resetButton">↻ RESET</button><button id="downloadButton">↓ CSV DATA</button><button id="captureButton">↓ PNG CHARTS</button><button id="shareButton">↗ COPY EXPERIMENT LINK</button></div>
+<div class="status" role="status" id="interactionStatus">Choose a parameter or click the bifurcation diagram to move the experiment.</div>
+<p class="hint">The model is deterministic. Tiny perturbations can produce very different later trajectories. This does not imply quantum randomness.</p>
+</aside>
+<div class="visuals">
+<div class="sectionhead"><div><p class="kicker">02 / THE GLOBAL STRUCTURE</p><h2>THE ROUTE<br/>TO CHAOS<span>.</span></h2><p>Click anywhere in the bifurcation diagram to choose a new value of r. The moving cyan cursor tracks your current experiment.</p></div><span class="live" id="modeBadge">● CHAOTIC REGION</span></div>
+<div class="panel"><div class="paneltitle"><strong>01 / BIFURCATION DIAGRAM</strong><span>r ∈ [2.7, 4] · TRANSIENTS DISCARDED</span></div><canvas id="bifCanvas" width="1100" height="420" aria-label="Interactive logistic-map bifurcation diagram"></canvas><div class="panelcaption">Branches represent long-run iterates, not an experimentally measured distribution.</div></div>
+<div class="panel"><div class="paneltitle"><strong>02 / FINITE-TIME LYAPUNOV SPECTRUM</strong><span>λ(r) = ⟨ln|f′(x)|⟩</span></div><canvas id="lyapCanvas" width="1100" height="250" aria-label="Lyapunov exponent versus control parameter"></canvas></div>
+<div class="twocol">
+<div class="panel"><div class="paneltitle"><strong>03 / COBWEB DYNAMICS</strong><span>xₙ → xₙ₊₁</span></div><canvas id="cobwebCanvas" width="700" height="470" aria-label="Animated cobweb iterative map"></canvas></div>
+<div class="panel"><div class="paneltitle"><strong>04 / TWIN TRAJECTORIES</strong><span>xₙ AND xₙ + δ₀</span></div><canvas id="orbitCanvas" width="700" height="470" aria-label="Two evolving logistic-map orbits"></canvas></div>
+</div>
+<div class="panel"><div class="paneltitle"><strong>05 / SENSITIVITY TO INITIAL CONDITIONS</strong><span>log₁₀|xₙ−xₙ′|</span></div><canvas id="sensitivityCanvas" width="1100" height="260" aria-label="Logarithmic separation of close initial conditions"></canvas></div>
+<div class="readouts"><div><small>CURRENT STEP</small><strong id="stepReadout">0</strong></div><div><small>PERIOD / APPROX.</small><strong id="periodReadout">—</strong></div><div><small>SEPARATION</small><strong id="sepReadout">—</strong></div><div><small>REGIME / ESTIMATE</small><strong id="regimeReadout">—</strong></div></div>
+</div></section>
+<section id="science" class="science"><div><p class="kicker">03 / MODEL ASSUMPTIONS</p><h2>THE MATH<br/>BEHIND THE MOTION<span>.</span></h2><p>The logistic recurrence is a textbook model of nonlinear dynamics. It is not a realistic forecast of population size without parameter estimation and validation. All values here are dimensionless.</p></div><div class="sciencecards"><article><small>ITERATION</small><strong>xₙ₊₁ = r xₙ(1−xₙ)</strong><p>A bounded nonlinear map for x in [0,1] and r in [0,4].</p></article><article><small>LOCAL STRETCHING</small><strong>f′(x) = r(1−2x)</strong><p>The derivative quantifies the local expansion or contraction of nearby trajectories.</p></article><article><small>FINITE-TIME EXPONENT</small><strong>λₙ = (1/n) Σ ln|f′(xᵢ)|</strong><p>Positive values suggest sensitivity; near-zero values require longer runs and convergence checks.</p></article><article><small>VALIDATION</small><strong>NUMERICAL ≠ EMPIRICAL</strong><p>The diagrams visualize equations. They are not proof about the physical Universe.</p></article></div></section>
+</main><footer><span>COSMOS LAB / CHAOS FORGE</span><span>CYAN × WHITE × BLACK · COMPUTE / INTERACT / VERIFY</span><a href="/observatory.html">BACK TO OBSERVATORY ↗</a></footer>
+<script src="/chaos-core.js"></script><script src="/chaos.js"></script>
+</body></html>
