@@ -1,5 +1,28 @@
 # COSMOS LAB — The Mathematical Universe
 
+## Chaos Forge — interactive nonlinear mathematics
+
+Launch **[/chaos.html](https://cosmos-lab-v3.vercel.app/chaos.html)** (or `/chaos`).
+
+- Live logistic-map bifurcation diagram: click the plot to change the parameter `r`.
+- Finite-time Lyapunov spectrum `λ(r)`, with separate stable and sensitive regimes.
+- Moving cobweb iteration, two nearby orbits, and log-scale separation graph.
+- Presets for fixed point, period-2, period-4, onset of chaos, chaotic regimes.
+- Pause, resume, single-step, adjustable speed, initial condition and perturbation.
+- Export current numerical histories as CSV; capture all graphs in one PNG; share parameterized experiment URLs.
+- Pure numerical module `chaos-core.js`, UI `chaos.js`, stylesheet `chaos.css` and `tests/chaos_smoke.cjs`.
+- Automated GitHub Actions checks in `.github/workflows/chaos-validation.yml`.
+
+Finite-time Lyapunov values and approximate orbit periods depend on sample length, numerical precision and initialization. **Chaos is deterministic; no physical or quantum discovery is claimed.** This module uses no external data or third-party runtime dependencies.
+
+### Further research ideas
+
+- Dedicated ODE/PDE solver with numerical error control.
+- Parameter sweeps run in Web Workers to keep the interface responsive.
+- Versioned experiment notebooks, side-by-side comparisons, convergence plots.
+- Properly sourced observed datasets and explicit distinctions between simulations and measurements.
+
+
 A standalone, browser-based mathematical research workbench, prepared for GitHub and Vercel. New visual identity includes a real tab favicon (`assets/favicon.ico`, `assets/icon-64.png`), Android/PWA icons, and a manifest.
 
 ## Visual Research Studio 4.0
