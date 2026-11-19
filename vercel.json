@@ -18,6 +18,10 @@
     {
       "source": "/observatory",
       "destination": "/observatory.html"
+    },
+    {
+      "source": "/chaos",
+      "destination": "/chaos.html"
     }
   ]
 }
