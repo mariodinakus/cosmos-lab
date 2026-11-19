@@ -4,7 +4,7 @@
 
 Interactive lab: **https://cosmos-lab-v3.vercel.app/frontier.html**
 
-Ten real computational toy models, animated diagrams and model-specific measurement plots:
+Thirteen real computational toy models, animated diagrams and model-specific measurement plots:
 
 1. **Quantum vacuum, not absolute nothing** — normalized harmonic oscillator ground-state Wigner samples; the physical vacuum presupposes quantum laws.
 2. **Tunnelling and cosmological analogy** — rectangular Schrödinger barrier transmission. This does *not* generate a Universe.
@@ -18,6 +18,10 @@ Ten real computational toy models, animated diagrams and model-specific measurem
 10. **Entropy and time's arrow** — biased initial positions and randomized particle mixing; not a microscopic derivation of irreversibility.
 
 Scientific reference context: [Stanford Encyclopedia of Philosophy — Philosophy of Cosmology](https://plato.stanford.edu/entries/cosmology/); [CERN lecture on gauge coupling unification](https://indico.cern.ch/event/84560/attachments/1075209/1533472/eberl_PiP10.pdf); [PTEP 2016 on running gauge couplings](https://academic.oup.com/ptep/article/2016/4/043B02/2461130).
+
+11. **Baryogenesis rate equations** — Sakharov-inspired source and washout with CP asymmetry, baryon-number violation and departure from equilibrium. Normalized rates, not measured baryon abundance.
+12. **Bell–CHSH correlations** — synthetic polarization-singlet outcomes with four settings, empirical CHSH statistics, prediction and local bound. Sampling is not an experimental test.
+13. **Qubit dephasing** — prescribed coherence decay and purity under a pure-dephasing channel; no measurement-collapse claim.
 
 **Controls:** parameter sliders, play/pause, one numerical step, reseed, click on the visualizer, CSV/JSON/PNG export and shareable initial-setup URLs. An interactive philosophy panel compares physical explanation, theistic interpretation, naturalism and agnosticism without assigning fake likelihoods. A "What is nothing?" selector explicitly prevents attempting to simulate absolute nothing.
 
