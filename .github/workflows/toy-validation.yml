@@ -1,0 +1,26 @@
+name: Toy Universe numerical integrity
+on:
+  push:
+    paths:
+      - 'toy*.js'
+      - 'toy*.css'
+      - 'toy*.html'
+      - 'tests/toy_smoke.cjs'
+      - '.github/workflows/toy-validation.yml'
+  pull_request:
+    paths:
+      - 'toy*.js'
+      - 'toy*.css'
+      - 'toy*.html'
+      - 'tests/toy_smoke.cjs'
+jobs:
+  toy-validation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/toy_smoke.cjs
