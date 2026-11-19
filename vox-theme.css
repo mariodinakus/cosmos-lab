@@ -99,3 +99,26 @@ a,button{transition:background-color .16s ease,color .16s ease,border-color .16s
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+
+/* Editorial refinements: fully readable text on bright cards */
+.saved-entry,.journal-item,.journal-entry{background:#f3fcfe!important;color:#080e11!important;border:1px solid #97bdc5!important}
+.saved-entry :is(strong,small,span),.journal-item :is(strong,small),.journal-entry :is(strong,small){color:#163b45!important}
+.notebook-box textarea{background:#f5fcff!important;color:#080e11!important;border:2px solid #8ab5bf!important}
+.notebook-box textarea::placeholder{color:#506d74!important}
+.checklist p,.scale-header,.scale-ends{color:#1b3b45!important}
+.controls button,.controlbar button,.analysis-box>button,.research-log button,.image-output button{background:#080e11;color:#fff;border:1px solid #080e11}
+.controls button:hover,.controlbar button:hover,.analysis-box>button:hover,.research-log button:hover,.image-output button:hover{background:#00d4e8;color:#080e11}
+.controlbar .primary,.controls .button-primary{background:#00d4e8!important;color:#080e11!important}
+.monitor-foot,.plot-footer,.image-metrics,.results,.diagnostic,.parameter-list,.model-card,.bench-left{background:#fff;color:#080e11!important}
+.monitor-foot,.plot-footer,.results{border-color:#bbd6db!important}
+.monitor-label{background:#fff;color:#080e11!important}
+.outputnote,.field-help,.param-info{background:#e4faff!important;color:#17444c!important}
+.scale-panel input,.upload input{color:#080e11!important}
+.image-metrics span,.discovery-output,.checklist{color:#006d80!important}
+.theory-details h3,.workspace-heading h2,.section-top h2,.research-log h2{color:#080e11!important}
+.theory-details p,.research-log p,.workspace-heading p,.section-top p{color:#274550!important}
+.model-card:hover,.method.active{border-left:4px solid #080e11!important}
+.outline-danger,.error{background:#eafaff!important;color:#075267!important;border-color:#00b8d0!important}
+.frontier-right>div{border-color:#2d7988!important}
+.ring1,.ring2,.ring3{filter:none}
+.hero h1,.intro h1{font-family:Inter,Arial,Helvetica,sans-serif!important;letter-spacing:-.075em!important}
