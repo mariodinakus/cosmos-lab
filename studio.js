@@ -4,7 +4,7 @@ const E=window.CosmosStudioEngine;if(!E)throw Error('Simulation engine unavailab
 const el=id=>document.getElementById(id), W=940,H=650,cyan='#50e9e1',white='#eaf3f4',amber='#ffd28e',pink='#ec6b89';
 let currentId='lorenz',parameters={},scene=null,playing=true,speed=1,lastTime=0,status='',imageHistogram=null,frameCount=0;
 const canvas=el('simCanvas'),plot=el('traceCanvas'),ctx=canvas.getContext('2d'),pc=plot.getContext('2d');
-const smooth=(n,places=4)=>Number.isFinite(n)?Math.abs(n)>=100?n.toFixed(2):Math.abs(n)<.0001?n.toExponential(2):n.toFixed(places):'—';
+const smooth=(n,places=4)=>Number.isFinite(n)?Math.abs(n)<1e-12?'0.00':Math.abs(n)>=100?n.toFixed(2):Math.abs(n)<.0001?n.toExponential(2):n.toFixed(places):'—';
 function text(g,str,x,y,color=white,size=15,align='left',weight='500'){g.fillStyle=color;g.font=`${weight} ${size}px ui-sans-serif,system-ui,Arial`;g.textAlign=align;g.fillText(str,x,y)}
 function grid(g,w=W,h=H){g.fillStyle='#09141d';g.fillRect(0,0,w,h);g.strokeStyle='#1e334080';g.lineWidth=1;for(let x=0;x<w;x+=47){g.beginPath();g.moveTo(x,0);g.lineTo(x,h);g.stroke()}for(let y=0;y<h;y+=46){g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke()}}
 function trail(g,points,toX,toY,color,width=2){if(points.length<2)return;g.beginPath();let begun=false;for(const v of points){const x=toX(v),y=toY(v);if(!Number.isFinite(x)||!Number.isFinite(y)){begun=false;continue;}if(!begun){g.moveTo(x,y);begun=true}else g.lineTo(x,y)}g.strokeStyle=color;g.lineWidth=width;g.stroke();}
