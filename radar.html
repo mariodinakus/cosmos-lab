@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COSMOS ∞ — Research Radar | Papers & Discoveries</title>
+<meta name="description" content="Research Radar: live physics papers and institutional science news, grounded summaries, what the authors claim, implications and what remains unproven.">
+<meta name="theme-color" content="#080e11"><link rel="icon" href="/assets/favicon.ico"><link rel="stylesheet" href="/radar.css">
+</head><body>
+<div class="ticker"><span>◉ COSMOS ∞ / RESEARCH INTELLIGENCE</span><span>LIVE SOURCES · EVIDENCE FIRST · NO HYPE</span></div>
+<header class="mast"><a href="/hub.html" class="brand"><img src="/assets/icon-64.png" alt=""><span>COSMOS<b>∞</b><small>THE MATHEMATICAL UNIVERSE</small></span></a>
+<nav aria-label="Εργαστήρια"><a href="/hub.html">ALL LABS</a><a href="/radar.html" aria-current="page">RESEARCH RADAR</a><a href="/reality.html">REALITY ENGINE</a><a href="/frontier.html">FRONTIER</a><a href="/gravity.html">QUANTUM GRAVITY</a></nav></header>
+<main>
+<section class="hero"><div class="hero-left">
+<p class="eyebrow">RESEARCH RADAR / PAPERS · DISCOVERIES · WHAT IT REALLY MEANS</p>
+<h1>WHAT DID<br>WE <em>DISCOVER?</em></h1>
+<p>Τι δημοσιεύτηκε; Τι υποστηρίζουν οι ερευνητές; Τι μπορεί να σημαίνει — και τι <strong>δεν</strong> έχει αποδειχθεί; Πρόσφατα papers και επιστημονικές ειδήσεις, με τις αρχικές πηγές πάντα δίπλα στην ερμηνεία.</p>
+<div class="hero-actions"><a href="#feed" class="primary">▶ ΔΕΣ ΤΙ ΝΕΟ ΥΠΑΡΧΕΙ</a><a href="#method" class="secondary">ΠΩΣ ΕΛΕΓΧΟΥΜΕ ΤΟΥΣ ΙΣΧΥΡΙΣΜΟΥΣ ↗</a></div></div>
+<div class="hero-right"><div class="pulse-orbit"><div class="core-ring"></div><div class="ring one"></div><div class="ring two"></div><div class="ring three"></div><span>RESEARCH<br>≠<br>PROOF</span></div><small>ARXIV · OPENALEX · NASA · CERN · APS</small></div></section>
+<section class="metrics"><div><strong id="count">—</strong><span>ΠΡΟΣΦΑΤΕΣ ΚΑΤΑΧΩΡΙΣΕΙΣ</span></div><div><strong id="sourceCount">—</strong><span>ΕΝΕΡΓΗ ΠΗΓΗ</span></div><div><strong id="latest">—</strong><span>ΝΕΟΤΕΡΗ ΔΗΜΟΣΙΕΥΣΗ</span></div><div><strong>0</strong><span>ΑΥΘΑΙΡΕΤΕΣ «ΑΝΑΚΑΛΥΨΕΙΣ»</span></div></section>
+<section class="feed" id="feed"><div class="section-heading"><div><p class="eyebrow">01 / LIVE RESEARCH STREAM</p><h2>THE FRONTIER<br>IS MOVING.</h2></div><p>Επιλέγεις πεδίο, χρονικό διάστημα και είδος πηγής. Οι τίτλοι και τα abstracts έρχονται από τις πρωτογενείς δημοσιεύσεις, όχι από τεχνητά κατασκευασμένες ειδήσεις.</p></div>
+<div class="filters">
+<div class="tabs" role="group" aria-label="Είδος δημοσιεύσεων">
+<button id="papersTab" type="button" class="selected" aria-pressed="true">PAPERS / PREPRINTS</button>
+<button id="newsTab" type="button" aria-pressed="false">SCIENCE NEWS</button>
+<button id="savedTab" type="button" aria-pressed="false">ΑΠΟΘΗΚΕΥΜΕΝΑ <span id="savedCount">0</span></button></div>
+<div class="selectors"><label>ΠΕΔΙΟ
+<select id="topic"><option value="all">Όλα τα πεδία</option><option value="cosmology">Κοσμολογία & Σύμπαν</option><option value="gravity">Βαρύτητα & Χωροχρόνος</option><option value="quantum">Κβαντική φυσική</option><option value="particles">Σωματίδια & Αντιύλη</option><option value="foundations">Ενοποίηση / Θεωρία των Πάντων</option></select></label>
+<label>ΠΕΡΙΟΔΟΣ
+<select id="days"><option value="7">7 ημέρες</option><option value="30" selected>30 ημέρες</option><option value="90">90 ημέρες</option></select></label>
+<label id="sourcePicker" hidden>ΕΙΔΗΣΕΙΣ ΑΠΟ
+<select id="newsSource"><option value="all">NASA + CERN + APS</option><option value="nasa">NASA Science</option><option value="cern">CERN</option><option value="aps">APS Physics</option></select></label>
+<label class="search">ΑΝΑΖΗΤΗΣΗ ΣΤΗ ΛΙΣΤΑ<input id="search" type="search" placeholder="Π.χ. antimatter, gravity, quantum..." autocomplete="off"></label>
+<button id="refresh" type="button">↻ ΑΝΑΝΕΩΣΗ</button>
+</div></div>
+<div class="feed-status"><span id="status" role="status" aria-live="polite">Ανάκτηση πραγματικών επιστημονικών πηγών…</span><span id="asOf"></span></div>
+<div class="editorial"><strong>ΠΩΣ ΝΑ ΤΟ ΔΙΑΒΑΣΕΙΣ</strong><span>Τι λέει η πηγή → Προσεκτική ερμηνεία → Τι παραμένει ανοιχτό. Οι ερμηνείες είναι αυτόματες, συντηρητικές και θεματικές, όχι ανάγνωση ολόκληρου του paper.</span></div>
+<div id="digest" class="digest" hidden><div><p class="eyebrow">THE BIG PICTURE / SOURCE-BASED</p><h3>Η πρόσφατη εικόνα</h3></div><div id="digestList"></div></div>
+<div id="cards" class="cards" aria-live="polite"></div>
+<div id="empty" class="empty" hidden><h3>Δεν υπάρχουν διαθέσιμα αποτελέσματα.</h3><p id="emptyWhy">Δοκίμασε μεγαλύτερο χρονικό διάστημα, άλλο πεδίο ή ανανέωση. Δεν εμφανίζουμε επινοημένα papers όταν μια πηγή δεν ανταποκρίνεται.</p>
+<a href="https://arxiv.org/list/gr-qc/recent" target="_blank" rel="noopener noreferrer">Δες απευθείας τα πρόσφατα arXiv papers ↗</a></div>
+</section>
+<section id="method" class="method"><div><p class="eyebrow">02 / EPISTEMIC HONESTY</p><h2>PAPER<br>≠ <em>PROOF.</em></h2><p>Το γεγονός ότι δημοσιεύτηκε ένα preprint δεν σημαίνει ότι επιβεβαιώθηκε ένα φυσικό φαινόμενο. Ακόμη κι ένα peer-reviewed paper μπορεί να χρειάζεται ανεξάρτητη επαλήθευση.</p></div><div class="method-grid"><article><strong>ΤΙ ΠΡΑΓΜΑΤΙΚΑ ΑΝΑΦΕΡΕΤΑΙ</strong><p>Παρουσιάζουμε το κείμενο/σημαντικό απόσπασμα από το abstract ή την περιγραφή της είδησης και τον σύνδεσμο της αρχικής πηγής.</p></article><article><strong>ΤΙ ΑΦΗΝΕΤΑΙ ΝΑ ΕΝΝΟΗΘΕΙ</strong><p>Η ερμηνεία είναι προσεκτικό «αν επιβεβαιωθεί, τότε μπορεί να…», βάσει θέματος και τύπου μελέτης. Δεν εξάγουμε ανυπόστατες βεβαιότητες ή ποσοστά.</p></article><article><strong>ΤΙ ΔΕΝ ΞΕΡΟΥΜΕ ΑΚΟΜΗ</strong><p>Αναγνωρίζουμε τους περιορισμούς των abstracts, των θεωρητικών αποτελεσμάτων, των προσομοιώσεων και των ανακοινώσεων φορέων.</p></article></div></section>
+<section class="more"><p class="eyebrow">OFFICIAL SOURCES / CHECK THE ORIGINAL</p><h2>FOLLOW THE EVIDENCE.</h2><div class="sources"><a href="https://arxiv.org/" target="_blank" rel="noopener noreferrer"><strong>arXiv</strong><small>Preprints φυσικής · ημερομηνίες & abstracts</small><b>ΑΝΟΙΓΜΑ ↗</b></a><a href="https://openalex.org/" target="_blank" rel="noopener noreferrer"><strong>OpenAlex</strong><small>Βιβλιογραφικός κατάλογος / εναλλακτική πηγή</small><b>ΑΝΟΙΓΜΑ ↗</b></a><a href="https://science.nasa.gov/" target="_blank" rel="noopener noreferrer"><strong>NASA SCIENCE</strong><small>Επίσημες επιστημονικές ανακοινώσεις</small><b>ΑΝΟΙΓΜΑ ↗</b></a><a href="https://home.cern/news/" target="_blank" rel="noopener noreferrer"><strong>CERN</strong><small>Ειδήσεις από το ερευνητικό κέντρο</small><b>ΑΝΟΙΓΜΑ ↗</b></a><a href="https://physics.aps.org/" target="_blank" rel="noopener noreferrer"><strong>APS PHYSICS</strong><small>Σχολιασμός επιστημονικών εργασιών</small><b>ΑΝΟΙΓΜΑ ↗</b></a></div></section>
+</main><footer><span>COSMOS ∞ / RESEARCH RADAR</span><span>LIVE SCIENTIFIC METADATA · NO FABRICATED DISCOVERIES</span><a href="/hub.html">ΠΙΣΩ ΣΤΑ ΕΡΓΑΣΤΗΡΙΑ ↗</a></footer>
+<script src="/radar-core.js"></script><script src="/radar.js"></script>
+</body></html>
