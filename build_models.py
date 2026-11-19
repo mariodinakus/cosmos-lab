@@ -1,0 +1,375 @@
+import json
+from math import pi
+from pathlib import Path
+models=[]
+def add(cat,entries):
+ for name,expr,desc,domain,pa,pb in entries:
+  models.append({'id':f'M{len(models)+1:03}','category':cat,'name':name,'expr':expr,'description':desc,'domain':domain,'a':pa,'b':pb})
+add('COSMOLOGY',[
+('ΛCDM expansion','sqrt(a*(1+x)^3+1-a)','Flat matter+Λ, radiation omitted',[0,5],.315,1),
+('wCDM expansion','sqrt(a*(1+x)^3+(1-a)*(1+x)^(3*(1+b)))','Constant dark-energy w=b',[0,5],.315,-.9),
+('Matter fraction','a*(1+x)^3/(a*(1+x)^3+1-a)','Matter density fraction vs redshift',[0,5],.315,1),
+('Deceleration parameter','1.5*a*(1+x)^3/(a*(1+x)^3+1-a)-1','Flat ΛCDM acceleration indicator',[0,5],.315,1),
+('Comoving distance kernel','1/sqrt(a*(1+x)^3+1-a)','Dimensionless distance integrand',[0,5],.315,1),
+('Lookback time kernel','1/((1+x)*sqrt(a*(1+x)^3+1-a))','Dimensionless lookback integrand',[0,5],.315,1),
+('Matter-dominated scale','(1+x)^(2/3)','Normalized matter era scale factor',[0,5],1,1),
+('Radiation-dominated scale','sqrt(1+x)','Normalized radiation era scale factor',[0,5],1,1),
+('de Sitter expansion','exp(a*x)','Exponential constant-H expansion',[0,4],.4,1),
+('CMB redshift scaling','a*(1+x)','Adiabatic CMB temperature, K',[0,6],2.7255,1),
+('Constant-w energy density','(1+x)^(3*(1+b))','Relative dark-energy density',[0,5],1,-.9),
+('Growth index approximation','(a*(1+x)^3/(a*(1+x)^3+1-a))^b','Phenomenological growth f',[0,5],.315,.55),
+])
+add('RELATIVITY',[
+('Lorentz factor','1/sqrt(1-x^2)','β=v/c; physical β<1',[0,.97],1,1),
+('Time dilation ratio','sqrt(1-x^2)','Proper time / coordinate time',[0,.97],1,1),
+('Relativistic kinetic energy','1/sqrt(1-x^2)-1','K/mc²',[0,.97],1,1),
+('Relativistic momentum','x/sqrt(1-x^2)','Momentum normalized to mc',[0,.97],1,1),
+('Relativistic Doppler','sqrt((1+x)/(1-x))','Approaching longitudinal Doppler factor',[0,.95],1,1),
+('Velocity addition','(x+a)/(1+a*x)','Speed fractions of c; |a|,|x|<1',[0,.9],.2,1),
+('Schwarzschild lapse','sqrt(1-1/x)','r in Schwarzschild radius units',[1.02,10],1,1),
+('Schwarzschild redshift','1/sqrt(1-1/x)-1','Static-emitter gravitational redshift',[1.02,10],1,1),
+('Escape speed','1/sqrt(x)','v/c; r in Schwarzschild radii',[1.01,10],1,1),
+('Weak light deflection','2/x','Weak-field deflection in normalized units',[3,30],1,1),
+('Hawking temperature scaling','a/x','Temperature inversely proportional to mass',[.5,6],1,1),
+('Relativistic dispersion','sqrt(x^2+a^2)','E=sqrt(p²c²+m²c⁴), normalized',[0,5],1,1),
+])
+add('QUANTUM PHYSICS',[
+('Ground state oscillator','exp(-x*x)/(sqrt(pi))','Harmonic oscillator probability density',[-4,4],1,1),
+('First excited oscillator','2*x*x*exp(-x*x)/sqrt(pi)','n=1 probability density',[-4,4],1,1),
+('Second excited oscillator','(2*x*x-1)^2*exp(-x*x)/(2*sqrt(pi))','n=2 probability density',[-4,4],1,1),
+('Infinite well n=1','2*sin(pi*x)^2','Probability density on [0,1]',[0,1],1,1),
+('Infinite well n=2','2*sin(2*pi*x)^2','Probability density on [0,1]',[0,1],1,1),
+('Two-level interference','(sin(pi*x)+a*sin(2*pi*x))^2','Unnormalized interference pattern',[0,1],.5,1),
+('Free packet spreading','1/sqrt(1+a*x*x)','Normalized packet peak decay',[0,8],.3,1),
+('Tunneling transmission WKB','exp(-2*a*sqrt(1-x))','Barrier transmission proxy; x=E/V',[0,.98],4,1),
+('Rabi oscillation','sin(a*x/2)^2','Ideal two-level transition probability',[0,16],1,1),
+('Damped Rabi oscillation','exp(-b*x)*sin(a*x/2)^2','Phenomenological decoherence',[0,20],1,.08),
+('Spin precession z','cos(a*x)','Precessing spin projection',[0,18],1,1),
+('Coherence decay','exp(-a*x)','Exponential decoherence envelope',[0,12],.3,1),
+('Bose occupation','1/(exp(a*x)-1)','Positive-frequency thermal occupation',[.1,5],1,1),
+('Fermi occupation','1/(exp(a*(x-b))+1)','Thermal fermion occupation',[-4,6],1,1),
+])
+add('CLASSICAL MECHANICS',[
+('Simple harmonic motion','a*cos(b*x)','Ideal oscillator displacement',[0,20],1,1),
+('Harmonic velocity','-a*b*sin(b*x)','Ideal velocity',[0,20],1,1),
+('Harmonic acceleration','-a*b*b*cos(b*x)','Ideal acceleration',[0,20],1,1),
+('Damped oscillator','a*exp(-0.12*x)*cos(b*x)','Underdamped approximation',[0,22],1,1),
+('Driven resonance','1/sqrt((1-x*x)^2+(b*x)^2)','Frequency response amplitude',[0,3],1,.2),
+('Small angle pendulum','a*cos(sqrt(b)*x)','Linearized pendulum',[0,20],.5,1),
+('Projectile height','a*x-b*x*x/2','Ballistic trajectory y vs t',[0,6],8,3),
+('Projectile displacement','a*x','Horizontal projectile motion',[0,8],5,1),
+('Range versus angle','a*sin(2*x)','Vacuum projectile range',[0,1.57],10,1),
+('Linear drag speed','a*(1-exp(-b*x))','Approach terminal speed',[0,12],4,.6),
+('Viscous energy loss','a*exp(-b*x)','Dissipative energy envelope',[0,10],1,.3),
+('Spring energy','0.5*a*x*x','Elastic potential energy',[-4,4],2,1),
+('Kepler orbital speed','sqrt(a/x)','Circular orbit normalized speed',[.5,8],1,1),
+('Kepler orbital period','2*pi*sqrt(x^3/a)','Third-law orbital period',[.5,7],1,1),
+('Centripetal acceleration','a*x*x','a=radius, x=omega',[0,5],1,1),
+])
+add('ELECTROMAGNETISM',[
+('Coulomb potential','a/x','Potential of a point charge',[.2,10],1,1),
+('Coulomb field','a/(x*x)','Radial electric field',[.3,10],1,1),
+('Dipole axial field','a/(x*x*x)','Far-field dipole scaling',[.5,10],1,1),
+('RC charging','a*(1-exp(-x/b))','Capacitor charge versus time',[0,10],1,2),
+('RC discharging','a*exp(-x/b)','Capacitor discharge',[0,10],1,2),
+('RL current','a*(1-exp(-x/b))','Inductor circuit current',[0,10],1,2),
+('RLC transient','a*exp(-b*x)*cos(2*x)','Underdamped circuit voltage',[0,14],1,.2),
+('Capacitor energy','a*x*x/2','Stored energy proportional to V²',[0,5],1,1),
+('Joule power','a*x*x','Resistive power',[0,6],2,1),
+('Cyclotron radius','a*x/b','Nonrelativistic radius',[0,8],1,2),
+('Skin depth','1/sqrt(a*x)','Skin depth frequency scaling',[.1,10],1,1),
+('Plane EM wave','a*sin(b*x)','Electromagnetic wave profile',[0,16],1,2),
+])
+add('THERMODYNAMICS',[
+('Ideal gas isotherm','a/x','pV=constant',[.2,10],1,1),
+('Adiabatic pressure','a/x^b','pV^gamma=constant',[.3,8],1,1.4),
+('Isothermal work','a*log(x)','Ideal reversible isothermal work',[.2,8],1,1),
+('Stefan Boltzmann','a*x^4','Blackbody radiant power scaling',[0,3],1,1),
+('Debye low-T capacity','a*x^3','Low-temperature specific heat',[0,3],1,1),
+('Wien spectral tail','a*exp(-b*x)','Exponential spectral tail',[0,10],1,1),
+('Newton cooling','a*exp(-b*x)','Temperature difference relaxation',[0,10],1,.4),
+('Boltzmann population','exp(-a*x)','Thermal excited-state fraction',[0,10],1,1),
+('Carnot efficiency','1-x','Efficiency vs Tc/Th',[0,1],1,1),
+('Arrhenius factor','exp(-a/x)','Rate activation factor',[.1,5],2,1),
+('Maxwell speed density','a*x*x*exp(-b*x*x)','Unnormalized speed distribution',[0,5],1,.5),
+])
+add('WAVES & OPTICS',[
+('Traveling wave','a*sin(b*x)','Sine wave',[0,16],1,2),
+('Wave superposition','sin(x)+a*sin(b*x)','Two-frequency superposition',[0,20],.7,1.2),
+('Beating envelope','2*cos(b*x/2)*sin(a*x)','Two nearby modes',[0,40],1,.22),
+('Single slit diffraction','sinc(a*x)^2','Sinc² proxy; removable point near zero',[-8,8],1,1),
+('Double slit fringes','cos(a*x)^2','Ideal interference fringes',[-12,12],1,1),
+('Gaussian beam','a*exp(-2*x*x/(b*b))','Transverse Gaussian intensity',[-5,5],1,2),
+('Standing wave','sin(a*x)^2','Standing-wave intensity',[0,10],2,1),
+('Lorentzian spectrum','a/(1+b*x*x)','Spectral lineshape',[-5,5],1,1),
+('Rayleigh scattering','a/x^4','Wavelength dependence',[.3,5],1,1),
+('Attenuated wave','a*exp(-b*x)*cos(4*x)','Absorbing medium',[0,10],1,.2),
+])
+add('FLUID DYNAMICS',[
+('Poiseuille velocity','a*(1-x*x)','Laminar pipe flow profile',[-1,1],2,1),
+('Poiseuille R4 scaling','a*x^4','Pipe volumetric flow scaling',[0,3],1,1),
+('Dynamic pressure','a*x*x/2','q=ρv²/2',[0,8],1,1),
+('Bernoulli static pressure','a-b*x*x/2','Pressure vs flow speed',[0,4],8,1),
+('Reynolds scaling','a*x/b','Reynolds number proxy',[0,8],1,1),
+('Stokes drag','a*x','Linear viscous drag',[0,8],2,1),
+('Continuity speed','a/(x*x)','Flow speed and radius',[.5,6],1,1),
+('Gaussian vorticity','a*exp(-b*x*x)','Vortex core shape',[-5,5],1,1),
+('Shallow water wave','sqrt(a*x)','Wave speed vs depth',[0,8],1,1),
+('Boundary layer thickness','a*sqrt(x)','Laminar boundary-layer proxy',[0,12],1,1),
+('Kolmogorov spectrum','a*x^(-5/3)','Inertial range scaling',[.3,8],1,1),
+])
+add('ASTROPHYSICS',[
+('Stellar mass luminosity','a*x^3.5','Main-sequence approximation',[.2,5],1,1),
+('Inverse square stellar flux','a/(x*x)','Flux distance law',[.3,10],1,1),
+('Wien peak','a/x','Peak wavelength vs T',[.3,10],1,1),
+('Transit toy model','1-a*exp(-x*x/(2*b*b))','Illustrative transit dip',[-5,5],.12,.8),
+('Radial velocity','a*sin(b*x)','Circular orbital RV profile',[0,20],1,1),
+('Inspiral amplitude','a/(1+x)^0.25','Chirp amplitude time proxy',[0,10],1,1),
+('Hubble distance','a*x','Low-redshift distance approximation',[0,2],1,1),
+('NFW halo density','a/(x*(1+x)^2)','NFW profile, normalized',[.1,10],1,1),
+('Galaxy rotation curve','a*x/sqrt(x*x+b*b)','Phenomenological flattening',[0,10],1,1),
+])
+add('CHAOS & NONLINEAR',[
+('Logistic orbit envelope','a*x*(1-x)','Logistic map single update',[0,1],3.8,1),
+('Tent map','a*(0.5-abs(x-0.5))','Tent map profile',[0,1],2,1),
+('Sine map','a*sin(pi*x)','Sine map update',[0,1],1,1),
+('Duffing double-well','x^4/4-a*x*x/2','Potential of Duffing oscillator',[-3,3],1,1),
+('Van der Pol damping','a*(1-x*x)','Nonlinear oscillator damping term',[-3,3],1,1),
+('Logistic population','a/(1+exp(-b*x))','Saturating population growth',[-10,10],1,1),
+('Bifurcation cubic','x^3-a*x','Pitchfork-normal-form potential derivative',[-2,2],1,1),
+('Gompertz','a*exp(-exp(-b*x))','Asymmetric population growth',[-5,10],1,1),
+])
+add('PROBABILITY & STATS',[
+('Gaussian density','exp(-0.5*((x-a)/b)^2)/(b*sqrt(2*pi))','Normal probability density',[-5,5],0,1),
+('Exponential density','a*exp(-a*x)','x>=0 exponential density',[0,10],1,1),
+('Exponential survival','exp(-a*x)','Survival probability',[0,10],.8,1),
+('Logistic CDF','1/(1+exp(-a*(x-b)))','Logistic cumulative probability',[-7,7],1,0),
+('Logistic PDF','a*exp(-a*(x-b))/(1+exp(-a*(x-b)))^2','Logistic probability density',[-7,7],1,0),
+('Cauchy density','b/(pi*((x-a)^2+b*b))','Heavy tailed Cauchy',[-7,7],0,1),
+('Laplace density','exp(-abs(x-a)/b)/(2*b)','Double-exponential density',[-6,6],0,1),
+('Weibull density','(b/a)*(x/a)^(b-1)*exp(-(x/a)^b)','Weibull shape and scale',[.001,6],2,2),
+('Rayleigh density','(x/(a*a))*exp(-x*x/(2*a*a))','Rayleigh distribution',[0,6],1,1),
+('Shannon binary entropy','-x*log(x+0.00000001)-(1-x)*log(1-x+0.00000001)','Binary entropy in nats',[0,1],1,1),
+])
+add('MATHEMATICAL ANALYSIS',[
+('Sine family','a*sin(b*x)','Periodic analytic function',[-10,10],1,1),
+('Cosine family','a*cos(b*x)','Periodic analytic function',[-10,10],1,1),
+('Hyperbolic tangent','a*tanh(b*x)','Sigmoid',[-6,6],1,1),
+('Gaussian kernel','a*exp(-b*x*x)','Radial Gaussian kernel',[-6,6],1,1),
+('Logarithmic family','a*log(1+b*x)','Logarithmic growth',[0,6],1,1),
+('Chebyshev T3','4*x^3-3*x','Third Chebyshev polynomial',[-1,1],1,1),
+('Legendre P3','(5*x^3-3*x)/2','Third Legendre polynomial',[-1,1],1,1),
+('Logistic activation','1/(1+exp(-a*x))','Logistic neuron',[-8,8],1,1),
+('Softplus','log(1+exp(a*x))/a','Smooth ReLU approximation',[-8,8],1,1),
+('Quartic potential','a*x^4-b*x*x','Double well polynomial',[-3,3],.3,1),
+])
+add('BIOPHYSICS',[
+('Michaelis Menten','a*x/(b+x)','Enzyme saturation',[0,10],1,1),
+('Hill binding','x^b/(a^b+x^b)','Cooperative binding',[0,10],2,2),
+('Competitive inhibition','a*x/(b*(1+2)+x)','Illustrative inhibited enzyme curve',[0,10],1,1),
+('Diffusion Gaussian','exp(-x*x/(4*a))/(sqrt(4*pi*a))','1D Gaussian diffusion kernel',[-8,8],2,1),
+('Dose response','1/(1+exp(-a*(x-b)))','Logistic dose response',[0,10],1,5),
+('Membrane relaxation','a*exp(-b*x)','Membrane potential decay',[0,10],1,.5),
+('Fick flux proxy','a*x*exp(-b*x*x)','Gradient-derived flux profile',[-4,4],1,.5),
+('Nernst potential','a*log(x)','Ion concentration ratio',[.1,6],1,1),
+])
+add('NUCLEAR & PARTICLE',[
+('Radioactive survival','exp(-a*x)','Radioactive survival fraction',[0,12],.3,1),
+('Radioactive activity','a*exp(-a*x)','Activity versus time',[0,12],.4,1),
+('Daughter accumulation','a/(b-a)*(exp(-a*x)-exp(-b*x))','Two-stage Bateman chain',[0,12],.3,.7),
+('Breit Wigner resonance','a/(x*x+b*b)','Resonance lineshape',[-6,6],1,1),
+('Yukawa potential','-a*exp(-b*x)/x','Screened potential',[.2,8],1,1),
+('Gamow factor','exp(-a/sqrt(x))','Tunnelling probability proxy',[.1,8],3,1),
+('Rutherford scattering','a/(sin(x/2)^4)','Classical differential scattering',[.2,3],1,1),
+('Neutrino transition','a*sin(b*x)^2','Two-flavor vacuum oscillation proxy',[0,20],.8,1),
+('Neutrino survival','1-a*sin(b*x)^2','Two-flavor survival probability',[0,20],.8,1),
+])
+add('SIGNALS & INFORMATION',[
+('AWGN channel capacity','log(1+a*x)/log(2)','Shannon capacity in bits/s/Hz',[0,20],1,1),
+('Binary symmetric capacity','1+x*log(x+0.00000001)/log(2)+(1-x)*log(1-x+0.00000001)/log(2)','BSC capacity',[0,1],1,1),
+('Autocorrelation','exp(-a*abs(x))','Exponential correlation',[-8,8],.4,1),
+('Gaussian low pass','exp(-a*x*x)','Low-pass frequency response',[-8,8],.4,1),
+('First order low pass','1/sqrt(1+(a*x)^2)','RC low-pass response',[0,10],1,1),
+('First order high pass','a*x/sqrt(1+(a*x)^2)','RC high-pass response',[0,10],1,1),
+('Sinc sampling','sinc(pi*x)','Ideal sampling kernel approximation',[-8,8],1,1),
+('Information decay','a*exp(-b*x)','Simple information memory decay',[0,10],1,.2),
+])
+add('CHEMICAL KINETICS',[
+('First order reactant','a*exp(-b*x)','First-order reaction concentration',[0,12],1,.4),
+('First order product','a*(1-exp(-b*x))','Product concentration',[0,12],1,.4),
+('Second order decay','a/(1+a*b*x)','Second-order concentration',[0,12],1,.4),
+('Zero order decay','a-b*x','Valid before exhaustion',[0,3],2,.4),
+('Arrhenius temperature','a*exp(-b/x)','Reaction rate temperature dependence',[.5,6],1,2),
+('Langmuir adsorption','a*x/(b+x)','Surface occupancy',[0,10],1,1),
+('Buffer Henderson Hasselbalch','a+log(x)/log(10)','pH vs base/acid ratio',[.1,10],7,1),
+('Reaction diffusion mode','a*exp(-b*x*x)','Single diffusion mode spatial proxy',[-4,4],1,.4),
+])
+add('PURE MATHEMATICS',[
+('Cubic discriminant','4*a^3-27*x*x','Discriminant for depressed cubic',[-5,5],1,1),
+('Bernoulli polynomial B2','x*x-x+1/6','Second Bernoulli polynomial',[-2,3],1,1),
+('Bernoulli polynomial B4','x^4-2*x^3+x*x-1/30','Fourth Bernoulli polynomial',[-2,3],1,1),
+('Chebyshev T4','8*x^4-8*x*x+1','Fourth Chebyshev polynomial',[-1,1],1,1),
+('Chebyshev T5','16*x^5-20*x^3+5*x','Fifth Chebyshev polynomial',[-1,1],1,1),
+('Legendre P4','(35*x^4-30*x*x+3)/8','Fourth Legendre polynomial',[-1,1],1,1),
+('Legendre P5','(63*x^5-70*x^3+15*x)/8','Fifth Legendre polynomial',[-1,1],1,1),
+('Hyperbolic secant','1/cosh(a*x)','Hyperbolic secant profile',[-6,6],1,1),
+('Archimedean spiral radius','a+b*x','Radius versus polar angle',[0,20],1,.4),
+('Logarithmic spiral radius','a*exp(b*x)','Radius versus polar angle',[0,10],.5,.15),
+('Cardioid radial','a*(1+cos(x))','Polar cardioid radius',[0,2*pi],1,1),
+('Rose curve','a*cos(b*x)','Polar rose radial coordinate',[0,2*pi],1,5),
+])
+add('NUMBER THEORY',[
+('Prime number density proxy','1/log(x)','Prime occurrence heuristic x>1',[2,150],1,1),
+('Prime counting first order','x/log(x)','PNT approximation pi(x)~x/log x',[2,150],1,1),
+('Mertens harmonic trend','log(x)+0.5772156649','Harmonic number asymptotic',[1,150],1,1),
+('Logarithmic integer complexity','log(x)/log(2)','Binary bit length approximation',[1,150],1,1),
+('Riemann zeta finite partial','1+2^(-x)+3^(-x)+4^(-x)+5^(-x)+6^(-x)+7^(-x)+8^(-x)+9^(-x)+10^(-x)','10-term partial series, x>1',[1.1,6],1,1),
+('Alternating Dirichlet partial','1-2^(-x)+3^(-x)-4^(-x)+5^(-x)-6^(-x)+7^(-x)-8^(-x)','Finite eta-series approximation',[.2,5],1,1),
+('Divisor growth log','log(x)','Average-order scale for divisor function',[1,100],1,1),
+('Stirling leading log factorial','x*log(x)-x+0.5*log(2*pi*x)','Log factorial Stirling approximation',[1,100],1,1),
+('Harmonic reciprocal kernel','1/x','Hyperbolic divisor approximation',[1,50],1,1),
+])
+add('DIFFERENTIAL GEOMETRY',[
+('Sphere latitude curvature','1/(a*a)','Gaussian curvature of sphere',[.1,4],2,1),
+('Pseudosphere negative curvature','-1/(a*a)','Constant negative Gaussian curvature',[-3,3],2,1),
+('Parabola curvature','2*a/(1+4*a*a*x*x)^(3/2)','Curvature of y=a*x²',[-4,4],1,1),
+('Circle arclength','a*x','Arc length with angular coordinate',[0,2*pi],2,1),
+('Surface of revolution metric','sqrt(1+4*a*a*x*x)','Line element of revolved parabola',[-4,4],1,1),
+('Geodesic sphere longitude','a*sin(x)','Metric coefficient of sphere latitude',[0,pi],1,1),
+('Catenary curve','a*cosh(x/a)','Catenary equilibrium hanging chain',[-3,3],1,1),
+('Catenary curvature','1/(a*cosh(x/a)^2)','Planar catenary curvature',[-3,3],1,1),
+('Gaussian surface height','a*exp(-b*x*x)','One-dimensional surface cross-section',[-4,4],1,.5),
+])
+add('STOCHASTIC PROCESSES',[
+('Ornstein Uhlenbeck mean','a*exp(-b*x)','Mean reversion towards zero',[0,10],1,.5),
+('OU variance','a*(1-exp(-2*b*x))','Mean-reverting Gaussian process variance proxy',[0,10],1,.5),
+('Brownian variance','a*x','Wiener process variance',[0,10],1,1),
+('Brownian displacement scale','a*sqrt(x)','RMS Wiener displacement',[0,10],1,1),
+('Poisson survival zero','exp(-a*x)','Probability of no Poisson arrivals',[0,10],.8,1),
+('Poisson one-arrival','a*x*exp(-a*x)','One-event probability',[0,10],.8,1),
+('Erlang shape 2 density','a*a*x*exp(-a*x)','Sum of two iid exponential waits',[0,10],.8,1),
+('Random walk return proxy','1/sqrt(pi*x)','Asymptotic 1D return probability proxy',[.3,20],1,1),
+('Geometric survival','(1-a)^x','Continuation probability, noninteger extension',[0,15],.2,1),
+])
+add('CONTROL SYSTEMS',[
+('First order unit step','1-exp(-a*x)','Low-pass step response',[0,10],.8,1),
+('Second order underdamped step','1-exp(-a*x)*(cos(b*x)+(a/b)*sin(b*x))','Approximate second-order step response',[0,15],.25,2),
+('Impulse response','a*exp(-a*x)','Stable first-order impulse response',[0,10],1,1),
+('PID proportional response','a*x','Proportional action for input error',[0,10],1,1),
+('PID integral ramp','a*x*x/2','Integral action for linear error ramp',[0,10],1,1),
+('PID derivative sinusoidal','a*b*cos(b*x)','Derivative action for sine error',[0,15],1,1),
+('Damped vibration envelope','exp(-a*x)','Closed-loop decay proxy',[0,15],.5,1),
+('Bode low-pass magnitude','1/sqrt(1+(x/a)^2)','First order transfer magnitude',[.01,10],2,1),
+('Bode high-pass magnitude','x/sqrt(x*x+a*a)','First order high-pass transfer magnitude',[.01,10],2,1),
+])
+add('NETWORK SCIENCE',[
+('Degree Poisson zero','exp(-a)','Erdos Renyi isolated-node probability',[0,10],1,1),
+('Degree Poisson one','a*exp(-a)','One-neighbor Poisson degree probability',[0,10],1,1),
+('Degree Poisson two','a*a*exp(-a)/2','Two-neighbor Poisson degree probability',[0,10],1,1),
+('Percolation giant approximation','1-exp(-a*x)','Phenomenological component growth',[0,10],.5,1),
+('Network epidemic threshold','1/x','Inverse mean degree threshold',[.2,12],1,1),
+('Small world logarithmic distance','log(x)/log(a)','Random graph path-length scaling',[2,100],4,1),
+('Preferential attachment tail','a*x^(-3)','BA network degree density approximation',[1,20],1,1),
+('Random geometric link decay','exp(-a*x*x)','Distance-dependent link kernel',[0,6],1,1),
+('Spectral diffusion mode','exp(-a*x)','Graph Laplacian eigenmode decay',[0,10],1,1),
+])
+add('GAME THEORY',[
+('Logit choice probability','1/(1+exp(-a*(x-b)))','Soft best response',[0,10],1,5),
+('Replicator coordination','a*x*(1-x)*(2*x-1)','Two-strategy replicator velocity',[0,1],1,1),
+('Replicator selection','a*x*(1-x)','Dominant strategy replicator velocity',[0,1],1,1),
+('Cournot inverse demand','a-b*x','Linear market demand proxy',[0,9],10,1),
+('Cournot firm marginal profit','a-2*b*x','Single firm best-response derivative',[0,7],10,1),
+('Bertrand payoff smoothing','a/(1+exp(b*x))','Smooth competition toy payoff',[0,8],1,1),
+('Expected utility risk aversion','-exp(-a*x)','CARA utility function',[-3,8],.5,1),
+('CRRA logarithmic utility','log(x)','Log utility for positive consumption',[.1,10],1,1),
+('Discounted future payoff','a/(1+b*x)','Hyperbolic discounting',[0,15],1,.2),
+])
+add('INFORMATION GEOMETRY',[
+('Bernoulli Fisher information','1/(x*(1-x))','Fisher information of Bernoulli p',[.05,.95],1,1),
+('Gaussian Fisher mean','1/(a*a)','Mean Fisher information vs scale',[.05,8],2,1),
+('Bernoulli KL to half','x*log(2*x)+(1-x)*log(2*(1-x))','KL divergence to fair Bernoulli',[.02,.98],1,1),
+('Jensen Shannon binary','log(2)+x*log(x)+(1-x)*log(1-x)','Distance to maximal entropy in nats',[.02,.98],1,1),
+('Negative log likelihood Gaussian','0.5*((x-a)/b)^2+log(b*sqrt(2*pi))','Gaussian observation loss',[-5,5],0,1),
+('Softmax two log odds','a*x-b','Log-odds of binary softmax',[-6,6],1,0),
+('Cross entropy with target one','-log(1/(1+exp(-a*x)))','Binary classification loss for y=1',[-6,6],1,1),
+('Brier binary score','(1/(1+exp(-a*x))-1)^2','Squared probabilistic calibration loss',[-6,6],1,1),
+])
+add('ECOLOGY & POPULATION',[
+('Exponential birth growth','a*exp(b*x)','Unconstrained Malthus population',[0,8],1,.2),
+('Logistic saturation','a/(1+exp(-b*x))','Bounded carrying capacity growth',[-5,15],1,.5),
+('Gompertz growth','a*exp(-exp(-b*x))','Asymmetric logistic alternative',[-5,15],1,.5),
+('Allee effect reaction','a*x*(1-x)*(x-b)','Population growth with minimum viable fraction',[0,1],1,.25),
+('Predator type II response','a*x/(b+x)','Holling type II saturation',[0,10],1,1),
+('Predator type III response','a*x*x/(b*b+x*x)','Holling type III sigmoidal response',[0,10],1,2),
+('Ricker recruitment','a*x*exp(-b*x)','Density-dependent population recruitment',[0,10],2,.4),
+('Competition pressure','a*x/(1+b*x)','Saturating interaction pressure',[0,12],1,.4),
+('Habitat decay','a*exp(-b*x)','Exponential habitat fraction decline',[0,15],1,.2),
+])
+add('NONLINEAR OPTICS',[
+('Kerr nonlinear refractive index','a+b*x','Intensity-dependent index approximation',[0,10],1,.2),
+('Self phase modulation phase','a*x','Nonlinear phase vs intensity',[0,10],1,1),
+('Saturable absorption','a/(1+x/b)','Absorption decreasing with intensity',[0,10],1,2),
+('Optical soliton profile','a/(cosh(b*x)^2)','Sech-squared soliton intensity',[-8,8],1,1),
+('Second harmonic conversion','a*sin(b*x)^2','Idealized phase-matched conversion envelope',[0,14],1,.7),
+('Nonlinear oscillator Duffing','a*x+b*x^3','Linear and cubic restoring force',[-3,3],1,1),
+('Optical bistability toy','x^3-a*x+b','Cubic steady-state characteristic',[-3,3],2,.2),
+('Gaussian pulse envelope','a*exp(-b*x*x)','Ultrashort pulse envelope',[-6,6],1,.5),
+])
+add('PLASMA PHYSICS',[
+('Langmuir thermal dispersion','sqrt(a*a+3*b*b*x*x)','Normalized plasma wave frequency',[0,7],1,.3),
+('Debye screened potential','a*exp(-b*x)/x','Screened electrostatic potential',[.2,10],1,1),
+('Alfven speed scaling','a/sqrt(x)','Magnetic wave speed vs mass density',[.2,10],1,1),
+('Plasma frequency scaling','a*sqrt(x)','Electron plasma frequency vs density',[0,10],1,1),
+('Cyclotron frequency','a*x','Gyrofrequency vs magnetic field',[0,10],1,1),
+('Plasma beta','a*x','Pressure to magnetic energy ratio proxy',[0,10],1,1),
+('Landau damping envelope','a*exp(-b*x)','Phenomenological collisionless damping',[0,12],1,.4),
+('Magnetic mirror ratio','a/x','Magnetic mirror intensity scaling',[.2,10],1,1),
+])
+add('QUANTUM INFORMATION',[
+('Qubit purity','x*x+(1-x)^2','Purity of diagonal qubit state',[0,1],1,1),
+('Qubit von Neumann entropy','-x*log(x+0.00000001)-(1-x)*log(1-x+0.00000001)','Qubit entropy in nats',[0,1],1,1),
+('Bloch projection z','cos(a*x)','Ideal qubit phase evolution',[0,20],1,1),
+('Bloch projection x','sin(a*x)','Ideal qubit phase evolution',[0,20],1,1),
+('Dephasing envelope','exp(-a*x)','Pure-dephasing coherence envelope',[0,12],.5,1),
+('Amplitude damping excited state','a*exp(-b*x)','Excited population in amplitude damping model',[0,12],1,.3),
+('Bit flip error probability','(1-exp(-a*x))/2','Markovian symmetric bit-flip error proxy',[0,12],.3,1),
+('Qubit fidelity to zero','1-x','Fidelity of diagonal state with |0>',[0,1],1,1),
+('Qubit overlap phase','cos(a*x/2)^2','Fidelity for phase-shifted pure states',[0,20],1,1),
+])
+add('SOLID STATE PHYSICS',[
+('Einstein phonon occupation','1/(exp(a/x)-1)','Bose occupation of fixed optical mode',[.2,5],1,1),
+('Debye acoustic state count','a*x*x','3D acoustic density of states proxy',[0,5],1,1),
+('Fermi Dirac distribution','1/(1+exp((x-a)/b))','Thermal electron occupancy',[-5,5],0,.8),
+('Free electron parabola','a*x*x','Effective mass electronic band',[0,6],1,1),
+('Tight binding cosine band','-2*a*cos(x)','One-dimensional nearest neighbor dispersion',[-pi,pi],1,1),
+('Band velocity','2*a*sin(x)','Band group velocity in normalized units',[-pi,pi],1,1),
+('Bloch oscillation velocity','a*sin(b*x)','Semiclassical electron velocity',[0,20],1,1),
+('Magnetization mean field','tanh(a*x)','Mean-field saturation toy model',[-6,6],1,1),
+('Thermal conductivity power','a*x^b','Illustrative conductivity power law',[0,5],1,.5),
+])
+add('GRAVITATIONAL WAVES',[
+('Inspiral chirp frequency','a/(1+x)^(3/8)','Time-to-coalescence chirp scaling proxy',[.05,8],1,1),
+('Inspiral amplitude','a/(1+x)^(1/4)','Quadrupole strain amplitude scaling proxy',[.05,8],1,1),
+('Newtonian strain frequency','a*x^(2/3)','Leading inspiral strain scaling vs frequency',[.05,8],1,1),
+('Wave chirp phase','a*x^(5/8)','Leading phase scaling proxy',[0,10],1,1),
+('Inspiral frequency derivative','a*x^(11/3)','Quadrupole chirp frequency derivative',[.2,5],1,1),
+('Ringdown damped cosine','a*exp(-b*x)*cos(5*x)','Quasinormal-mode waveform toy model',[0,10],1,.35),
+('Ringdown damped sine','a*exp(-b*x)*sin(5*x)','Phase-shifted ringdown toy waveform',[0,10],1,.35),
+('Wave polarization plus','a*cos(b*x)','Ideal plus polarization wave',[0,15],1,2),
+('Wave polarization cross','a*sin(b*x)','Ideal cross polarization wave',[0,15],1,2),
+])
+add('COMPLEX SYSTEMS',[
+('Critical slowing down','1/(a-x)','Relaxation time near threshold',[0,.9],1,1),
+('Power law cluster size','a*x^(-b)','Heavy-tailed component size proxy',[1,20],1,2),
+('Order parameter pitchfork','sqrt(x)','Second-order transition exponent proxy',[0,4],1,1),
+('Critical susceptibility','a/(abs(x)+b)','Smoothed critical susceptibility proxy',[-5,5],1,.2),
+('Saturating feedback','a*x/(1+b*x)','Positive-feedback saturation',[0,10],1,.5),
+('Delayed adjustment proxy','a*exp(-b*x)*cos(2*x)','Damped system response to delay',[0,10],1,.25),
+('Spatial coupling kernel','a*exp(-b*abs(x))','Exponential neighborhood interaction',[-8,8],1,.5),
+('Power spectral scaling','a/x^b','Scale-free temporal variability',[.2,10],1,1),
+])
+
+# Numeric formulas intentionally simple; missing dimensions are explained in individual descriptions.
+root=Path(__file__).parent
+(root/'models.js').write_text('window.COSMOS_MODELS='+json.dumps(models,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf-8')
+print(len(models),'models',len({m['category'] for m in models}),'categories')

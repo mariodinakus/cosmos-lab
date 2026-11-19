@@ -1,1 +1,61 @@
-# cosmos-lab
+# COSMOS LAB — The Mathematical Universe
+
+A standalone, browser-based mathematical research workbench, prepared for GitHub and Vercel. New visual identity includes a real tab favicon (`assets/favicon.ico`, `assets/icon-64.png`), Android/PWA icons, and a manifest.
+
+## Current features
+
+- A source-controlled catalog of 167 explicitly specified real-valued mathematical expressions spanning 16 disciplines. Every entry has formula, domain, two parameters, and a statement of approximation/meaning.
+- Eleven executable experiment types: function explorer, numerical differentiation, trapezoidal integration, bisection root finding, RK4 differential equations, seeded Monte Carlo quadrature, grid-plus-golden-section minimization, Lorenz dynamics, SIR compartment dynamics, quantum two-level probability density and discrete Fourier transform.
+- Seven-curve parameter sweeps, responsive 2D plots, finite-value checks, local experiment journal, JSON and CSV export.
+- Safe, restricted expression parser. No `eval`, `new Function` or arbitrary Python/JavaScript execution.
+- Responsive interface, dark favicon, PWA manifest.
+
+## Running locally
+
+This site is intentionally dependency-free. From the project directory:
+
+```bash
+python -m http.server 8000
+```
+
+Open `http://localhost:8000/`.
+
+## Publishing to GitHub
+
+Create a new **empty** repository named `cosmos-lab` in your GitHub account. Do not initialize with a README, as this ZIP already contains one. Then run from this directory:
+
+```bash
+git init
+git add .
+git commit -m "Create COSMOS LAB scientific workbench v3"
+git branch -M main
+git remote add origin https://github.com/mariodinakus/cosmos-lab.git
+git push -u origin main
+```
+
+Alternatively use GitHub's **Upload files** interface to drag these project files into the new repository. Keep the file paths and subfolders intact.
+
+## Vercel
+
+Import your GitHub repository in Vercel using **Other** framework, leave the build command empty and use root directory `./`. The repository is a zero-build static site. On every push, Vercel can automatically deploy the updated content.
+
+**Important:** The existing live `cosmos-lab` Vercel project is an independent deployment. Do not point its production domain at this package without first comparing functionality and retaining a backup. This repository-ready implementation was rebuilt as a self-contained project; it does not claim to contain the original deployed application's complete source.
+
+## Scientific honesty
+
+Models are simplified and often normalized. They are educational/numerical experiments, not established experimental validations. Finiteness checks **do not** verify the physical correctness of equations. RK4 step-doubling differences are rough convergence indicators, not rigorous global error estimates; Monte Carlo intervals are approximate. The explicit SIR compartments are toy model outputs, not epidemiological forecasts. Optimizer provides an approximate candidate and is not a proof of global minimum. The catalog deliberately names and documents approximations rather than pretending to solve unsolved mathematics.
+
+## Tests
+
+`node tests/smoke.cjs` checks that model entries, domains, descriptions and IDs are consistent, that every input expression can be parsed/evaluated with the actual browser engine (when an optional browser driver is installed), and that favicon assets are present. No third-party dependencies are needed for basic checks.
+
+## Files
+
+- `index.html` — main responsive UI
+- `app.js` — AST-style safe parser, solvers, chart, experiments and journal
+- `models.js` — generated catalog
+- `build_models.py` — reproducible model catalog generation
+- `styles.css` — site design
+- `assets` — favicons, PWA images
+- `manifest.webmanifest`, `vercel.json` — deployment settings
+- `tests/smoke.cjs` — metadata validation
