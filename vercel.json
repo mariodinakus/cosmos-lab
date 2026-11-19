@@ -34,6 +34,10 @@
     {
       "source": "/gravity",
       "destination": "/gravity.html"
+    },
+    {
+      "source": "/reality",
+      "destination": "/reality.html"
     }
   ]
 }
