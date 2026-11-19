@@ -13,6 +13,9 @@ const MODES=[
  {id:"gup",tag:"QUANTUM GRAVITY / SPECULATIVE",title:"IS THERE A MINIMUM LENGTH?",question:"Could the uncertainty relation be modified close to the Planck scale?",formula:"Δx ≥ 1/(2Δp) + βΔp   (Planck units)",level:"Hypothetical generalized-uncertainty toy model",params:[["beta","Hypothetical β",0,3,.6,.05],["momentum","Momentum uncertainty Δp",.1,8,1.3,.05]],what:"An assumed β-dependent correction develops a positive minimum Δx_min = √(2β) for β>0.",limit:"The β term is NOT experimentally established; this is one family of speculative modifications. It does not establish a minimum physical length."},
  {id:"unify",tag:"THEORY OF EVERYTHING / GUT",title:"DO THE FORCES UNIFY?",question:"Do the known gauge couplings become one at high energy?",formula:"αᵢ⁻¹(μ)=αᵢ⁻¹(MZ) − [bᵢ/(2π)]ln(μ/MZ)",level:"Standard Model one-loop RG · exploratory extension",params:[["scale","log₁₀(E/GeV)",2,18,15,.1],["db1","Toy Δb₁ above 10¹⁰ GeV",-3,3,0,.1],["db2","Toy Δb₂ above 10¹⁰ GeV",-3,3,0,.1],["db3","Toy Δb₃ above 10¹⁰ GeV",-3,3,0,.1]],what:"Uses SU(5)-normalized one-loop Standard Model coefficients b=(41/10,−19/6,−7), with approximate reference inputs at MZ. Optional Δb knobs are hypothetical changes above a preset threshold.",limit:"A change in beta coefficients is not evidence of new particles. Gauge coupling convergence would NOT include gravity and would NOT by itself solve a Theory of Everything."},
  {id:"intervene",tag:"GOD / EXPLANATION",title:"CAN LAWS RUN WITHOUT INTERVENTION?",question:"Can a world evolve through internal rules, without further external actions?",formula:"S(t+1) = F₁₁₀(S(t)); optional manual perturbation",level:"Deterministic rule-110 experiment · philosophy boundary",params:[["rule","Closed-system rule",0,255,110,1],["density","Initial density",.04,.35,.15,.01]],what:"Two identical worlds follow the same chosen rule. You may click to alter one world and quantify how its future differs.",limit:"A self-evolving physical model needs no extra intervention *within the model*. This neither proves nor disproves God, divine creation, deism, theism or any metaphysical claim."},
+ {id:"baryogenesis",tag:"MATTER / ANTIMATTER",title:"WHY IS THERE MORE MATTER?",question:"Could a CP-asymmetric, out-of-equilibrium process generate a matter excess?",formula:"dX/dt = −ΓX ; dY/dt = ε · B · D · ΓX − κY",level:"Phenomenological rate-equation toy · Sakharov-inspired assumptions",params:[["epsilon","CP asymmetry ε",-0.3,0.3,0.15,.01],["violation","Baryon-number violation B",0,1,1,.05],["departure","Out-of-equilibrium factor D",0,1,1,.05],["rate","Parent decay Γ",.1,2,0.7,.05],["washout","Washout κ",0,1.5,.12,.05]],what:"A decaying parent population X drives a signed asymmetry Y if a source, CP asymmetry and an out-of-equilibrium factor are all present. This deliberately enforces the three Sakharov ingredients within an assumed rate equation.",limit:"Not an experimentally calibrated theory of baryogenesis. ε is phenomenological and not a measured CP-violation parameter; Y is a normalized proxy, not the cosmological baryon-to-photon ratio. Baryon violation, CP violation and nonequilibrium dynamics are assumed, not derived."},
+ {id:"bell",tag:"QUANTUM / BELL",title:"DO QUANTUM CORRELATIONS BREAK CLASSICAL BOUNDS?",question:"How can entangled-pair correlations violate a Bell–CHSH inequality?",formula:"E(a,b)=−v cos[2(a−b)] ; S=|E₀₀+E₀₁+E₁₀−E₁₁| ≤ 2√2",level:"Ideal polarization-entangled singlet correlations · Monte Carlo toy",params:[["visibility","Correlation visibility v",0,1,0.97,.01],["shots","Samples / pair / tick",1,20,4,1]],what:"Four fixed polarization measurement settings use the ideal Bell-state correlation E=−v cos 2Δθ. Synthetic ±1 outcomes are sampled and empirical S is compared with the CHSH local-hidden-variable bound 2 and quantum bound 2√2.",limit:"Sampling directly from the quantum correlation formula cannot independently prove Bell nonlocality or exclude experimental loopholes. In finite samples S can exceed theoretical bounds through statistical fluctuation. No physical photon source or apparatus is simulated."},
+ {id:"decoherence",tag:"QUANTUM / DEPHASING",title:"HOW DOES QUANTUM COHERENCE FADE?",question:"Can interaction with an assumed environment erase phase coherence without changing populations?",formula:"ρ₀₁(t)=½e^(−γt)e^(−iωt) ; purity=½[1+e^(−2γt)]",level:"Exactly solvable qubit pure-dephasing channel · phenomenological dynamics",params:[["gamma","Dephasing rate γ",0,2,.43,.025],["omega","Precession ω",0,5,1.8,.1]],what:"Starting from |+⟩, the normalized transverse Bloch vector contracts as e^(−γt). Purity falls from 1 towards ½ while diagonal populations remain constant.",limit:"This prescribed Lindblad-style channel assumes an environmental dephasing rate and does not explain consciousness, wavefunction collapse, or why quantum theory exists. It is not a microscopic derivation of decoherence."},
  {id:"entropy",tag:"TIME / ENTROPY",title:"WHY DOES TIME HAVE AN ARROW?",question:"How does coarse-grained disorder evolve from an organized starting state?",formula:"H = −Σᵢ pᵢ log(pᵢ) / ln(B)",level:"Stochastic mixing model · coarse-grained entropy",params:[["noise","Random velocity kick",0,1,.45,.05],["speed","Particle speed",.2,3,1,.05]],what:"Many particles start in a small region and spread. Their spatial Shannon entropy across 12 bins is measured as they mix.",limit:"This model adds stochastic velocity kicks and thus does NOT prove irreversibility from time-reversal-invariant microscopic laws or explain the low-entropy early Universe."}
 ];
 function seeded(seed=937){let v=seed>>>0;return()=>((v=(Math.imul(v,1664525)+1013904223)>>>0)/4294967296);}
@@ -30,6 +33,7 @@ function gauge(logE,db1=0,db2=0,db3=0){const E=10**logE,MZ=91.1876,alphaEM=1/127
 function scalarV(phi,p){return p.offset+.5*p.mass*p.mass*phi*phi;}
 function correlate(r,J,T){return Math.pow(Math.tanh(J/T),r);}
 function gravityQuantum(m){return{rs:2*m,lambda:1/m,ratio:2*m*m};}
+function bellCHSH(measured){if(!measured||measured.count.some(n=>n===0))return 0;const E=measured.sum.map((sum,i)=>sum/measured.count[i]);return Math.abs(E[0]+E[1]+E[2]-E[3]);}
 function make(id,settings={},seed=2026){
  const spec=MODES.find(q=>q.id===id);if(!spec)throw Error("Unknown frontier model "+id);
  const p=Object.fromEntries(spec.params.map(([k,,min,max,defaultV])=>[k,clamp(Number.isFinite(Number(settings[k]))?Number(settings[k]):defaultV,min,max)]));
@@ -39,6 +43,9 @@ function make(id,settings={},seed=2026){
  if(id==="vacuum"){state.samples=[];state.meanSq=0;state.count=0;state.shiftX=0;state.shiftP=0;}
  if(id==="inflation"){state.phi=p.field;state.N=0;state.H=Math.sqrt(scalarV(state.phi,p)/3);}
  if(id==="laws"||id==="intervene"){let row=new Uint8Array(w);for(let i=0;i<w;i++)row[i]=rng()<p.density?1:0;row[w>>1]=1;state.rows=[row];if(id==="intervene"){state.reference=row.slice();state.difference=0;state.edits=0;}}
+ if(id==="baryogenesis"){state.X=1;state.Y=0;state.time=0;}
+ if(id==="bell"){state.measured={sum:[0,0,0,0],count:[0,0,0,0],total:0};state.recent=[];state.focus=0;}
+ if(id==="decoherence"){state.time=0;state.phase=0;state.trail=[];}
  if(id==="entropy"){state.particles=Array.from({length:240},()=>({x:.14+rng()*.1,v:(rng()*2-1)*.007*p.speed}));}
  };
  function metric(){
@@ -51,6 +58,9 @@ function make(id,settings={},seed=2026){
   if(id==="gup")return{value:gup(p.beta,p.momentum),unit:"Δx bound",detail:"Hypothetical generalized uncertainty relation"};
   if(id==="unify"){const c=gauge(p.scale,p.db1,p.db2,p.db3);return{value:Math.max(...c)-Math.min(...c),unit:"max−min(1/α)",detail:"Smaller spread means the three gauge couplings are numerically closer"};}
   if(id==="intervene")return{value:state.difference||0,unit:"bit fraction",detail:"Hamming distance between untouched and manually perturbed worlds"};
+  if(id==="baryogenesis")return{value:state.Y,unit:"signed Y proxy",detail:"X="+state.X.toFixed(4)+" · signed asymmetry; not observed cosmological abundance"};
+  if(id==="bell"){const s=bellCHSH(state.measured);return{value:s,unit:"sample CHSH S",detail:"Expected "+(2*Math.SQRT2*p.visibility).toFixed(3)+" · "+state.measured.total+" synthetic pairs · local bound |S|≤2"};}
+  if(id==="decoherence"){const v=Math.exp(-p.gamma*state.time);return{value:v,unit:"normalized coherence",detail:"Purity="+((1+v*v)/2).toFixed(4)+" · pure dephasing only"};}
   if(id==="entropy"){const bins=new Array(12).fill(0);for(const a of state.particles)bins[Math.min(11,Math.floor(a.x*12))]++;let entropy=0;for(const n of bins)if(n>0){const q=n/state.particles.length;entropy-=q*Math.log(q);}return{value:entropy/Math.log(12),unit:"coarse entropy",detail:"Normalized positional Shannon entropy over twelve bins"};}
   return{value:0,unit:"",detail:""};
  }
@@ -61,6 +71,14 @@ function make(id,settings={},seed=2026){
   if(id==="inflation"){for(let i=0;i<4;i++){const H=Math.sqrt(scalarV(state.phi,p)/3),dt=.033;state.phi-=p.mass*p.mass*state.phi/(3*Math.max(H,.01))*dt;state.N+=H*dt;state.H=H;}}
   if(id==="laws"||id==="intervene"){const next=ruleStep(state.rows.at(-1),p.rule);state.rows.push(next);if(state.rows.length>h)state.rows.shift();
    if(id==="intervene"){state.reference=ruleStep(state.reference,p.rule);let diff=0;for(let i=0;i<w;i++)if(state.reference[i]!==next[i])diff++;state.difference=diff/w;}}
+  if(id==="baryogenesis"){const dt=.04;for(let k=0;k<3;k++){const dx=p.rate*state.X*dt;state.X=Math.max(0,state.X-dx);state.Y+=p.epsilon*p.violation*p.departure*dx-p.washout*state.Y*dt;state.time+=dt;}}
+  if(id==="bell"){const angles=[[0,PI/8],[0,-PI/8],[PI/4,PI/8],[PI/4,-PI/8]];
+    for(let i=0;i<4;i++){const [a,b]=angles[i],E=-p.visibility*Math.cos(2*(a-b));for(let j=0;j<p.shots;j++){
+      const A=rng()<.5?-1:1,B=A*(rng()<(1+E)/2?1:-1);state.measured.sum[i]+=A*B;state.measured.count[i]++;state.measured.total++;
+      if(i===state.focus){state.recent.push({A,B});if(state.recent.length>160)state.recent.shift();}
+    }}
+  }
+  if(id==="decoherence"){state.time+=.09;state.phase=p.omega*state.time;const r=Math.exp(-p.gamma*state.time);state.trail.push({x:r*Math.cos(state.phase),y:r*Math.sin(state.phase)});if(state.trail.length>180)state.trail.shift();}
   if(id==="entropy"){for(const particle of state.particles){particle.v=clamp(particle.v+(rng()-.5)*.0015*p.noise,-.03,.03);particle.x=(particle.x+particle.v+1)%1;}}
   const value=metric().value;if(state.step%2===0){state.history.push({t:state.step,y:value});if(state.history.length>380)state.history.shift();}
   return value;
@@ -71,6 +89,9 @@ function make(id,settings={},seed=2026){
   if(id==="laws"){const last=state.rows.at(-1),index=Math.floor(x*w);last[index]^=1;}
   if(id==="intervene"){const last=state.rows.at(-1),index=Math.floor(x*w);last[index]^=1;state.edits++;
    let diff=0;for(let i=0;i<w;i++)if(state.reference[i]!==last[i])diff++;state.difference=diff/w;}
+  if(id==="baryogenesis"){p.epsilon=-.3+.6*x;state.X=1;state.Y=0;state.time=0;state.history=[];state.step=0;}
+  if(id==="bell"){state.focus=Math.min(3,Math.floor(x*4));}
+  if(id==="decoherence"){state.time=0;state.phase=2*PI*x;state.trail=[];state.step=0;state.history=[];}
   if(id==="entropy"){for(const q of state.particles){q.x=clamp(x+(rng()-.5)*.07,0,.999);q.v=(rng()*2-1)*.006*p.speed;}}
   if(id==="tunnel")p.energy=clamp(.2+4.8*x,.2,5);
   if(id==="inflation"){state.phi=.5+3.5*x;state.N=0;state.H=Math.sqrt(scalarV(state.phi,p)/3);state.step=0;state.history=[];}
@@ -82,5 +103,5 @@ function make(id,settings={},seed=2026){
  }
  initial();return{state,step,interact,metric,restart:initial};
 }
-return{MODES,make,seeded,gaussian,ruleStep,shannon,transmission,gup,gauge,correlate,gravityQuantum,scalarV,clamp};
+return{MODES,make,seeded,gaussian,ruleStep,shannon,transmission,gup,gauge,correlate,gravityQuantum,scalarV,bellCHSH,clamp};
 });
