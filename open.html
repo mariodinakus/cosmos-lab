@@ -1,0 +1,36 @@
+<!doctype html><html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COSMOS ∞ — OPEN PROBLEMS / Science Sandbox</title><meta name="theme-color" content="#080e11">
+<meta name="description" content="13 interactive numerical toy models and 31 open questions from physics, mathematics, economics, chemistry, biology and psychology. Educational models, not proofs.">
+<link rel="icon" href="/assets/favicon.ico"><link rel="stylesheet" href="/open.css"></head><body>
+<div class="signal"><span>COSMOS ∞ / OPEN PROBLEMS ATLAS</span><span>31 RESEARCH QUESTIONS · 13 COMPUTABLE TOYS</span></div>
+<header class="mast"><a href="/hub.html" class="brand"><img src="/assets/icon-64.png" alt=""><span>COSMOS<b>∞</b><small>SCIENTIFIC QUESTION ENGINE</small></span></a>
+<nav aria-label="Labs"><a href="/hub.html">ALL LABS</a><a href="/open.html" aria-current="page">OPEN PROBLEMS</a><a href="/radar.html">RECENT PAPERS</a><a href="/reality.html">REALITY ENGINE</a><a href="/frontier.html">FOUNDATIONS</a></nav></header>
+<main>
+<section class="hero"><p class="eyebrow">NEW / CROSS-DISCIPLINARY RESEARCH · INTERACTIVE MODELS</p>
+<h1>WHAT DON'T<br>WE <em>KNOW?</em></h1>
+<p>Ανοιχτά ερωτήματα από τη φυσική, τα μαθηματικά, τα οικονομικά, τη χημεία, τη βιολογία και την ψυχολογία. Δοκίμασε απλά υπολογιστικά μοντέλα για να καταλάβεις *πώς* μπορεί να λειτουργεί ένας μηχανισμός — όχι για να παρουσιάσεις μια εικασία ως επιστημονική λύση.</p>
+<div class="hero-actions"><a class="primary" href="#models">▶ RUN THE MODELS</a><a href="#questions">EXPLORE UNSOLVED QUESTIONS ↗</a></div>
+<div class="hero-stripe"><div><strong>06</strong><span>SCIENTIFIC AREAS</span></div><div><strong>31</strong><span>RESEARCH QUESTIONS</span></div><div><strong>13</strong><span>LIVE TOY MODELS</span></div><div><strong>0</strong><span>CLAIMED SOLUTIONS</span></div></div></section>
+<section class="questions section" id="questions"><div class="heading"><div><p class="eyebrow">01 / OPEN QUESTION INDEX</p><h2>THE QUESTIONS<br>WE CAN'T YET CLOSE.</h2></div><p>Οι επιστημονικά ανοικτές ερωτήσεις δεν είναι όλες προβλήματα μαθηματικής απόδειξης. Κάποιες είναι εμπειρικές ή απαιτούν καλύτερα μοντέλα και μετρήσεις.</p></div>
+<div id="domainTabs" class="domain-tabs" role="group" aria-label="Επιλογή επιστημονικού πεδίου"></div>
+<div class="question-count"><strong id="questionCount">31 ερωτήματα</strong><span>Κατάλογος για εξερεύνηση — όχι κατάταξη δυσκολίας</span></div>
+<div id="questionCards" class="question-cards"></div></section>
+<section class="lab section" id="models"><div class="heading"><div><p class="eyebrow">02 / NUMERICAL RESEARCH WORKBENCH</p><h2>CHANGE THE INPUT.<br>OBSERVE THE OUTPUT.</h2></div><p>Επιλέγεις ένα μοντέλο, αλλάζεις παραμέτρους, τρέχεις το πείραμα, πατάς στο διάγραμμα για παρέμβαση και εξάγεις τα αποτελέσματα.</p></div>
+<div class="lab-layout"><aside class="model-menu"><div class="menu-title">13 / COMPUTABLE WORLDS</div><label for="modelFilter">ΦΙΛΤΡΟ ΜΟΝΤΕΛΩΝ</label><select id="modelFilter"><option value="all">Όλα τα πεδία</option><option value="physics">Φυσική</option><option value="math">Μαθηματικά</option><option value="economics">Οικονομικά</option><option value="chemistry">Χημεία</option><option value="biology">Βιολογία</option><option value="psychology">Ψυχολογία</option></select>
+<div id="modelList" class="model-list"></div><p class="note">Κάθε άσκηση έχει πραγματικό υπολογισμό αλλά περιορισμένες εξισώσεις και παραδοχές.</p></aside>
+<div class="model-workspace"><div class="model-title"><div><span id="modelDomain" class="eyebrow">TOY RESEARCH</span><h3 id="modelTitle">UNIVERSE: ON / OFF</h3><p id="modelDesc"></p></div><div id="modelStatus" class="status-pill">MODEL READY</div></div>
+<div class="toolbar"><button id="play" class="strong-btn">Ⅱ PAUSE</button><button id="step">STEP +1</button><button id="reset">↻ RESET</button><button id="reseed">NEW SEED</button><span>Seed <b id="seedText">2026</b></span></div>
+<div class="viz"><div class="bar"><span>03 / EXPERIMENT VISUALIZATION</span><span>NUMERICAL MODEL · NOT OBSERVATIONAL DATA</span></div>
+<canvas id="world" width="920" height="470" aria-label="Interactive simulation" tabindex="0"></canvas><p id="interactionHelp">Tap or click the model to change its state.</p></div>
+<div class="model-results"><div class="metric"><span>MODEL READOUT</span><strong id="metric">—</strong><small id="metricLabel">Toy diagnostic</small><p id="metricStatus">—</p><div class="step-count">STEP <b id="stepCount">0</b></div></div>
+<div class="timeseries"><div class="bar"><span>04 / NUMERICAL HISTORY</span><span>SEED-DERIVED</span></div><canvas id="chart" width="700" height="240" aria-label="Diagnostic time series"></canvas></div></div>
+<div class="below"><section class="controls"><div class="bar"><span>05 / CHANGE ASSUMPTIONS</span></div><div id="paramControls" class="params"></div><div class="actions"><button id="exportJson">↓ EXPERIMENT JSON</button><button id="exportCsv">↓ DATA CSV</button><button id="share">↗ COPY SEED LINK</button></div><p id="toast" aria-live="polite"></p></section>
+<section class="limits"><div class="bar"><span>06 / SCIENTIFIC INTERPRETATION</span></div><div class="limits-body"><h4>Ο ΥΠΟΛΟΓΙΣΜΟΣ</h4><p id="formula" class="formula"></p><h4>ΤΙ ΠΡΟΣΕΓΓΙΖΕΙ</h4><p id="explainer"></p><h4>ΤΙ ΔΕΝ ΑΠΟΔΕΙΚΝΥΕΙ</h4><p id="disclaimer"></p></div></section></div>
+</div></div></section>
+<section class="evidence section"><p class="eyebrow">03 / RESEARCH CONTEXT</p><h2>REAL QUESTIONS.<br><em>CHECKABLE SOURCES.</em></h2><p>Τα παρακάτω είναι πραγματικά πεδία ενεργής έρευνας. Μια προσομοίωση μπορεί να φωτίσει μια περιορισμένη υπόθεση, αλλά όχι να αντικαταστήσει παρατήρηση, κλινική μελέτη ή μαθηματική απόδειξη.</p>
+<div class="source-grid"><a href="https://www.claymath.org/millennium-problems/" target="_blank" rel="noopener noreferrer"><strong>CLAY MATHEMATICS INSTITUTE</strong><small>Τα προβλήματα του Millennium</small><b>OFFICIAL SOURCE ↗</b></a>
+<a href="https://pubs.rsc.org/en/content/articlehtml/2026/cs/d6cs00079g" target="_blank" rel="noopener noreferrer"><strong>ROYAL SOCIETY OF CHEMISTRY</strong><small>Προκλήσεις στην πρόβλεψη χημικών αντιδράσεων</small><b>RESEARCH REVIEW ↗</b></a>
+<a href="https://link.springer.com/article/10.1007/s11357-025-01964-4" target="_blank" rel="noopener noreferrer"><strong>AGEING RESEARCH</strong><small>Ανοιχτά ερωτήματα για τους μηχανισμούς γήρανσης</small><b>RESEARCH ROADMAP ↗</b></a>
+<a href="https://www.nature.com/articles/s41586-025-08888-1" target="_blank" rel="noopener noreferrer"><strong>NATURE · CONSCIOUSNESS</strong><small>Αντιπαραθετικός πειραματικός έλεγχος θεωριών συνείδησης</small><b>ORIGINAL PAPER ↗</b></a></div></section>
+</main><footer><span>COSMOS ∞ / OPEN PROBLEMS</span><span>TOY STATE ≠ REALITY · SIMULATION ≠ PROOF</span><a href="/hub.html">ALL LABS ↗</a></footer>
+<script src="/open-core.js"></script><script src="/open.js"></script></body></html>
