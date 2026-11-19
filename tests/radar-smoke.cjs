@@ -31,6 +31,33 @@ assert(analysis.caveat.includes("preprints"));
 assert(analysis.caveat.includes("κβαντική βαρύτητα"));
 assert(analysis.basis.includes("abstract"));
 assert(analysis.status.includes("PREPRINT"));
+
+const detailedSample={
+ kind:"paper",source:"arXiv",topic:"gravity",
+ title:"Not all black holes decohere quantum superpositions",
+ abstract:"We study the decoherence induced by near-extremal charged black holes on quantum systems in their exterior. Specifically, we analyze a thought experiment where a charged particle is prepared in a spatial superposition. We show that, at late times, if the black hole is sufficiently close to extremality, these quantum gravity effects make the decoherence rate vanish. This phenomenon is due to a spin-induced energy gap in the quantum black hole spectrum. However, these results are limited to a specified near-extremal regime."
+};
+const expanded=R.summaryBreakdown(detailedSample);
+assert(expanded.intro.includes("θεωρητική"),"thought experiment must not be described as a measured discovery");
+assert(expanded.objective.includes("We study the decoherence"),"study objective should come from source");
+assert(expanded.method.includes("thought experiment"),"methods should be source-specific");
+assert(expanded.finding.includes("decoherence rate vanish"),"specific finding must be retained");
+assert(expanded.finding.includes("energy gap"),"explanatory follow-up should be retained");
+assert(expanded.actualLimit.includes("limited to"),"explicit source limitation retained");
+assert(expanded.terms.some(x=>x.name==="Αποσυνοχή"),"glossary for discipline terms");
+assert(!expanded.finding.includes("confirmed by NASA"),"do not invent independent confirmation");
+assert(!expanded.finding.includes("Εφόσον"),"finding field should not contain invented generic inferences");
+const limited=R.summaryBreakdown({kind:"paper",topic:"quantum",title:"New mathematical approach",abstract:"We present a mathematical relation. Details are reserved for a subsequent publication."});
+assert(limited.finding.includes("Δεν εντοπίζεται"),"lack of explicit results must be acknowledged");
+assert(limited.actualLimit.includes("Δεν διατυπώνεται"),"missing explicit limitation must be acknowledged");
+assert(limited.quality.includes("σύντομο"),"incomplete source must not appear comprehensive");
+const shortCard=fs.readFileSync(path.join(root,"radar.js"),"utf8");
+assert(shortCard.includes("meta.expanded"),"UI must use source-specific breakdown");
+assert(shortCard.includes("ΜΕ ΑΠΛΑ ΛΟΓΙΑ"),"Greek contextual reading");
+assert(shortCard.includes("ΠΩΣ ΤΟ ΕΞΕΤΑΣΑΝ"),"methodology in detail");
+assert(shortCard.includes("ΠΕΡΙΟΡΙΣΜΟΙ ΠΟΥ ΑΝΑΦΕΡΕΙ"),"source limitations in detail");
+assert(!shortCard.includes("innerHTML"),"Never inject paper HTML");
+
 const np=R.explain(news[0]);assert(np.caveat.includes("ανακοίνωση"));
 assert.equal(Object.keys(R.TOPICS).length,6);
 const page=fs.readFileSync(path.join(root,"radar.html"),"utf8");
