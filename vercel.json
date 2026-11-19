@@ -26,6 +26,10 @@
     {
       "source": "/toybox",
       "destination": "/toybox.html"
+    },
+    {
+      "source": "/frontier",
+      "destination": "/frontier.html"
     }
   ]
 }
