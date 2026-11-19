@@ -1,5 +1,41 @@
 # COSMOS LAB — The Mathematical Universe
 
+## Toy Universe — 15 playable scientific models
+
+Live: **[cosmos-lab-v3.vercel.app/toybox.html](https://cosmos-lab-v3.vercel.app/toybox.html)**. The models are standalone, browser-run approximations. Nothing is sent to a remote computation service.
+
+### Worlds
+
+1. Wave Universe — finite-difference 2D wave pulses and obstacles.
+2. Heat Diffusion — stable explicit diffusion and injection of positive/negative heat.
+3. Game of Life — editable B3/S23 cellular automata.
+4. Langton's Ant — discrete ant turns and binary tile flips.
+5. Sandpile Avalanches — bounded finite-pass Abelian sandpile simulation.
+6. Percolation Threshold — seeded site percolation and edge-connected cluster finding.
+7. Flocking Intelligence — simplified Boids-type agents with alignment, cohesion and separation.
+8. Field Architect — softened electrostatic charges with passive animated tracer paths.
+9. Synchronization — Kuramoto oscillator network with mean-field coherence.
+10. Hénon Attractor — nonlinear quadratic map and attractor trajectories.
+11. Epidemic Networks — synthetic stochastic SIR on fixed spatial contact graph (not a forecast).
+12. Orbital Architect — test particles around a stationary central mass, velocity Verlet.
+13. Fourier Composer — moving sum of configurable harmonics.
+14. Crystal Growth — diffusion-limited aggregation on a bounded lattice.
+15. Newton Fractal — basins of attraction for Newton's method on `z³−1`.
+
+### Play controls
+
+- Click/tap the physics canvas to inject a disturbance, charge, grain, infected node, trajectory, or starting point; actions depend on the selected model.
+- Hold Shift or right-click for alternate controls; on mobile, use the **ALT ACTION** toggle.
+- Pause, resume, step one tick, reset, reseed, change simulation speed and adjust model parameters within bounded ranges.
+- The lower graph measures a model-specific numerical statistic; **SAVE RUN** stores up to 15 run records in this browser's local storage and **COMPARE SAVED RUN** draws the saved run in dashed white against the current cyan trace.
+- Export CSV, JSON or a composite PNG; copy an initial-setup URL. A URL reproduces parameters and seeded initialization, **not** manual canvas interactions.
+- `toy-core.js` holds the portable seeded numerical engines. `toybox.js` and `toybox.css` render the workspace; `tests/toy_smoke.cjs` and `.github/workflows/toy-validation.yml` check the package.
+
+### Scientific limitations
+
+Simplified and normalized toy systems. Some use finite grids, discrete time, softening, imposed constraints and approximate boundary conditions; they are not experimental measurements or rigorous numerical convergence guarantees. Interaction and plotted metrics are numerical estimates. A stochastic agent model is not a medical or epidemiological forecast. "Newton fractal" displays convergence under chosen iterations and finite precision, not infinite zoom.
+
+
 ## Chaos Forge — interactive nonlinear mathematics
 
 Launch **[/chaos.html](https://cosmos-lab-v3.vercel.app/chaos.html)** (or `/chaos`).
