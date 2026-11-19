@@ -1,5 +1,32 @@
 # COSMOS LAB — The Mathematical Universe
 
+## COSMOS ∞ — Open Problems Atlas (13 more numerical toy models)
+
+**Web page / Android WebView:** https://cosmos-lab-v3.vercel.app/open.html (after Vercel production deployment).
+This adds the **10th connected workspace**, with **31 curated open research questions across 6 disciplines** and **13 running scientific toys**. Existing 41 numerical models remain unchanged: the All Labs hub now lists **54 model links** in total.
+
+### Fields and 13 simulations
+- **Physics (1):** formal stochastic "Universe: ON/OFF" activation. The words "universe exists" refer **solely to an artificial binary state**. It does **not** model cosmic genesis from absolute nothing or metaphysical existence.
+- **Mathematics (1):** Collatz trajectory explorer. Finite computation does not prove the conjecture.
+- **Economics (1):** bank network contagion with capital thresholds, exposures, density and exogenous default. No real financial data or crisis probabilities.
+- **Chemistry (3):** Gray–Scott reaction-diffusion field, simplified autocatalytic reaction network, 1D stochastic molecular energy landscape. No general reaction prediction, catalyst discovery, protein folding or creation of life.
+- **Biology (3):** Lotka–Volterra ecosystem toy, Wright–Fisher genetic drift, abstract cell damage versus repair. No real biology solver, diagnosis or anti-aging therapy claim.
+- **Psychology (4):** drift–diffusion decisions, two-choice reinforcement learning, exponential memory/interference, threshold global broadcast. None simulates subjective experience, diagnoses disorders or establishes a consciousness theory.
+
+Every toy has parameter sliders, live canvas, computed metric and history, click/touch perturbations, Play/Pause/Step/Reset, deterministic seed selection and CSV/JSON export. The common model directory and navigation include this field. The open.html lab is responsive and accessible from the existing Android WebView APK with no APK rebuild.
+
+**Science provenance (background, not validation of these toy implementations):**
+- [Clay Mathematics Institute — Millennium Problems](https://www.claymath.org/millennium-problems/)
+- [Royal Society of Chemistry (2026) — reaction outcome prediction](https://pubs.rsc.org/en/content/articlehtml/2026/cs/d6cs00079g)
+- [Open problems in ageing science (2025)](https://link.springer.com/article/10.1007/s11357-025-01964-4)
+- [Nature (2025) adversarial tests of theories of consciousness](https://www.nature.com/articles/s41586-025-08888-1)
+- [Progress and persistent questions in origin of life (2026)](https://link.springer.com/article/10.1007/s11084-026-09753-5)
+
+**Computational validation:** node tests/open-smoke.cjs and node tests/hub-smoke.cjs. Workflow: .github/workflows/open-validation.yml. These test deterministic numerical implementations, not the truth of the scientific hypotheses. Do not infer real laboratory outcomes from the simulations.
+
+The earlier request for **Greek translations of paper abstracts** is a separate feature and requires a translation service or verified bilingual workflow. Do not claim that original English excerpts have been accurately translated until that feature is implemented.
+
+
 > **Workspace status:** Core development — COSMOS LAB.
 >
 > **Core projects:** [NBA Atlas](https://github.com/mariodinakus/sideline-sports) · [AXON](https://github.com/mariodinakus/axon) · [MONO](https://github.com/mariodinakus/monokairos) · [PAX](https://github.com/mariodinakus/world-faultline/tree/main/pax) · [COSMOS LAB](https://github.com/mariodinakus/cosmos-lab).
