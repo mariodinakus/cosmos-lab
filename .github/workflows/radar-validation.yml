@@ -1,0 +1,32 @@
+name: Research Radar integrity
+on:
+  push:
+    paths:
+      - 'radar-core.js'
+      - 'radar.js'
+      - 'radar.css'
+      - 'radar.html'
+      - 'radar-preview.js'
+      - 'api/radar.js'
+      - 'tests/radar-smoke.cjs'
+      - '.github/workflows/radar-validation.yml'
+  pull_request:
+    paths:
+      - 'radar-core.js'
+      - 'radar.js'
+      - 'radar.css'
+      - 'radar.html'
+      - 'radar-preview.js'
+      - 'api/radar.js'
+      - 'tests/radar-smoke.cjs'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/radar-smoke.cjs
