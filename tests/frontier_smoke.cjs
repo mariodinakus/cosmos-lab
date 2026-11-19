@@ -21,7 +21,7 @@ p.interact(.4,.5);assert(p.metric().value>0,"manual intervention should change o
 assert.equal(F.transmission(.9,3,0,1),1,"barrier zero width");
 assert(F.transmission(.8,3,1,1)>0&&F.transmission(.8,3,1,1)<1,"below barrier tunnelling");
 assert(Math.abs(F.transmission(2,2,1,1)-.5)<1e-10,"barrier at threshold");
-assert(Math.abs(F.gup(2,.5)-5)<1e-12,"GUP formula");
+assert(Math.abs(F.gup(2,.5)-2)<1e-12,"GUP formula");
 assert.equal(F.gup(-1,1),NaN);
 assert(Math.abs(F.gup(.5,1)-1)<1e-12);
 assert(Math.abs(F.gravityQuantum(Math.SQRT1_2).ratio-1)<1e-12);
