@@ -38,6 +38,14 @@
     {
       "source": "/reality",
       "destination": "/reality.html"
+    },
+    {
+      "source": "/hub",
+      "destination": "/hub.html"
+    },
+    {
+      "source": "/all",
+      "destination": "/hub.html"
     }
   ]
 }
