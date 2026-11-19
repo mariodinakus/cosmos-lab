@@ -47,7 +47,7 @@ const QUESTIONS=[
 ["psychology","Πώς ελέγχονται οι ανταγωνιστικές θεωρίες συνείδησης;","Χρειάζονται προδιαγεγραμμένες, διακριτές και εμπειρικά ελέγξιμες προβλέψεις.","workspace"]
 ].map(([domain,title,description,model=null,link=null],i)=>({id:"q"+i,domain,title,description,model,link}));
 const SPECS=[
-{id:"universe",domain:"physics",title:"UNIVERSE: ON / OFF",description:"Στο toy «υπάρχει» ενεργή κατάσταση μόνο αν ξεπεραστεί ένα κατώφλι εκκίνησης.",formula:"P(ON by t)=1−(1−p)^t",params:[["chance","Πιθανότητα ενεργοποίησης",.001,.2,.03,.001],["threshold","Κατώφλι δραστηριότητας",.05,1,.45,.05]],limit:"ON/OFF είναι συμβολική μεταβλητή προσομοίωσης. Δεν αναπαριστά πραγματική δημιουργία από το τίποτα ή την ύπαρξη του Σύμπαντος.",mode:"status"},
+{id:"universe",domain:"physics",title:"UNIVERSE: ON / OFF",description:"Στο toy «υπάρχει» ενεργή κατάσταση μόνο αν ξεπεραστεί ένα κατώφλι εκκίνησης.",formula:"P(ON by t)=1−(1−p_eff)^t, p_eff=p(1−θ)",params:[["chance","Πιθανότητα ενεργοποίησης",.001,.2,.03,.001],["threshold","Κατώφλι δραστηριότητας",.05,1,.45,.05]],limit:"ON/OFF είναι συμβολική μεταβλητή προσομοίωσης. Δεν αναπαριστά πραγματική δημιουργία από το τίποτα ή την ύπαρξη του Σύμπαντος.",mode:"status"},
 {id:"collatz",domain:"math",title:"COLLATZ EXPLORER",description:"Έλεγξε μια τροχιά ακεραίων και δες αν φτάνει στο 1.",formula:"n → n/2 (άρτιος), 3n+1 (περιττός)",params:[["n","Αρχικός ακέραιος",5,999,27,1]],limit:"Μία ή εκατομμύρια επιτυχημένες τροχιές δεν αποδεικνύουν την εικασία για όλους τους θετικούς ακεραίους.",mode:"sequence"},
 {id:"contagion",domain:"economics",title:"BANK CONTAGION",description:"Δίκτυο τραπεζών με έκθεση σε ορισμένους αντισυμβαλλομένους και κεφαλαιακά όρια.",formula:"defaultᵢ = 1{lossᵢ > equityᵢ}",params:[["capital","Όριο κεφαλαίου",.03,.35,.14,.01],["exposure","Διατραπεζική έκθεση",.05,.5,.22,.01],["density","Πυκνότητα δικτύου",.15,.9,.45,.05]],limit:"Ο απλοποιημένος μηχανισμός δεν αναπαριστά ρευστότητα, εποπτεία, συμπεριφορά καταθετών ή πραγματικά τραπεζικά δεδομένα.",mode:"network"},
 {id:"reaction",domain:"chemistry",title:"REACTION–DIFFUSION",description:"Μοτίβα Gray–Scott από δύο υποθετικές χημικές ουσίες που αντιδρούν και διαχέονται.",formula:"∂U=Dᵤ∇²U−UV²+F(1−U); ∂V=Dᵥ∇²V+UV²−(F+k)V",params:[["feed","Τροφοδοσία F",.01,.08,.036,.001],["kill","Απομάκρυνση k",.03,.075,.061,.001],["diff","Σχετική διάχυση",.2,.9,.5,.05]],limit:"Μόνο πρότυπο αντίδρασης–διάχυσης σε πλέγμα· δεν προβλέπει προϊόντα πραγματικών αντιδράσεων, καταλύτες ή τη δημιουργία ζωής.",mode:"field"},
@@ -99,7 +99,7 @@ function create(id,custom={},seed=2026){const spec=BY_ID[id];if(!spec)throw Erro
  }
  function step(){
  s.t++;
- if(id==="universe"){if(!s.active&&random()<p.chance)s.active=true;if(s.active)s.energy=clamp(s.energy+.05*(1-s.energy),0,1);}
+ if(id==="universe"){if(!s.active&&random()<p.chance*(1-p.threshold))s.active=true;if(s.active)s.energy=clamp(s.energy+.05*(1-s.energy),0,1);}
  else if(id==="collatz"){if(!s.finished){const n=s.value,nn=n%2===0?n/2:3*n+1;if(!Number.isSafeInteger(nn)){s.finished=true;s.stoppedForPrecision=true;}else{s.value=nn;s.max=Math.max(s.max,nn);s.sequence.push(nn);if(nn===1)s.finished=true;}}}
  else if(id==="contagion"){const failedNow=new Set(s.banks.map((b,i)=>b.failed?i:-1).filter(i=>i>=0)),loss=Array(12).fill(0);
  for(const e of s.links){if(failedNow.has(e.i))loss[e.j]+=e.w;if(failedNow.has(e.j))loss[e.i]+=e.w;}
