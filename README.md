@@ -1,5 +1,31 @@
 # COSMOS LAB — The Mathematical Universe
 
+## Frontier Questions — foundational physics & the limits of explanation
+
+Interactive lab: **https://cosmos-lab-v3.vercel.app/frontier.html**
+
+Ten real computational toy models, animated diagrams and model-specific measurement plots:
+
+1. **Quantum vacuum, not absolute nothing** — normalized harmonic oscillator ground-state Wigner samples; the physical vacuum presupposes quantum laws.
+2. **Tunnelling and cosmological analogy** — rectangular Schrödinger barrier transmission. This does *not* generate a Universe.
+3. **Inflation-inspired slow-roll** — scalar potential, evolving φ, H and e-folds; chosen initial conditions and law are presupposed.
+4. **Why these laws?** — all 256 elementary cellular automaton rules and row Shannon entropy; behavior is conditional on the rule.
+5. **Correlation geometry analogy** — equilibrium 1D Ising spin-chain correlations and d_eff(r)=−ln(C(r)); not emergent quantum spacetime.
+6. **Schwarzschild–Compton crossover** — dimensionless gravitational and quantum length comparison, not a quantum-gravity theory.
+7. **Generalized uncertainty toy** — β-modified uncertainty relation (speculative); unknown whether physical minimal length exists.
+8. **Gauge unification** — Standard Model one-loop inverse gauge couplings in SU(5) hypercharge normalization; optional hypothetical changes in beta-function coefficients above 10¹⁰ GeV; excludes gravity and threshold/two-loop effects.
+9. **Laws without repeated intervention** — two Rule-110 universes with the same initial state; click to perturb one; does not decide any theological question.
+10. **Entropy and time's arrow** — biased initial positions and randomized particle mixing; not a microscopic derivation of irreversibility.
+
+Scientific reference context: [Stanford Encyclopedia of Philosophy — Philosophy of Cosmology](https://plato.stanford.edu/entries/cosmology/); [CERN lecture on gauge coupling unification](https://indico.cern.ch/event/84560/attachments/1075209/1533472/eberl_PiP10.pdf); [PTEP 2016 on running gauge couplings](https://academic.oup.com/ptep/article/2016/4/043B02/2461130).
+
+**Controls:** parameter sliders, play/pause, one numerical step, reseed, click on the visualizer, CSV/JSON/PNG export and shareable initial-setup URLs. An interactive philosophy panel compares physical explanation, theistic interpretation, naturalism and agnosticism without assigning fake likelihoods. A "What is nothing?" selector explicitly prevents attempting to simulate absolute nothing.
+
+**Validation:** \`node tests/frontier_smoke.cjs\`. UI code and numeric engine are separate: \`frontier.js\`, \`frontier-core.js\`, \`frontier.html\`, \`frontier.css\`. Front-end executes locally in the browser, with no external data transmission from this lab.
+
+The unanswered questions remain **unanswered**. A successful toy simulation establishes only what follows from a chosen model; it cannot derive its own ontological assumptions from nonexistence.
+
+
 ## Toy Universe — 15 playable scientific models
 
 Live: **[cosmos-lab-v3.vercel.app/toybox.html](https://cosmos-lab-v3.vercel.app/toybox.html)**. The models are standalone, browser-run approximations. Nothing is sent to a remote computation service.
