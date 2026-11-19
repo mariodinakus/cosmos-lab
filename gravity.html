@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#080e11"/><meta name="description" content="Quantum Gravity Playground: interact with quantum entanglement networks, causal orders and Page-curve-inspired pure-state entropy models. Explicit mathematical assumptions and limits."/>
+<title>COSMOS LAB — Quantum Gravity Playground</title>
+<link rel="icon" href="/assets/favicon.ico"/><link rel="apple-touch-icon" href="/assets/icon-180.png"/><link rel="stylesheet" href="/gravity.css"/>
+</head><body>
+<div class="ticker"><span>COSMOS LAB / THE FRONTIER OF SPACETIME</span><span>SIMULATE · PERTURB · COMPARE · VERIFY</span></div>
+<header class="mast"><a class="brand" href="/"><img src="/assets/icon-64.png" alt="COSMOS LAB"/><span>COSMOS<b>.</b><small>THE MATHEMATICAL UNIVERSE</small></span></a>
+<nav aria-label="COSMOS LAB navigation"><a href="/">ATLAS</a><a href="/toybox.html">TOY UNIVERSE</a><a href="/chaos.html">CHAOS</a><a href="/frontier.html">FRONTIER</a><a href="/gravity.html" class="active">QUANTUM GRAVITY</a></nav></header>
+<main>
+<section class="hero"><div class="hero-copy"><div class="kicker">EXPERIMENTAL PHYSICS LAB / 3 FOUNDATIONAL TOYS</div><h1>CAN SPACE<br/><em>EMERGE?</em></h1>
+<p>Build an entanglement network. Edit its links. Sprinkle spacetime events. Reconstruct a Page-shaped radiation entropy curve from pure entangled pairs. Watch the mathematics react — and see exactly what it does <strong>not</strong> prove.</p>
+<div class="hero-actions"><a class="primary" href="#lab">▶ ENTER THE PLAYGROUND</a><a href="#model-limits">THE SCIENCE & LIMITS ↗</a></div></div>
+<div class="hero-art" aria-hidden="true"><svg viewBox="0 0 500 420"><g stroke="#00d4e8" stroke-width="1.4" opacity=".65" fill="none"><path d="M44 220L126 66L251 40L384 92L452 210L382 335L253 374L121 333Z"/><path d="M44 220L251 40L382 335L126 66L452 210L121 333L384 92L253 374Z"/><circle cx="250" cy="207" r="157" stroke-dasharray="5 9"/><circle cx="250" cy="207" r="103" stroke="#ffffff" opacity=".45"/></g><g fill="#00d4e8"><circle cx="44" cy="220" r="7"/><circle cx="126" cy="66" r="7"/><circle cx="251" cy="40" r="7"/><circle cx="384" cy="92" r="7"/><circle cx="452" cy="210" r="7"/><circle cx="382" cy="335" r="7"/><circle cx="253" cy="374" r="7"/><circle cx="121" cy="333" r="7"/></g><circle cx="250" cy="207" r="15" fill="#fff"/></svg><span>Entanglement ≠ confirmed spacetime</span></div></section>
+<div class="metric-strip"><div><strong>03</strong><small>CONNECTED TOY WORLDS</small></div><div><strong>LIVE</strong><small>COMPUTED ANIMATIONS</small></div><div><strong>EXACT</strong><small>WITHIN SPECIFIED TOYS</small></div><div><strong>OPEN</strong><small>THE ACTUAL RESEARCH PROBLEM</small></div></div>
+<section class="lab" id="lab"><aside class="sidebar"><div class="sidebar-top"><span>01 / CHOOSE A WORLD</span><strong>3</strong></div>
+<div id="modeList" class="mode-list"></div>
+<div class="sidebar-note"><strong>WHAT YOU ARE TESTING</strong><p>Conditional mathematical toy models. None derives general relativity, solves the black-hole information paradox, proves ER=EPR, or demonstrates a fundamental theory of spacetime.</p></div>
+</aside>
+<div class="workspace">
+<div class="experiment-head"><div><div id="modelTag" class="kicker">QUANTUM LINKS</div><h2 id="modelTitle">ENTANGLEMENT BUILDS A TOY GEOMETRY</h2><p id="modelQuestion">Can entanglement define effective distances?</p></div><span class="run-badge" id="runStatus">● RUNNING</span></div>
+<div class="toolstrip"><button id="playButton" class="primary">Ⅱ PAUSE</button><button id="stepButton">STEP +1</button><button id="resetButton">↻ RESET</button><button id="reseedButton">⤨ RESEED</button>
+<label for="speedInput">SPEED <input id="speedInput" type="range" min=".25" max="6" step=".25" value="1"/><output id="speedValue">1.00×</output></label></div>
+<section class="world-panel"><div class="panel-top"><span>02 / EXPERIMENT SURFACE</span><span>CLICK · REARRANGE · WATCH</span></div>
+<canvas id="worldCanvas" width="1100" height="600" tabindex="0" aria-label="Scientific visualization interactive canvas"></canvas><div class="world-hint"><span id="modelHelp">Click nodes to change your selected region.</span><span id="liveHint">MATHEMATICAL TOY · NO OBSERVATIONAL DATA</span></div>
+</section>
+<div class="analytics"><section class="chart-panel"><div class="panel-top"><span>03 / LIVE QUANTITATIVE DIAGNOSTIC</span><span id="chartLegend">CURRENT RUN</span></div><canvas id="chartCanvas" width="1100" height="320" aria-label="Live model diagnostic chart"></canvas><div class="chart-hint">Cyan: current state · White dashed: saved run or mathematical comparison, where shown.</div></section>
+<section class="readouts"><span class="kicker">MODEL MEASUREMENT</span><strong id="mainValue">—</strong><small id="mainUnit">bits</small><p id="mainDetail">Calculated from the active mathematical model.</p>
+<div class="readout-grid"><div><small>TIME STEP</small><strong id="stepCount">0</strong></div><div><small>RANDOM SEED</small><strong id="seedCount">2026</strong></div></div>
+<div class="secondary-value" id="secondaryValue">—</div></section></div>
+<div class="lower"><section class="params-panel"><div class="panel-top"><span>04 / ALTER THE ASSUMPTIONS</span><span>BOUNDED PARAMETERS</span></div><div id="paramList" class="params"></div>
+<div class="preset-controls"><button id="presetClean">BALANCED PRESET</button><button id="presetSparse">WEAK / SPARSE PRESET</button></div>
+</section><section class="explanation"><div class="panel-top"><span>05 / WHAT THE MODEL MEANS</span><span>READ THE LIMITS</span></div>
+<code id="formulaText">S(A)=Σ H₂(p)</code><h3>WHAT THIS CALCULATES</h3><p id="whatText">An exact result in an assumed model.</p>
+<h3>WHAT IT DOES NOT DEMONSTRATE</h3><p id="limitText">A toy result is not physical evidence for quantum gravity.</p>
+<div class="export-row"><button id="saveRun">☆ SAVE A</button><button id="compareRun">⇆ COMPARE B</button><button id="downloadCsv">↓ CSV</button><button id="downloadJson">↓ JSON</button><button id="downloadPng">↓ PNG</button><button id="copyLink">↗ SHARE</button></div>
+<div id="statusText" class="status" role="status" aria-live="polite"></div></section></div>
+</div></section>
+<section id="model-limits" class="truth"><div><span class="kicker">THE CRITICAL QUESTION</span><h2>WHAT WOULD<br/>ACTUALLY COUNT AS<br/><em>DISCOVERY?</em></h2><p>A scientific theory must explain existing observations, make testable predictions and survive attempts to falsify them. These experiments show the internal behavior of deliberately chosen equations — not a new theory of gravity.</p></div>
+<div class="truth-grid"><article><strong>01 / EXACT IN THE TOY</strong><p>Entropy of independent pure entangled pairs, shortest paths in a graph and causal relations inside a prescribed spacetime are mathematically well defined.</p></article><article><strong>02 / HEURISTIC, NOT DERIVED</strong><p>Calling graph distances “geometry” or a rematched pair entropy a “Page curve” is a useful analogy, not a derivation of Einstein equations or black-hole evaporation.</p></article><article><strong>03 / THE RESEARCH FRONTIER</strong><p>Holographic entanglement, causal sets, black-hole information and microscopic spacetime remain active research areas. This laboratory keeps their assumptions visible.</p></article></div></section>
+<section class="references"><div class="kicker">READ THE SCIENCE / ORIGINAL AND REVIEW RESEARCH</div><h2>BUILT TO QUESTION.</h2><div class="references-grid">
+<a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/hep-th/0603001"><strong>RYU–TAKAYANAGI</strong><span>Holographic derivation of entanglement entropy. This toy is not an AdS/CFT solution.</span><b>OPEN RESEARCH ↗</b></a>
+<a target="_blank" rel="noopener noreferrer" href="https://link.springer.com/article/10.1007/s41114-019-0023-1"><strong>CAUSAL SETS</strong><span>Review of causal order approaches to quantum gravity.</span><b>OPEN RESEARCH ↗</b></a>
+<a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/hep-th/9306083"><strong>BLACK HOLE INFORMATION</strong><span>Page's information-theoretic approach to the radiation problem.</span><b>OPEN RESEARCH ↗</b></a>
+</div></section></main>
+<footer><span>COSMOS LAB / QUANTUM GRAVITY PLAYGROUND</span><span>COMPUTATION ≠ PROOF OF QUANTUM GRAVITY</span><a href="/frontier.html">MORE FUNDAMENTAL QUESTIONS ↗</a></footer>
+<script src="/gravity-core.js"></script><script src="/gravity.js"></script></body></html>
