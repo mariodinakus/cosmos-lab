@@ -6,7 +6,7 @@ assert.equal(new Set(T.MODES.map(m=>m.id)).size,T.MODES.length);
 assert(Math.abs(T.newtonPoint(.7,.1,30).x-1)<1e-4);
 assert.equal(T.newtonPoint(.7,.1,30).root,0);
 assert.equal(T.newtonPoint(-.5,.86,30).root,1);
-assert.deepEqual(Array.from({length:10},()=>T.seeded(42)()).slice(0,0),[]);
+const rngA=T.seeded(42),rngB=T.seeded(42);for(let i=0;i<20;i++)assert.equal(rngA(),rngB(),"Seeded random values must match");
 for(const spec of T.MODES){
  const a=T.create(spec.id,{},1234),b=T.create(spec.id,{},1234);
  assert(spec.params.length>=1, spec.id+" missing params");
