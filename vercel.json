@@ -22,6 +22,10 @@
     {
       "source": "/chaos",
       "destination": "/chaos.html"
+    },
+    {
+      "source": "/toybox",
+      "destination": "/toybox.html"
     }
   ]
 }
