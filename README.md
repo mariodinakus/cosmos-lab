@@ -13,7 +13,7 @@ The installed COSMOS Android APK opens the All Labs hub, therefore this website 
 - Bookmarks stored locally in the device WebView; real paper titles previewed in the All Labs hub.
 
 ### Important scientific interpretation limits
-Every item displays (1) a source excerpt, (2) a strictly conditional interpretation of what it might imply if confirmed, (3) what is NOT established. A new preprint is NOT a confirmed discovery. News announcements need not represent peer-reviewed papers.
+Every item now displays (1) a brief Greek context and explicit study-type qualification, (2) the most relevant original **result sentences** from the abstract, (3) a conditional implication and what remains unproven, plus (4) an expandable source-derived research question, method, any explicitly stated limitations, key-terms glossary and original abstract. Original passages remain in the source language rather than pretending to provide a verified translation. A new preprint is NOT a confirmed discovery. News announcements need not represent peer-reviewed papers.
 
 The implication is a **predefined, cautious, topic-specific text heuristic** and NOT independent AI full-paper reading, paper fact-checking or translation. Original abstracts remain in English when published in English. No invented citations, discoveries, probabilities or peer-review claims. When feeds fail, the UI shows a transparent error instead of synthetic news.
 
