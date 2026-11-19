@@ -40,7 +40,7 @@ function card(item){const meta=R.explain(item),article=el("article","paper");
  addSection(deep,"actual-limit","ΠΕΡΙΟΡΙΣΜΟΙ ΠΟΥ ΑΝΑΦΕΡΕΙ ΤΟ ΚΕΙΜΕΝΟ",expanded.actualLimit||"Δεν προσδιορίζονται στο διαθέσιμο abstract.");
  if(expanded.terms?.length){
  const terms=el("div","glossary"),heading=el("strong","","ΒΑΣΙΚΟΙ ΟΡΟΙ ΜΕ ΑΠΛΑ ΛΟΓΙΑ");terms.appendChild(heading);
- for(const term of expanded.terms){const p=el("p",""),title=el("b","",term.name+" — ");p.append(title,document.createTextNode(term.definition));terms.appendChild(p);}
+ for(const term of expanded.terms){const p=el("p","",term.name+" — "+term.definition);terms.appendChild(p);}
  deep.appendChild(terms);
  }
  const original=el("details","original-abstract"),origTitle=el("summary","","Διάβασε το πλήρες διαθέσιμο abstract / απόσπασμα");
