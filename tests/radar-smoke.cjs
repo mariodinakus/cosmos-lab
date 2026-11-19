@@ -76,7 +76,7 @@ assert(!js.includes("innerHTML"),"Source data must be inserted as text, never un
 for(const f of ["index.html","hub.html","reality.html","studio.html","observatory.html","chaos.html","toybox.html","frontier.html","gravity.html"])
  assert(fs.readFileSync(path.join(root,f),"utf8").includes('href="/radar.html"'),"Navigation missing: "+f);
 const hub=fs.readFileSync(path.join(root,"hub.html"),"utf8");
-assert(hub.includes('id="radarPreviewItems"')&&hub.includes("09</strong>"),"Hub preview or nine workspace count missing");
+assert(hub.includes('id="radarPreviewItems"')&&hub.includes("10</strong>"),"Hub preview or ten workspace count missing");
 const config=JSON.parse(fs.readFileSync(path.join(root,"vercel.json"),"utf8"));
 assert(config.rewrites.some(r=>r.source==="/radar"&&r.destination==="/radar.html"));
 console.log("PASS Research Radar: Atom and RSS metadata, source distinction, cautious implications, security, UI, navigation");
