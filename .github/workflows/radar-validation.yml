@@ -9,6 +9,7 @@ on:
       - 'radar-preview.js'
       - 'api/radar.js'
       - 'tests/radar-smoke.cjs'
+      - 'tests/radar-api-smoke.cjs'
       - '.github/workflows/radar-validation.yml'
   pull_request:
     paths:
@@ -30,3 +31,4 @@ jobs:
         with:
           node-version: '22'
       - run: node tests/radar-smoke.cjs
+      - run: node tests/radar-api-smoke.cjs
