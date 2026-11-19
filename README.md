@@ -1,5 +1,14 @@
 # COSMOS LAB — The Mathematical Universe
 
+> **Workspace status:** Core development — COSMOS LAB.
+>
+> **Core projects:** [NBA Atlas](https://github.com/mariodinakus/sideline-sports) · [AXON](https://github.com/mariodinakus/axon) · [MONO](https://github.com/mariodinakus/monokairos) · [PAX](https://github.com/mariodinakus/world-faultline/tree/main/pax) · [COSMOS LAB](https://github.com/mariodinakus/cosmos-lab).
+>
+> **Active supporting products:** [EFIMERIA ONE](https://github.com/mariodinakus/efimeria-one) · [AOTH](https://github.com/mariodinakus/aoth).
+>
+> **Research hub:** [Interactive labs](https://cosmos-lab-v3.vercel.app/hub.html) · [Research Radar](https://cosmos-lab-v3.vercel.app/radar.html). Research Radar summaries distinguish original paper findings from speculative implications.
+
+
 ## Research Radar — live papers, scientific news and cautious implications
 
 **Website and Android shell:** https://cosmos-lab-v3.vercel.app/radar.html
