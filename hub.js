@@ -1,10 +1,10 @@
 /* COSMOS HUB: no external network calls, just navigation of source-verified models. */
 (()=>{"use strict";
 const models=window.COSMOS_HUB_MODELS;
-if(!Array.isArray(models)||models.length!==41)throw Error("Catalog unavailable or incomplete");
+if(!Array.isArray(models)||models.length!==54)throw Error("Catalog unavailable or incomplete");
 const $=id=>document.getElementById(id);
 let group="all",search="";
-const groups={toy:"TOY UNIVERSE",frontier:"FRONTIER QUESTIONS",gravity:"QUANTUM GRAVITY",reality:"REALITY ENGINE"};
+const groups={toy:"TOY UNIVERSE",frontier:"FRONTIER QUESTIONS",gravity:"QUANTUM GRAVITY",reality:"REALITY ENGINE",open:"OPEN PROBLEMS"};
 function visible(){return models.filter(m=>(group==="all"||m.category===group)&&[m.title,m.tag,m.question,m.category,m.id].join(" ").toLowerCase().includes(search));}
 function render(){
  const list=visible(),root=$("results");root.textContent="";
