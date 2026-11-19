@@ -1,0 +1,80 @@
+name: Build and publish COSMOS Android APK
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'android/**'
+      - '.github/workflows/cosmos-android-apk.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: Compile Android app and upload installable APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout COSMOS repository
+        uses: actions/checkout@v4
+
+      - name: Configure Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Configure Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Configure Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Install Android 35 platform/build tools
+        shell: bash
+        run: |
+          sdkmanager --install "platforms;android-35" "build-tools;35.0.0"
+          yes | sdkmanager --licenses >/dev/null || true
+
+      - name: Assemble debug-signed COSMOS APK
+        working-directory: android
+        shell: bash
+        run: gradle --no-daemon --stacktrace :app:assembleDebug
+
+      - name: Verify APK was created
+        shell: bash
+        run: |
+          test -s android/app/build/outputs/apk/debug/app-debug.apk
+          ls -lh android/app/build/outputs/apk/debug/app-debug.apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk COSMOS-LAB.apk
+          sha256sum COSMOS-LAB.apk > COSMOS-LAB.apk.sha256
+
+      - name: Save downloadable workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: COSMOS-LAB-Android-APK
+          path: |
+            COSMOS-LAB.apk
+            COSMOS-LAB.apk.sha256
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Publish APK on stable GitHub release
+        if: github.ref == 'refs/heads/main'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="cosmos-mobile-v1.0.0"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" COSMOS-LAB.apk COSMOS-LAB.apk.sha256 --clobber
+          else
+            gh release create "$TAG" COSMOS-LAB.apk COSMOS-LAB.apk.sha256 \
+              --target "$GITHUB_SHA" \
+              --title "COSMOS LAB ∞ — Android APK (1.0.0)" \
+              --notes "Installable Android APK for COSMOS LAB All Labs. Opens https://cosmos-lab-v3.vercel.app/hub.html. Includes native Back navigation, CSV file picker, and CSV/JSON/PNG export support. Internet required. Android 8.0+. **Developer/debug-signed sideload build, not Google Play verified.** Future CI builds may use a different debug signing key and require uninstalling the prior version."
+          fi
