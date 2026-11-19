@@ -4,7 +4,7 @@
 const C=window.CosmosToyCore;if(!C)throw Error("Toy Universe numerical engine missing");
 const $=id=>document.getElementById(id),canvas=$("toyCanvas"),g=canvas.getContext("2d"),plot=$("metricCanvas"),pg=plot.getContext("2d");
 const CYAN="#00d4e8",WHITE="#fff",DARK="#07151b",DIM="#9dbdc7",SLATE="#385862",TAU=Math.PI*2;
-let current=null,model="wave",seed=1729,playing=true,alt=false,accum=0,last=0,activeMouse=false,filter="",newtonCache=null,lastGridImage=null,lastInteraction=0;
+let current=null,model="wave",seed=1729,playing=true,alt=false,accum=0,last=0,activeMouse=false,filter="",newtonCache=null,lastGridImage=null,lastInteraction=0,ghost=null;
 const list=C.MODES;
 function fmt(n,d=4){if(!Number.isFinite(n))return "—";if(n===0)return "0";if(Math.abs(n)<1e-4||Math.abs(n)>=10000)return n.toExponential(2);return String(Number(n.toFixed(d)));}
 function notice(s){$("actionStatus").textContent=s;}
@@ -12,7 +12,7 @@ function tag(s){return s.toUpperCase().replace(/[^A-Z0-9 ]/g,"");}
 function buildList(){let shown=0;const host=$("modelList");host.textContent="";list.forEach((m,i)=>{const searchable=[m.id,m.name,m.tag,m.desc].join(" ").toLowerCase();if(!searchable.includes(filter))return;shown++;const b=document.createElement("button");b.type="button";b.className="model-opt"+(model===m.id?" active":"");b.setAttribute("aria-pressed",String(model===m.id));const num=document.createElement("span");num.textContent=String(i+1).padStart(2,"0");const inner=document.createElement("div"),title=document.createElement("strong"),category=document.createElement("small");title.textContent=m.name;category.textContent=m.tag;inner.append(title,category);b.append(num,inner);b.onclick=()=>select(m.id);host.appendChild(b);});$("modelCount").textContent=String(shown);}
 function paramsHtml(){const host=$("paramGrid");host.textContent="";for(const [key,label,min,max,initial,step] of current.state.spec.params){const p=current.state.p;const container=document.createElement("div");container.className="pfield";const name=document.createElement("label"),output=document.createElement("output"),input=document.createElement("input");input.id="toyparam-"+key;name.htmlFor=input.id;name.textContent=label;output.textContent=fmt(p[key],3);name.appendChild(output);input.type="range";input.min=min;input.max=max;input.step=step;input.value=p[key];input.oninput=()=>{const values={...current.state.p,[key]:Number(input.value)};output.textContent=fmt(values[key],3);select(model,values,seed,true);};container.append(name,input);host.appendChild(container);}}
 function select(id,values=null,newSeed=null,retain=false){const spec=list.find(m=>m.id===id);if(!spec)return;
-model=id;if(newSeed!==null)seed=Number(newSeed)>>>0;if(!seed)seed=1729;
+if(id!==model)ghost=null;model=id;if(newSeed!==null)seed=Number(newSeed)>>>0;if(!seed)seed=1729;
 const params=values||{};current=C.create(id,params,seed);newtonCache=null;lastGridImage=null;accum=0;last=0;alt=false;
 $("altButton").textContent="⊞ ALT ACTION: OFF";$("altButton").setAttribute("aria-pressed","false");
 $("modelName").textContent=spec.name.toUpperCase();$("modelTag").textContent=spec.tag+" / MODEL "+String(list.indexOf(spec)+1).padStart(2,"0");
@@ -115,14 +115,22 @@ function graph(){
  const pad={l:65,r:20,t:30,b:34};
  for(let i=0;i<=6;i++){const x=pad.l+(W-pad.l-pad.r)*i/6;pg.beginPath();pg.moveTo(x,pad.t);pg.lineTo(x,H-pad.b);pg.stroke();}
  for(let i=0;i<=4;i++){const y=pad.t+(H-pad.t-pad.b)*i/4;pg.beginPath();pg.moveTo(pad.l,y);pg.lineTo(W-pad.r,y);pg.stroke();}
- const rows=current.state.history;if(rows.length<2){label(pg,"Model measurements will appear as it evolves…",W*.5,H*.53,DIM,17,"center");return;}
- let lo=Math.min(...rows.map(q=>q.y)),hi=Math.max(...rows.map(q=>q.y));if(Math.abs(hi-lo)<1e-12){lo-=1;hi+=1;}const margin=(hi-lo)*.12;hi+=margin;lo-=margin;
- const t0=rows[0].t,t1=Math.max(t0+1,rows[rows.length-1].t),X=q=>pad.l+(q.t-t0)/(t1-t0)*(W-pad.l-pad.r),Y=q=>H-pad.b-(q.y-lo)/(hi-lo)*(H-pad.t-pad.b);
- pg.beginPath();rows.forEach((q,i)=>{const x=X(q),y=Y(q);if(i===0)pg.moveTo(x,y);else pg.lineTo(x,y);});pg.strokeStyle=CYAN;pg.lineWidth=3;pg.stroke();
- const last=rows[rows.length-1];circle(pg,X(last),Y(last),5,WHITE);
- label(pg,"LIVE METRIC / "+current.state.spec.tag,pad.l,19,WHITE,12);
+ const rows=current.state.history,old=ghost?.model===model&&ghost.history.length>1?ghost.history:[];
+ if(rows.length<2&&!old.length){label(pg,"Model measurements will appear as it evolves…",W*.5,H*.53,DIM,17,"center");return;}
+ const combined=[...rows,...old];
+ let lo=Math.min(...combined.map(q=>q.y)),hi=Math.max(...combined.map(q=>q.y));if(Math.abs(hi-lo)<1e-12){lo-=1;hi+=1;}
+ const margin=(hi-lo)*.12;hi+=margin;lo-=margin;
+ const t0=Math.min(...combined.map(q=>q.t)),t1=Math.max(t0+1,...combined.map(q=>q.t));
+ const X=q=>pad.l+(q.t-t0)/(t1-t0)*(W-pad.l-pad.r),Y=q=>H-pad.b-(q.y-lo)/(hi-lo)*(H-pad.t-pad.b);
+ function draw(rows,color,width,dashed){
+  if(!rows.length)return;pg.beginPath();rows.forEach((q,i)=>{if(i===0)pg.moveTo(X(q),Y(q));else pg.lineTo(X(q),Y(q));});
+  if(dashed)pg.setLineDash([8,6]);pg.strokeStyle=color;pg.lineWidth=width;pg.stroke();pg.setLineDash([]);
+ }
+ draw(old,WHITE,1.8,true);draw(rows,CYAN,3,false);
+ if(rows.length){const point=rows[rows.length-1];circle(pg,X(point),Y(point),5,WHITE);}
+ label(pg,old.length?"CYAN CURRENT  /  WHITE SAVED":"LIVE METRIC / "+current.state.spec.tag,pad.l,19,WHITE,12);
  label(pg,fmt(hi),pad.l-10,pad.t,DIM,11,"right");label(pg,fmt(lo),pad.l-10,H-pad.b,DIM,11,"right");
- label(pg,"STEP "+last.t,W-pad.r,H-10,DIM,11,"right");
+ label(pg,"STEP "+t1,W-pad.r,H-10,DIM,11,"right");
 }
 function refreshReadouts(){
  const s=current.state,metric=current.measure();
@@ -138,8 +146,8 @@ function interact(event,forceAlt=false){
  const stamp=performance.now();if(stamp-lastInteraction<40)return;lastInteraction=stamp;
  const q=pos(event);current.interact(q.x,q.y,forceAlt||alt||event.shiftKey||event.button===2);if(model==="newton"){}render();notice("Experiment modified at x="+q.x.toFixed(2)+", y="+q.y.toFixed(2)+".");
 }
-canvas.addEventListener("pointerdown",event=>{if(event.button!==0&&event.button!==2)return;activeMouse=true;interact(event);});
-canvas.addEventListener("pointermove",event=>{if(activeMouse&&event.buttons===1&&["wave","heat","life","sand"].includes(model))interact(event);});
+canvas.addEventListener("pointerdown",event=>{if(event.button!==0)return;event.preventDefault();activeMouse=true;if(canvas.setPointerCapture)canvas.setPointerCapture(event.pointerId);interact(event);});
+canvas.addEventListener("pointermove",event=>{if(activeMouse&&event.buttons===1&&["wave","heat","life","sand"].includes(model)){event.preventDefault();interact(event);}});
 window.addEventListener("pointerup",()=>{activeMouse=false;});
 canvas.addEventListener("contextmenu",event=>{event.preventDefault();interact(event,true);});
 $("playButton").onclick=()=>{playing=!playing;refreshReadouts();};
@@ -153,8 +161,23 @@ function download(name,text,type){const url=URL.createObjectURL(new Blob([text],
 function experiment(){const s=current.state,metric=current.measure();return{schema:"cosmos-toy-universe-v1",model:s.id,parameters:{...s.p},seed:s.seed,ticks:s.t,metric,history:s.history.slice(),note:"Toy model. Not physical proof or an empirical measurement."};}
 $("saveCsv").onclick=()=>{const s=current.state;download("cosmos-"+s.id+"-"+s.t+".csv",["step,measurement",...s.history.map(q=>q.t+","+q.y)].join("\n"),"text/csv;charset=utf-8");notice("Numerical series exported.");};
 $("saveJson").onclick=()=>{download("cosmos-toy-experiment.json",JSON.stringify(experiment(),null,2),"application/json");notice("Experiment parameters and measurements exported.");};
+const STORAGE="cosmos-toy-saved-runs";
+function runs(){try{const r=JSON.parse(localStorage.getItem(STORAGE)||"[]");return Array.isArray(r)?r:[];}catch{return[];}}
+$("saveRun").onclick=()=>{
+ const record=experiment();
+ if(record.history.length<2){notice("Run the model for a few steps before saving.");return;}
+ try{const all=runs();all.push({...record,savedAt:new Date().toISOString()});localStorage.setItem(STORAGE,JSON.stringify(all.slice(-15)));notice("Saved "+model+" · "+record.history.length+" samples. Change parameters and press COMPARE SAVED RUN.");}
+ catch{notice("Local storage unavailable. Export the experiment as JSON instead.");}
+};
+$("compareRun").onclick=()=>{
+ if(ghost){ghost=null;notice("Saved-run overlay hidden.");}
+ else{const old=runs().filter(q=>q.model===model&&Array.isArray(q.history)&&q.history.length>1).at(-1);
+ if(!old){notice("No saved run for this model. First press SAVE RUN.");return;}
+ ghost=old;notice("Overlay enabled: CYAN current run, WHITE dashed saved run. Compare the same metric on both runs.");}
+ render();
+};
 $("savePng").onclick=()=>{const off=document.createElement("canvas");off.width=960;off.height=880;const gg=off.getContext("2d");gg.fillStyle="#080e11";gg.fillRect(0,0,off.width,off.height);gg.fillStyle=WHITE;gg.font="bold 25px Arial";gg.fillText("COSMOS LAB / "+current.state.spec.name.toUpperCase(),24,38);gg.drawImage(canvas,0,60,960,550);gg.drawImage(plot,0,620,960,228);off.toBlob(blob=>{if(!blob){notice("Canvas export is not available.");return;}const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="cosmos-"+model+".png";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);notice("Simulation and chart exported.");},"image/png");};
-$("shareLink").onclick=async()=>{const url=new URL(location.href);url.searchParams.set("toy",model);url.searchParams.set("seed",String(seed));for(const [k,v]of Object.entries(current.state.p))url.searchParams.set(k,String(v));try{await navigator.clipboard.writeText(url.toString());notice("Shareable experiment URL copied.");}catch{notice("Copy this URL: "+url);}};
+$("shareLink").onclick=async()=>{const url=new URL(location.href);url.searchParams.set("toy",model);url.searchParams.set("seed",String(seed));for(const [k,v]of Object.entries(current.state.p))url.searchParams.set(k,String(v));try{await navigator.clipboard.writeText(url.toString());notice("Initial setup link copied; manual canvas edits are not replayed.");}catch{notice("Copy this URL: "+url);}};
 window.addEventListener("keydown",event=>{if(["INPUT","TEXTAREA","SELECT"].includes(document.activeElement?.tagName))return;if(event.code==="Space"){event.preventDefault();playing=!playing;refreshReadouts();}else if(event.key==="ArrowRight"&&!playing)step();});
 function animation(time){if(!last)last=time;const dt=C.clamp(time-last,0,100);last=time;if(playing){accum+=dt/75*Number($("simSpeed").value);const n=Math.min(12,Math.floor(accum));if(n>0){accum-=n;for(let i=0;i<n;i++)current.step();render();}}requestAnimationFrame(animation);}
 const qs=new URLSearchParams(location.search);const start=qs.get("toy")||"wave",values={};const spec=list.find(m=>m.id===start)||list[0];for(const [key,,min,max]of spec.params){const v=Number(qs.get(key));if(qs.has(key)&&Number.isFinite(v))values[key]=C.clamp(v,min,max);}
