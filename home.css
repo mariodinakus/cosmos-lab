@@ -1,0 +1,46 @@
+/* COSMOS LAB — homepage directory layout (2026-11-20). Builds on vox-theme.css; no engine changes. */
+.nav{gap:26px}
+.hero{min-height:420px}
+.hero-actions .secondary-action{border-color:#080e11}
+.section-lead{display:flex;align-items:end;justify-content:space-between;gap:22px;margin:56px 0 26px}
+.section-lead h2{font-size:clamp(34px,3.6vw,56px);letter-spacing:-.06em;line-height:1;margin:9px 0 9px;font-weight:1000}
+.section-lead p{font:17px/1.45 Georgia,serif;margin:0;max-width:720px;color:#23383f}
+.labs-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:3px solid #080e11;background:#080e11;gap:1px}
+.lab-card{display:flex;flex-direction:column;gap:10px;min-height:250px;padding:22px 22px 20px;background:#fff;color:#080e11;position:relative}
+.lab-card:hover,.lab-card:focus-visible{background:#00d4e8}
+.lab-card .lab-no{font-size:10px;font-weight:950;letter-spacing:1.4px;color:#007d8d}
+.lab-card:hover .lab-no{color:#080e11}
+.lab-card h3{font-size:24px;line-height:1.05;letter-spacing:-.05em;margin:0;font-weight:1000}
+.lab-card p{margin:0;font-size:13px;line-height:1.5;color:#35545d;flex:1}
+.lab-card:hover p{color:#080e11}
+.lab-card .lab-stat{font-size:10px;font-weight:950;letter-spacing:.8px;border-top:1px solid #b9ccd1;padding-top:10px;display:flex;justify-content:space-between;gap:8px}
+.lab-card:hover .lab-stat{border-color:#080e11}
+.lab-card.lab-featured{grid-column:span 2;background:#080e11;color:#fff}
+.lab-card.lab-featured h3{font-size:40px;letter-spacing:-.065em}
+.lab-card.lab-featured p{color:#c9e4e8;font-size:15px;max-width:520px}
+.lab-card.lab-featured .lab-no{color:#00d4e8}
+.lab-card.lab-featured .lab-stat{border-color:#2d7988;color:#e5fdff}
+.lab-card.lab-featured:hover{background:#00d4e8;color:#080e11}
+.lab-card.lab-featured:hover :is(p,.lab-no,.lab-stat){color:#080e11}
+.lab-card:last-child{grid-column:span 4;min-height:0}
+.live-papers{margin:56px 0 0;border:3px solid #080e11;background:#f1fbfd}
+.live-papers-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;background:#080e11;color:#fff;font-size:10px;font-weight:950;letter-spacing:1.2px}
+.live-papers-head a{color:#00d4e8}
+.live-papers .radar-preview-status{margin:0;padding:14px 20px 0;color:#325c66;font-weight:850;font-size:12px}
+.live-papers .radar-preview-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:14px 20px 20px}
+.radar-preview-card{display:flex;flex-direction:column;gap:12px;min-height:170px;border:1px solid #a4c8d0;padding:18px;background:#fff}
+.radar-preview-card:hover{border-color:#080e11;background:#e3faff}
+.radar-preview-card span{font-size:10px;font-weight:950;color:#007a90}
+.radar-preview-card strong{font-size:18px;font-weight:950;line-height:1.2;letter-spacing:-.035em;flex:1}
+.radar-preview-card small{font-size:11px;color:#45636a}
+.radar-preview-card b{font-size:10px}
+.beyond{margin:56px 0 70px;border:3px solid #080e11;display:grid;grid-template-columns:1fr 1fr;background:#080e11;color:#fff}
+.beyond>div:first-child{padding:38px}
+.beyond h2{font-size:clamp(34px,3.6vw,56px);letter-spacing:-.06em;line-height:1;margin:18px 0;color:#fff}
+.beyond .eyebrow{color:#00d4e8!important}
+.beyond p{font-family:Georgia,serif;font-size:16px;max-width:560px;color:#d6eef2}
+.beyond-links{display:flex;flex-direction:column;justify-content:center;padding:0 38px}
+.beyond-links a{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #2d7988;font-size:12px;font-weight:900;letter-spacing:1px;color:#fff}
+.beyond-links a:hover{color:#00d4e8}
+@media(max-width:1050px){.labs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lab-card.lab-featured,.lab-card:last-child{grid-column:span 2}.nav{gap:14px}}
+@media(max-width:700px){.labs-grid{grid-template-columns:1fr}.lab-card.lab-featured,.lab-card:last-child{grid-column:auto}.lab-card{min-height:0}.live-papers .radar-preview-cards{grid-template-columns:1fr}.beyond{grid-template-columns:1fr}.beyond>div:first-child,.beyond-links{padding:25px}.section-lead{flex-direction:column;align-items:start}}
