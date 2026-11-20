@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>COSMOS LAB — Riemann Zeta Lab</title>
+<meta name="description" content="Compute the Riemann zeta function on the critical line, find its zeros live, count them with N(T) and compare their spacing with random-matrix (GUE) statistics."/>
+<meta name="theme-color" content="#080e11"/>
+<link rel="icon" href="/assets/favicon.ico"/><link rel="stylesheet" href="/lab.css"/>
+</head><body>
+<div class="ticker"><span>◉ COSMOS LAB / RIEMANN</span><span>LIVE ZEROS · VERIFIED AGAINST PUBLISHED VALUES</span></div>
+<header class="mast"><a class="brand" href="/"><img src="/assets/icon-64.png" alt="COSMOS LAB"/> COSMOS<span>.</span></a>
+<nav aria-label="Navigation"><a href="/">HOME</a><a href="/genesis.html">GENESIS</a><a class="selected" href="/riemann.html">RIEMANN</a><a href="/data.html">REAL DATA</a><a href="/paths.html">LEARNING PATHS</a><a href="/observatory.html">OBSERVATORY</a><a href="/open.html">OPEN PROBLEMS</a><a href="/radar.html">RADAR ↗</a><button class="kbd-hint" data-cmdk type="button">⌘K / CTRL+K SEARCH</button></nav></header>
+<div class="wrap">
+<section class="lab-hero"><div><p class="kicker">COSMOS LAB / NUMBER THEORY · COMPLEX ANALYSIS</p><h1>LISTEN TO THE<br/><em>PRIMES.</em></h1>
+<p class="lead">Every non-trivial zero of ζ(s) that anyone has ever computed sits on the line Re s = ½. Here you compute them yourself: Hardy’s Z(t), live zero finding, the zero-counting law, and the surprising match between the spacing of the zeros and the eigenvalues of random Hermitian matrices.</p></div>
+<div class="hero-stats"><div><strong id="hZeros">—</strong><small>ZEROS FOUND</small></div><div><strong id="hMax">—</strong><small>HEIGHT T</small></div><div><strong id="hErr">—</strong><small>MAX ERROR VS PUBLISHED</small></div><div><strong id="hVar">—</strong><small>SPACING VARIANCE</small></div></div></section>
+
+<section class="module active" style="margin-top:34px">
+<div class="controls"><div class="kicker">EXPERIMENT</div><h2>ZEROS ON<br/>THE LINE</h2>
+<div><span class="tag est">VERIFIED NUMERICS</span><span class="tag hyp">RH: OPEN</span></div>
+<p>Z(t) is real and has exactly the zeros of ζ(½+it). Each sign change is a zero; each is refined to ~10⁻¹¹.</p>
+<div class="eq">ζ(½+it) via Borwein (error &lt; 10⁻¹²)
+Z(t) = e^{iθ(t)} ζ(½+it)
+N(T) = θ(T)/π + 1 + S(T)</div>
+<div class="field"><div class="ft"><label for="rT">SEARCH ZEROS UP TO HEIGHT T</label><output id="oT"></output></div><input id="rT" type="range" min="100" max="1000" step="50" value="300"/></div>
+<div class="field"><div class="ft"><label for="rA">WINDOW START t</label><output id="oA"></output></div><input id="rA" type="range" min="0" max="300" step="1" value="10"/></div>
+<div class="field"><div class="ft"><label for="rW">WINDOW WIDTH</label><output id="oW"></output></div><input id="rW" type="range" min="10" max="120" step="5" value="50"/></div>
+<div class="btns"><button class="btn primary" id="runBtn" type="button">▶ FIND ZEROS</button><button class="btn" id="csvBtn" type="button" disabled>↓ ZEROS CSV</button><button class="btn" id="jsonBtn" type="button" disabled>↓ JSON</button><button class="btn" id="shareBtn" type="button">↗ COPY LINK</button></div>
+<div class="status" id="status" role="status"></div>
+<div class="note">Finding zeros on the critical line is evidence, not proof. Sign changes give a lower bound on the zeros on Re s = ½; the comparison with the smooth count θ(T)/π + 1 is a consistency check (a rigorous count needs Turing’s method). Nothing here bears on whether a zero exists off the line at heights no one has searched.</div></div>
+<div class="stage"><div class="reads" id="reads"></div>
+<canvas id="cZ" width="900" height="360"></canvas><p class="cap" id="capZ"></p>
+<div class="two"><canvas id="cPath" width="600" height="480"></canvas><canvas id="cN" width="600" height="480"></canvas></div>
+<canvas id="cS" width="900" height="360"></canvas><p class="cap">Normalised spacings between consecutive zeros against the GUE (Wigner surmise) and Poisson laws. Level repulsion — almost no tiny gaps — is the random-matrix signature (Montgomery–Odlyzko).</p></div>
+</section>
+
+<section class="section"><span class="kicker">CHECK AGAINST PUBLISHED VALUES</span><h2>FIRST TEN ZEROS</h2>
+<table class="table"><thead><tr><th>#</th><th>THIS LAB (t)</th><th>PUBLISHED (t)</th><th>DIFFERENCE</th></tr></thead><tbody id="knownBody"></tbody></table>
+<p>Published values are the standard high-precision zeros (Odlyzko tables), independently cross-checked with mpmath during development. The zero-counting law and the spacing statistics are further tested in <code>tests/riemann_core.cjs</code>.</p></section>
+
+<section class="section"><span class="kicker">WHY IT MATTERS</span><h2>THE LINK TO THE PRIMES</h2>
+<p>The explicit formula writes the prime-counting function as a main term plus a sum over zeros ρ of ζ. A zero off the line Re s = ½ would produce larger fluctuations in the primes than any known. The Hilbert–Pólya idea proposes that the zeros are eigenvalues of some self-adjoint operator; the GUE spacing seen here is the strongest numerical hint, but no such operator is known. The Riemann Hypothesis remains unproven.</p></section>
+</div>
+<footer class="lab-foot"><div><strong>COSMOS LAB.</strong><br/>NUMERICAL EXPERIMENTS · EXPLICIT ASSUMPTIONS · NO DISCOVERY CLAIMS</div><div>ALGORITHM: BORWEIN (2000) · θ(t): STIRLING SERIES · ZEROS: BISECTION</div></footer>
+<script src="/cosmos-kit.js"></script><script src="/riemann-core.js"></script><script src="/riemann.js"></script><script src="/palette.js" defer></script>
+</body></html>

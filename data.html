@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>COSMOS LAB — Real Cosmology Data: Pantheon+ Supernovae</title>
+<meta name="description" content="Fit flat ΛCDM and wCDM to 1,580 real Type Ia supernovae from the Pantheon+ release, entirely in your browser. See the χ² landscape and how strongly the data demand dark energy."/>
+<meta name="theme-color" content="#080e11"/>
+<link rel="icon" href="/assets/favicon.ico"/><link rel="stylesheet" href="/lab.css"/>
+</head><body>
+<div class="ticker"><span>◉ COSMOS LAB / REAL DATA</span><span>PANTHEON+ · 1,701 LIGHT CURVES · FIT RUNS IN YOUR BROWSER</span></div>
+<header class="mast"><a class="brand" href="/"><img src="/assets/icon-64.png" alt="COSMOS LAB"/> COSMOS<span>.</span></a>
+<nav aria-label="Navigation"><a href="/">HOME</a><a href="/genesis.html">GENESIS</a><a href="/riemann.html">RIEMANN</a><a class="selected" href="/data.html">REAL DATA</a><a href="/paths.html">LEARNING PATHS</a><a href="/observatory.html">OBSERVATORY</a><a href="/open.html">OPEN PROBLEMS</a><a href="/radar.html">RADAR ↗</a><button class="kbd-hint" data-cmdk type="button">⌘K / CTRL+K SEARCH</button></nav></header>
+<div class="wrap">
+<section class="lab-hero"><div><p class="kicker">COSMOS LAB / OBSERVATIONAL COSMOLOGY · NO UPLOAD NEEDED</p><h1>THE UNIVERSE<br/><em>ACCELERATES.</em></h1>
+<p class="lead">Real supernova data, ready to fit. The Pantheon+ compilation of Type Ia supernovae is built in: choose a model, change the cuts, and watch χ² decide between a universe with dark energy and one without.</p></div>
+<div class="hero-stats"><div><strong id="hN">—</strong><small>SUPERNOVAE IN FIT</small></div><div><strong id="hOm">—</strong><small>BEST-FIT Ωm (ΛCDM)</small></div><div><strong id="hW">—</strong><small>BEST-FIT w (wCDM)</small></div><div><strong id="hD">—</strong><small>Δχ² vs NO DARK ENERGY</small></div></div></section>
+
+<section class="module active" style="margin-top:34px">
+<div class="controls"><div class="kicker">EXPERIMENT</div><h2>FIT THE<br/>EXPANSION</h2>
+<div><span class="tag est">REAL DATA</span><span class="tag hyp">STAT. ERRORS ONLY</span></div>
+<p>Distance modulus of each supernova against redshift, fitted with a flat universe of matter and a dark-energy fluid of equation of state w. The absolute-magnitude offset (degenerate with H₀) is marginalised, so this fit measures the <em>shape</em> of expansion, not H₀.</p>
+<div class="eq">μ(z) = 5 log₁₀[(1+z_hel) D_C(z_HD)] + offset
+E² = Ωm(1+z)³ + (1−Ωm)(1+z)^{3(1+w)}
+χ² = Σ (m_B − μ)² / σ²</div>
+<div class="field"><div class="ft"><label for="rz">MINIMUM REDSHIFT z_HD</label><output id="oz"></output></div><input id="rz" type="range" min="0.005" max="0.2" step="0.005" value="0.01"/></div>
+<div class="btns"><button class="btn" id="csvBtn" type="button">↓ BINNED CSV</button><button class="btn" id="jsonBtn" type="button">↓ FIT JSON</button><button class="btn" id="shareBtn" type="button">↗ COPY LINK</button></div>
+<div class="status" id="status" role="status"></div>
+<div class="note"><strong>Important limit.</strong> Only the diagonal statistical errors are used. The published analysis uses the full 1701×1701 statistical + systematic covariance matrix, so the uncertainties and contours here are too small. Reference: Pantheon+ alone gives flat ΛCDM Ωm = 0.334 ± 0.018 and flat wCDM w = −0.90 ± 0.14 (Brout et al. 2022, ApJ 938, 110). Calibrator supernovae are excluded and duplicates across surveys are treated as independent.</div></div>
+<div class="stage"><div class="reads" id="reads"></div>
+<canvas id="cRaw" width="900" height="360"></canvas><p class="cap">The data: apparent magnitude of each supernova (offset removed) against redshift, with the best-fit ΛCDM curve. Fainter at fixed z than a decelerating universe predicts is the signature of acceleration.</p>
+<div class="two"><canvas id="cRes" width="600" height="480"></canvas><canvas id="cHeat" width="600" height="480"></canvas></div>
+<p class="cap">Left: binned residuals relative to the best ΛCDM fit, with Einstein–de Sitter (Ωm = 1) and the best wCDM model; each model’s offset refitted. Right: Δχ² over (Ωm, w); cyan bands are 68.3%, 95.4% and 99.7% for two parameters.</p>
+<canvas id="cProf" width="900" height="300"></canvas><p class="cap">Profile χ²(Ωm) for flat ΛCDM. The dashed line is the published Pantheon+ value, which has a wider error bar because it includes systematics.</p></div>
+</section>
+
+<section class="section"><span class="kicker">DATA PROVENANCE</span><h2>WHERE THE NUMBERS COME FROM</h2>
+<p>Redshifts, corrected magnitudes and diagonal errors come from the public Pantheon+SH0ES data release (<a href="https://github.com/PantheonPlusSH0ES/DataRelease"><u>github.com/PantheonPlusSH0ES/DataRelease</u></a>), 1701 light curves of 1550 distinct supernovae. Cite: Brout et al. 2022, ApJ 938, 110 (arXiv:2202.04077); Scolnic et al. 2022, ApJ 938, 113. BAO and H(z) chronometer datasets are not included here because no verified machine-readable copy was available to embed; they can be uploaded in the Research Observatory.</p></section>
+</div>
+<footer class="lab-foot"><div><strong>COSMOS LAB.</strong><br/>NUMERICAL EXPERIMENTS · EXPLICIT ASSUMPTIONS · NO DISCOVERY CLAIMS</div><div>DATA: PANTHEON+ · FIT: PROFILE χ² WITH ANALYTIC OFFSET MARGINALISATION</div></footer>
+<script src="/cosmos-kit.js"></script><script src="/data-pantheonplus.js"></script><script src="/data-core.js"></script><script src="/data.js"></script><script src="/palette.js" defer></script>
+</body></html>

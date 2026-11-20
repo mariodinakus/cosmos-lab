@@ -22,7 +22,7 @@
 .lab-card.lab-featured .lab-stat{border-color:#2d7988;color:#e5fdff}
 .lab-card.lab-featured:hover{background:#00d4e8;color:#080e11}
 .lab-card.lab-featured:hover :is(p,.lab-no,.lab-stat){color:#080e11}
-.lab-card:last-child{grid-column:span 4;min-height:0}
+.lab-card:last-child{grid-column:span 2}
 .live-papers{margin:56px 0 0;border:3px solid #080e11;background:#f1fbfd}
 .live-papers-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;background:#080e11;color:#fff;font-size:10px;font-weight:950;letter-spacing:1.2px}
 .live-papers-head a{color:#00d4e8}
@@ -43,4 +43,4 @@
 .beyond-links a{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #2d7988;font-size:12px;font-weight:900;letter-spacing:1px;color:#fff}
 .beyond-links a:hover{color:#00d4e8}
 @media(max-width:1050px){.labs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lab-card.lab-featured,.lab-card:last-child{grid-column:span 2}.nav{gap:14px}}
-@media(max-width:700px){.labs-grid{grid-template-columns:1fr}.lab-card.lab-featured,.lab-card:last-child{grid-column:auto}.lab-card{min-height:0}.live-papers .radar-preview-cards{grid-template-columns:1fr}.beyond{grid-template-columns:1fr}.beyond>div:first-child,.beyond-links{padding:25px}.section-lead{flex-direction:column;align-items:start}}
+@media(max-width:700px){.labs-grid{grid-template-columns:1fr}.lab-card.lab-featured,.lab-card:last-child{grid-column:span 2}.lab-card{min-height:0}.live-papers .radar-preview-cards{grid-template-columns:1fr}.beyond{grid-template-columns:1fr}.beyond>div:first-child,.beyond-links{padding:25px}.section-lead{flex-direction:column;align-items:start}}
