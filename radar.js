@@ -51,6 +51,7 @@ function card(item){const meta=R.explain(item),article=el("article","paper");
  article.appendChild(body);
  const actions=el("div","paper-actions"),link=el("a","",item.kind==="paper"?"ΠΡΩΤΟΤΥΠΟ PAPER ↗":"ΠΗΓΗ ΕΙΔΗΣΗΣ ↗");link.href=R.safeUrl(item.url)||"#";link.target="_blank";link.rel="noopener noreferrer";actions.appendChild(link);
  if(item.pdfUrl&&R.safeUrl(item.pdfUrl)){const pdf=el("a","","PDF ↗");pdf.href=R.safeUrl(item.pdfUrl);pdf.target="_blank";pdf.rel="noopener noreferrer";actions.appendChild(pdf);}
+ if(item.kind==="paper"&&item.abstract){const translated=el("a","","ΑΥΤΟΜΑΤΗ ΜΕΤΑΦΡΑΣΗ EL ↗");translated.href="https://translate.google.com/?sl=auto&tl=el&op=translate&text="+encodeURIComponent((item.title+"\n\n"+item.abstract).slice(0,2200));translated.target="_blank";translated.rel="noopener noreferrer";translated.title="Εξωτερική μηχανική μετάφραση του abstract · ενδέχεται να περιέχει λάθη";actions.appendChild(translated);}
  const btn=el("button",isSaved(item.url)?"saved":"",isSaved(item.url)?"★ ΑΠΟΘΗΚΕΥΤΗΚΕ":"☆ ΑΠΟΘΗΚΕΥΣΗ");btn.type="button";btn.onclick=()=>{if(!persist(item)){$("status").textContent="Η τοπική αποθήκευση δεν είναι διαθέσιμη.";return;}if(tab==="saved")render();else{btn.textContent=isSaved(item.url)?"★ ΑΠΟΘΗΚΕΥΤΗΚΕ":"☆ ΑΠΟΘΗΚΕΥΣΗ";btn.className=isSaved(item.url)?"saved":"";}};actions.appendChild(btn);article.appendChild(actions);return article;
 }
 function visible(){const items=tab==="saved"?bookmarks():active;return items.filter(item=>{
