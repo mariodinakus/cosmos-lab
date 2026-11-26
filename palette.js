@@ -12,6 +12,7 @@ const STYLE=`#cmdk-back{position:fixed;inset:0;background:#030607cc;z-index:9999
 #cmdk li.sel{background:#00d4e8}#cmdk li.sel b,#cmdk li.sel small{color:#080e11}
 #cmdk .foot{padding:8px 14px;font-size:10px;font-weight:800;letter-spacing:.6px;color:#35545d;background:#eef9fb;display:flex;justify-content:space-between}`;
 const PAGES=[
+ ["Toy → Reality","/verify.html","Planck vs COBE CMB, Mercury perihelion GR, Kepler, Lotka-Volterra hare lynx, earthquakes USGS b-value"],
  ["Genesis Lab","/genesis.html","Big Bang, inflation, multiverse, universe from nothing, vacuum bubbles"],
  ["Riemann Zeta Lab","/riemann.html","Critical line, Z(t), zeros, GUE spacing, prime numbers"],
  ["Real Cosmology Data","/data.html","Pantheon+ supernovae, chi-squared fit, LCDM vs wCDM, dark energy"],

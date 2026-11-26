@@ -1,5 +1,19 @@
 # COSMOS LAB — The Mathematical Universe
 
+## Toy → Reality — five toy models against real measurements
+
+`/verify.html` (also `/verify`, `/toy-reality`). Each module pairs a one-line equation with real data and ends with a pass/partial/fail verdict plus what the score does not prove.
+
+| Module | Toy | Real data | Result in tests |
+|---|---|---|---|
+| CMB | Planck's law (vs Wien, Rayleigh–Jeans) | COBE/FIRAS monopole, 43 bins (NASA LAMBDA) | T = 2.72502 K, χ²/dof ≈ 1.07 |
+| Mercury | Newton + 1PN term 3L²/(c²r⁴), RK4, perihelia located numerically | Anomalous advance, Weinberg 1972 Table 8.1 | 42.98″/century vs 43.11 ± 0.45 |
+| Kepler | F ∝ 1/rⁿ ⇒ P ∝ a^{(n+1)/2} | 8 planets, 4 Galilean moons (JPL) | n = 1.9998; M☉, M♃ |
+| Hare–lynx | Lotka–Volterra, Nelder–Mead fit | Hudson's Bay pelts 1900–1920 | R²(log) ≈ 0.90 |
+| Earthquakes | Olami–Feder–Christensen spring blocks | Live USGS FDSN catalogue (browser fetch) | b matches near α ≈ 0.235 — a fit, not a prediction |
+
+Core: `verify-core.js` (pure functions, Node + browser). Tests: `node tests/verify_core.cjs`.
+
 ## COSMOS ∞ — Open Problems Atlas (13 more numerical toy models)
 
 **Web page / Android WebView:** https://cosmos-lab-v3.vercel.app/open.html (after Vercel production deployment).

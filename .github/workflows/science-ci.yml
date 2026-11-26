@@ -17,8 +17,12 @@ jobs:
         run: node tests/smoke.cjs
       - name: Visual physics numerical tests
         run: node tests/studio_smoke.cjs
+      - name: Toy → Reality tests (real data)
+        run: node tests/verify_core.cjs
       - name: JavaScript syntax checks
         run: |
+          node --check verify-core.js
+          node --check verify.js
           node --check app.js
           node --check studio-engine.js
           node --check studio.js

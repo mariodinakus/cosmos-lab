@@ -40,6 +40,14 @@
       "destination": "/reality.html"
     },
     {
+      "source": "/verify",
+      "destination": "/verify.html"
+    },
+    {
+      "source": "/toy-reality",
+      "destination": "/verify.html"
+    },
+    {
       "source": "/hub",
       "destination": "/hub.html"
     },

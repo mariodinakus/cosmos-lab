@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>COSMOS LAB — Toy → Reality</title>
+<meta name="description" content="Five toy equations confronted with real measurements: Planck's law vs COBE/FIRAS, general relativity vs Mercury's perihelion, Kepler's third law vs the planets, Lotka–Volterra vs the Hudson's Bay hare–lynx records, and a spring-block earthquake model vs live USGS earthquakes."/>
+<meta name="theme-color" content="#080e11"/>
+<link rel="icon" href="/assets/favicon.ico"/><link rel="stylesheet" href="/lab.css"/>
+<style>
+.verdict{display:flex;gap:14px;align-items:center;border:3px solid var(--ink);padding:12px 14px;margin-bottom:12px;background:#fff}
+.verdict b{font-size:12px;font-weight:950;letter-spacing:.8px;padding:6px 10px;border:2px solid var(--ink);white-space:nowrap}
+.verdict b.ok{background:#ccf3e9}.verdict b.mid{background:#fff3d6}.verdict b.bad{background:#ffe3e6}
+.verdict span{font-size:13px;font-weight:700}
+.scoreboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:3px solid var(--ink);margin-top:34px}
+.scoreboard div{padding:14px;border-right:1px solid var(--line)}.scoreboard small{display:block;font-size:9px;font-weight:900;letter-spacing:.8px;color:#4a666e}
+.scoreboard strong{display:block;font-size:15px;margin-top:4px}.scoreboard em{font-style:normal;font-size:11px;color:var(--muted)}
+</style>
+</head><body>
+<div class="ticker"><span>◉ COSMOS LAB / TOY → REALITY</span><span>SMALL EQUATIONS · REAL MEASUREMENTS · AN HONEST SCORE</span></div>
+<header class="mast"><a class="brand" href="/"><img src="/assets/icon-64.png" alt="COSMOS LAB"/> COSMOS<span>.</span></a>
+<nav aria-label="Navigation"><a href="/">HOME</a><a class="selected" href="/verify.html">TOY → REALITY</a><a href="/genesis.html">GENESIS</a><a href="/riemann.html">RIEMANN</a><a href="/data.html">REAL DATA</a><a href="/paths.html">LEARNING PATHS</a><a href="/observatory.html">OBSERVATORY</a><a href="/radar.html">RADAR ↗</a><button class="kbd-hint" data-cmdk type="button">⌘K / CTRL+K SEARCH</button></nav></header>
+<div class="wrap">
+<section class="lab-hero"><div><p class="kicker">COSMOS LAB / TOY MODELS AGAINST THE REAL UNIVERSE</p><h1>DOES THE TOY<br/><em>SURVIVE REALITY?</em></h1>
+<p class="lead">Write down a one-line equation, compute what it predicts, then put the prediction next to a real measurement — a satellite spectrum, a century of planetary astronomy, fur-trade ledgers, this year’s earthquakes. Then break the equation and watch the match fall apart. Each module ends with a score, and with what the score does <em>not</em> prove.</p></div>
+<div class="hero-stats"><div><strong id="hT">—</strong><small>CMB TEMPERATURE · K</small></div><div><strong id="hM">—</strong><small>MERCURY ″/CENTURY (GR)</small></div><div><strong id="hK">—</strong><small>KEPLER EXPONENT</small></div><div><strong id="hB">—</strong><small>LIVE EARTHQUAKE b</small></div></div></section>
+
+<div class="scoreboard" id="board"></div>
+<div class="tabs" id="tabs" role="tablist"></div>
+<div id="modules"></div>
+
+<section class="section"><span class="kicker">HOW TO READ A MATCH</span><h2>WHAT A GOOD SCORE MEANS</h2>
+<table class="table"><thead><tr><th>MODULE</th><th>TOY</th><th>REAL DATA</th><th>WHAT A MATCH SHOWS</th><th>WHAT IT DOES NOT SHOW</th></tr></thead><tbody>
+<tr><td>CMB</td><td>Planck’s law, one free number T</td><td>COBE/FIRAS, 43 bins</td><td>The early universe was in thermal equilibrium; T₀ ≈ 2.725 K</td><td>Diagonal errors only: the published bins are correlated, so χ² and σ<sub>T</sub> here are indicative. FIRAS quotes ±1 mK including calibration</td></tr>
+<tr><td>Mercury</td><td>Newton + the first general-relativistic correction 3L²/(c²r⁴)</td><td>Anomalous perihelion advance</td><td>The 43″/century left over after planetary perturbations is accounted for with no free parameter</td><td>The “observed” values are themselves residuals after a large Newtonian perturbation model</td></tr>
+<tr><td>Kepler</td><td>Central force ∝ 1/rⁿ, circular orbits</td><td>8 planets, 4 Galilean moons</td><td>n = 2 to high precision; the masses of the Sun and Jupiter</td><td>Uses G, which is measured separately; GM is what orbits really give</td></tr>
+<tr><td>Hare–lynx</td><td>Lotka–Volterra, 4 rates + 2 starting values</td><td>Hudson’s Bay pelts 1900–1920</td><td>Coupled oscillation with the predator lagging the prey reproduces the cycle shape</td><td>Pelts are not populations; hares cycle in places without lynx; six fitted numbers for 42 points</td></tr>
+<tr><td>Earthquakes</td><td>Olami–Feder–Christensen spring blocks</td><td>Live USGS catalogue</td><td>Threshold dynamics with dissipation gives power-law event sizes; a dissipation level exists where b ≈ 1</td><td>The toy has a tunable exponent; matching b by choosing α is a fit, not a prediction</td></tr>
+</tbody></table></section>
+</div>
+<footer class="lab-foot"><div><strong>COSMOS LAB.</strong><br/>NUMERICAL EXPERIMENTS · EXPLICIT ASSUMPTIONS · NO DISCOVERY CLAIMS</div><div>DATA: NASA LAMBDA · JPL · WEINBERG 1972 · ODUM 1953 · USGS FDSN (LIVE)</div></footer>
+<script src="/cosmos-kit.js"></script><script src="/verify-core.js"></script><script src="/verify.js"></script><script src="/palette.js" defer></script>
+</body></html>
