@@ -155,5 +155,85 @@ function ofcB(sizes,smin){const m=sizes.filter(s=>s>=smin).map(s=>2/3*Math.log10
 
 const api={C,H,KB,G,AU,GM_SUN,DATA,radiance,firasData,chi2T,fitCMB,linfit,kepler,precessOrbit,analyticAdvance,perihelionTable,RAD2AS,
   lv,lvLoss,nelderMead,fitLV,lvBaseline,LV_START,ofc,ccdf,bValue,ofcB};
+
+/* ================= EXTENSION: five more toys ================= */
+Object.assign(DATA,{
+ balmer:{source:"Hydrogen Balmer lines, air wavelengths (nm), NIST Atomic Spectra Database",
+  rows:[[3,656.279],[4,486.135],[5,434.047],[6,410.174],[7,397.007],[8,388.905],[9,383.539]]},
+ lightGravity:{source:"Light deflection by the Sun as a fraction of the GR value: Dyson, Eddington & Davidson 1920 (Sobral, Príncipe); Texas–Mauritanian eclipse 1973; VLBI, Shapiro et al. 2004 PRL 92, 121101. Shapiro delay: Cassini, Bertotti et al. 2003 Nature 425, 374",
+  /* label, year, measured/GR, 1σ */
+  rows:[["Sobral 1919 (plates)",1919,1.98/1.75,0.16/1.75],["Príncipe 1919",1919,1.61/1.75,0.40/1.75],["Eclipse 1973",1973,0.95,0.11],["VLBI quasars 2004",2004,0.99992,0.00023],["Cassini 2003 (delay)",2003,1.0000105,0.0000115]]},
+ climate:{source:"Bond albedo, mean distance and mean surface (or 1-bar / effective) temperature: NASA planetary fact sheets. Solar constant 1361 W/m² (Kopp & Lean 2011)",
+  /* name, a (AU), Bond albedo, observed T (K), kind */
+  rows:[["Venus",0.723,0.76,737,"surface"],["Earth",1.0,0.306,288,"surface"],["Mars",1.524,0.25,210,"surface"],["Jupiter",5.203,0.343,124.4,"effective"],["Titan",9.537,0.265,94,"surface"]]},
+ population:{source:"World population (billions), UN World Population Prospects 2024, mid-year estimates (rounded)",
+  year:[1950,1960,1970,1980,1990,2000,2010,2020,2024],pop:[2.499,3.019,3.695,4.444,5.316,6.149,6.986,7.856,8.162]}
+});
+/* --- Hydrogen: Rydberg-type toy 1/λ = R (1/4 − 1/n^p) --- */
+function airToVac(lnm){const s2=Math.pow(1000/lnm,2),n=1+1e-8*(8342.13+2406030/(130-s2)+15997/(38.9-s2));return lnm*n;}
+function balmerFit(p){p=p||2;const r=DATA.balmer.rows.map(([n,l])=>({n,lv:airToVac(l)}));
+  /* least squares through origin for R: y = 1/λ, x = 1/4 − 1/n^p */
+  let sxy=0,sxx=0;for(const q of r){const x=.25-Math.pow(q.n,-p),y=1e9/q.lv;sxy+=x*y;sxx+=x*x;}const R=sxy/sxx;
+  const pred=r.map(q=>1e9/(R*(.25-Math.pow(q.n,-p))));const ppm=r.map((q,i)=>(pred[i]-q.lv)/q.lv*1e6);
+  return{R,rows:r,pred,ppm,rmsppm:Math.sqrt(ppm.reduce((a,v)=>a+v*v,0)/ppm.length)};}
+const R_H=10967758.34;/* m^-1, reduced-mass Rydberg for hydrogen */
+/* --- Light and gravity: PPN gamma --- */
+function lightChi2(gamma){const t=(1+gamma)/2;let c=0;for(const r of DATA.lightGravity.rows){c+=Math.pow((r[2]-t)/r[3],2);}return c;}
+/* --- Climate: radiative equilibrium with n grey absorbing layers --- */
+const SIGMA=5.670374419e-8,S0=1361;
+function tEq(a,A){return Math.pow(S0*(1-A)/(4*SIGMA*a*a),.25);}
+function climate(){return DATA.climate.rows.map(([name,a,A,T,kind])=>{const te=tEq(a,A);return{name,a,A,T,kind,te,layers:Math.pow(T/te,4)-1,err:(te-T)/T};});}
+/* --- Population: exponential vs logistic --- */
+function popModels(){const d=DATA.population,t=d.year.map(y=>y-1950),P=d.pop;
+  const lsq=f=>t.reduce((s,ti,i)=>s+Math.pow(Math.log(f(ti))-Math.log(P[i]),2),0);
+  const ex=nelderMead(q=>lsq(x=>q[0]*Math.exp(q[1]*x)),[2.5,.02],[.3,.005],800);
+  const lo=nelderMead(q=>q[2]<=0?1e9:lsq(x=>q[2]/(1+(q[2]/q[0]-1)*Math.exp(-q[1]*x))),[2.5,.03,12],[.3,.005,2],3000);
+  return{exp:{P0:ex.x[0],r:ex.x[1],loss:ex.f,f:x=>ex.x[0]*Math.exp(ex.x[1]*x)},logistic:{P0:lo.x[0],r:lo.x[1],K:lo.x[2],loss:lo.f,f:x=>lo.x[2]/(1+(lo.x[2]/lo.x[0]-1)*Math.exp(-lo.x[1]*x))}};}
+/* --- Friedmann vs Pantheon+: flat (Om, 1−Om), Milne (empty) --- */
+function lumDist(z,Om,milne){if(milne)return z*(1+z/2);const n=200;let s=0;for(let i=0;i<=n;i++){const zi=z*i/n,E=Math.sqrt(Om*Math.pow(1+zi,3)+1-Om),w=(i===0||i===n)?.5:1;s+=w/E;}return(1+z)*s*z/n;}
+function sneData(P,zmin){const d={z:[],zh:[],m:[],e:[]};for(const r of P.rows){if(r[4]||r[0]<zmin)continue;d.z.push(r[0]);d.zh.push(r[1]);d.m.push(r[2]);d.e.push(r[3]);}return d;}
+function sneChi2(d,Om,milne){/* tabulate Dc on grid then interpolate for speed */
+  const zs=[],D=[];const N=480,zmax=2.4;for(let i=0;i<=N;i++){const z=zmax*i/N;zs.push(z);D.push(milne?z*(1+z/2)/(1+z):lumDist(z,Om,false)/(1+z));}
+  const Dc=z=>{const x=z/zmax*N,i=Math.min(N-1,Math.floor(x)),f=x-i;return D[i]*(1-f)+D[i+1]*f;};
+  let A=0,B=0,Cc=0;const mu=[];for(let i=0;i<d.z.length;i++){const dl=(1+d.zh[i])*Dc(d.z[i]),r=d.m[i]-5*Math.log10(dl),iv=1/(d.e[i]*d.e[i]);A+=r*r*iv;B+=r*iv;Cc+=iv;mu.push(5*Math.log10(dl));}
+  return{chi2:A-B*B/Cc,off:B/Cc,mu};}
+function sneFit(d){let best={chi2:Infinity};for(let Om=0;Om<=1.0001;Om+=.005){const c=sneChi2(d,Om).chi2;if(c<best.chi2)best={Om,chi2:c};}return best;}
+/* age of flat universe in Gyr */
+function ageGyr(H0,Om){const n=4000;let s=0;for(let i=1;i<=n;i++){const a=i/n,am=(i-.5)/n;s+=1/(am*Math.sqrt(Om/Math.pow(am,3)+1-Om))/n;}return s*977.792/H0;}
+Object.assign(api,{airToVac,balmerFit,R_H,lightChi2,SIGMA,S0,tEq,climate,popModels,lumDist,sneData,sneChi2,sneFit,ageGyr});
+
+/* ================= EXTENSION 2: quantum gravity & string-theory toys ================= */
+Object.assign(DATA,{
+ regge:{source:"Meson masses (MeV), Particle Data Group 2024: ρ(770), a₂(1320), ρ₃(1690), a₄(1970), ρ₅(2350)",
+  rows:[["ρ(770)",1,775.26],["a₂(1320)",2,1318.2],["ρ₃(1690)",3,1688.8],["a₄(1970)",4,1967],["ρ₅(2350)",5,2330]]},
+ grb:{source:"GRB 090510, Fermi LAT/GBM: 31 GeV photon, redshift 0.903, arrival within 0.859 s of the burst onset (Abdo et al. 2009, Nature 462, 331)",E:31,z:0.903,dtMax:0.859,published:"E_QG,1 > 1.19 E_Planck (conservative)"},
+ mergers:{source:"Binary black-hole mergers, source-frame median masses (M☉) and final spin: LIGO–Virgo GWTC-1/GWTC-2",
+  rows:[["GW150914",35.6,30.6,63.1,0.69],["GW170814",30.6,25.2,53.2,0.72],["GW170104",30.8,20.0,48.9,0.66],["GW190521",85,66,142,0.72]]},
+ eotwash:{source:"Eöt-Wash torsion-balance test of the inverse-square law: Lee et al. 2020, PRL 124, 101101 — Yukawa range λ ≤ 38.6 µm for |α| = 1 (95% CL)",lambdaMax:38.6e-6}
+});
+/* --- Regge: J = a0 + alpha' M^2 ; toy break: J = a0 + c M^p --- */
+function regge(p){p=p||2;const r=DATA.regge.rows,x=r.map(q=>Math.pow(q[2]/1000,p)),y=r.map(q=>q[1]),f=linfit(x,y);
+  const res=r.map((q,i)=>y[i]-(f.a+f.b*x[i]));return{fit:f,alphaP:f.b,a0:f.a,res,rms:Math.sqrt(res.reduce((s,v)=>s+v*v,0)/res.length),sigma:1/(2*Math.PI*f.b)};}
+/* string tension from alpha' (GeV^-2): sigma = 1/(2 pi alpha') GeV^2 -> GeV/fm */
+function stringTensionGeVfm(alphaP){return 1/(2*Math.PI*alphaP)/0.1973;}
+/* --- Lorentz-invariance violation: linear (n=1) or quadratic (n=2) dispersion, Jacob & Piran 2008 --- */
+function livDelay(EGeV,z,EqgGeV,n,H0,Om){H0=H0||67.4;Om=Om==null?0.315:Om;const N=400;let s=0;
+  for(let i=0;i<=N;i++){const zi=z*i/N,w=(i===0||i===N)?.5:1;s+=w*Math.pow(1+zi,n)/Math.sqrt(Om*Math.pow(1+zi,3)+1-Om);}s*=z/N;
+  const H0s=H0/3.0856775814913673e19;return (1+n)/2*Math.pow(EGeV/EqgGeV,n)*s/H0s;}
+const E_PLANCK=1.220890e19;
+function livBound(n){const g=DATA.grb,f=x=>livDelay(g.E,g.z,x,n)-g.dtMax;let lo=1e5,hi=1e25;for(let i=0;i<200;i++){const m=Math.sqrt(lo*hi);if(f(m)>0)lo=m;else hi=m;}return hi;}
+/* --- Black-hole area theorem: Kerr horizon area A = 8 pi M^2 (1 + sqrt(1 - chi^2)) (G=c=1, M in solar masses) --- */
+const MSUN_KG=1.98847e30,HBAR=1.054571817e-34,LP2=HBAR*G/Math.pow(C,3);
+function kerrArea(M,chi){return 8*Math.PI*M*M*(1+Math.sqrt(1-chi*chi));}
+function areaTest(chiInit){chiInit=chiInit||0;return DATA.mergers.rows.map(([name,m1,m2,mf,cf])=>{const Ai=kerrArea(m1,chiInit)+kerrArea(m2,chiInit),Af=kerrArea(mf,cf);
+  const Mm=G*MSUN_KG/(C*C),Si=Ai*Mm*Mm/(4*LP2),Sf=Af*Mm*Mm/(4*LP2);return{name,m1,m2,mf,cf,Ai,Af,ratio:Af/Ai,Erad:m1+m2-mf,Si,Sf,TH:HBAR*Math.pow(C,3)/(8*Math.PI*G*mf*MSUN_KG*KB)};});}
+/* --- Extra dimensions (ADD): n large dims of size R. Toy potential: Newton for r >> R, 1/r^{1+n} for r << R.
+   Effective deviation is captured as a Yukawa term with range ~R (alpha = 2n for torus compactification, Kehagias & Sfetsos 2000).
+   Survives if R (as lambda) is below the Eöt-Wash bound. Fundamental gravity scale M_* from M_Pl^2 = M_*^{n+2} R^n. --- */
+function addModel(n,MstarTeV){const hbarc=1.973269804e-16/*GeV·m*/,MPl=E_PLANCK/Math.sqrt(8*Math.PI);/* reduced Planck mass */
+  const M=MstarTeV*1e3,R=Math.pow(MPl*MPl/Math.pow(M,n+2),1/n)*hbarc;
+  return{n,M:MstarTeV,R,alpha:2*n,allowed:R<=DATA.eotwash.lambdaMax,ratioAt:r=>1+2*n*Math.exp(-r/R)};}
+function addMaxR(){return DATA.eotwash.lambdaMax*1e6;}
+Object.assign(api,{regge,stringTensionGeVfm,livDelay,livBound,E_PLANCK,kerrArea,areaTest,addModel,addMaxR});
 if(typeof module!=="undefined"&&module.exports)module.exports=api;root.CosmosVerifyCore=api;
 })(typeof window!=="undefined"?window:globalThis);

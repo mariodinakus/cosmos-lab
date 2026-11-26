@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>COSMOS LAB — Toy → Reality</title>
-<meta name="description" content="Five toy equations confronted with real measurements: Planck's law vs COBE/FIRAS, general relativity vs Mercury's perihelion, Kepler's third law vs the planets, Lotka–Volterra vs the Hudson's Bay hare–lynx records, and a spring-block earthquake model vs live USGS earthquakes."/>
+<meta name="description" content="Fourteen toy equations confronted with real measurements: CMB, Mercury, Kepler, predator–prey, earthquakes, cosmic acceleration, hydrogen, light bending, planetary temperatures, population, Regge strings, quantum-gravity photon timing, black-hole area theorem and extra dimensions."/>
 <meta name="theme-color" content="#080e11"/>
 <link rel="icon" href="/assets/favicon.ico"/><link rel="stylesheet" href="/lab.css"/>
 <style>
@@ -20,7 +20,7 @@
 <div class="wrap">
 <section class="lab-hero"><div><p class="kicker">COSMOS LAB / TOY MODELS AGAINST THE REAL UNIVERSE</p><h1>DOES THE TOY<br/><em>SURVIVE REALITY?</em></h1>
 <p class="lead">Write down a one-line equation, compute what it predicts, then put the prediction next to a real measurement — a satellite spectrum, a century of planetary astronomy, fur-trade ledgers, this year’s earthquakes. Then break the equation and watch the match fall apart. Each module ends with a score, and with what the score does <em>not</em> prove.</p></div>
-<div class="hero-stats"><div><strong id="hT">—</strong><small>CMB TEMPERATURE · K</small></div><div><strong id="hM">—</strong><small>MERCURY ″/CENTURY (GR)</small></div><div><strong id="hK">—</strong><small>KEPLER EXPONENT</small></div><div><strong id="hB">—</strong><small>LIVE EARTHQUAKE b</small></div></div></section>
+<div class="hero-stats"><div><strong id="hT">—</strong><small>CMB TEMPERATURE · K</small></div><div><strong id="hM">—</strong><small>MERCURY ″/CENTURY (GR)</small></div><div><strong id="hK">—</strong><small>KEPLER EXPONENT</small></div><div><strong id="hB">—</strong><small>LIVE EARTHQUAKE b</small></div><div><strong>14</strong><small>TOYS VS REALITY</small></div></div></section>
 
 <div class="scoreboard" id="board"></div>
 <div class="tabs" id="tabs" role="tablist"></div>
@@ -33,8 +33,17 @@
 <tr><td>Kepler</td><td>Central force ∝ 1/rⁿ, circular orbits</td><td>8 planets, 4 Galilean moons</td><td>n = 2 to high precision; the masses of the Sun and Jupiter</td><td>Uses G, which is measured separately; GM is what orbits really give</td></tr>
 <tr><td>Hare–lynx</td><td>Lotka–Volterra, 4 rates + 2 starting values</td><td>Hudson’s Bay pelts 1900–1920</td><td>Coupled oscillation with the predator lagging the prey reproduces the cycle shape</td><td>Pelts are not populations; hares cycle in places without lynx; six fitted numbers for 42 points</td></tr>
 <tr><td>Earthquakes</td><td>Olami–Feder–Christensen spring blocks</td><td>Live USGS catalogue</td><td>Threshold dynamics with dissipation gives power-law event sizes; a dissipation level exists where b ≈ 1</td><td>The toy has a tunable exponent; matching b by choosing α is a fit, not a prediction</td></tr>
+<tr><td>Acceleration</td><td>Friedmann: matter-only, empty, matter + Λ</td><td>1,580 Pantheon+ supernovae</td><td>Decelerating universes are excluded; ΩΛ ≈ 0.65</td><td>No covariance; dark energy’s nature is unknown</td></tr>
+<tr><td>Hydrogen</td><td>Bohr levels ∝ 1/n²</td><td>NIST Balmer lines</td><td>Energy levels to a few ppm from one constant</td><td>Bohr’s orbits are wrong; fine structure is missing</td></tr>
+<tr><td>Bending light</td><td>PPN γ</td><td>Eclipses, VLBI, Cassini</td><td>γ = 1 to 10⁻⁵</td><td>Only one post-Newtonian parameter is tested</td></tr>
+<tr><td>Planet temps</td><td>Radiative balance + grey layers</td><td>NASA fact sheets</td><td>Mars fits with no air; the gaps measure greenhouse and internal heat</td><td>Grey layers are a cartoon of radiative transfer</td></tr>
+<tr><td>Population</td><td>Exponential vs logistic</td><td>UN WPP 2024</td><td>Growth is slowing</td><td>K is extrapolation; fertility, not food, drives it</td></tr>
+<tr><td>Strings</td><td>Rotating relativistic string</td><td>PDG mesons</td><td>QCD flux tubes act like strings, ~1 GeV/fm</td><td>Nothing about string theory as quantum gravity</td></tr>
+<tr><td>Quantum spacetime</td><td>Energy-dependent light speed</td><td>GRB 090510 (Fermi)</td><td>Linear Planck-scale dispersion excluded</td><td>Assumes simultaneous emission; quadratic effects untested</td></tr>
+<tr><td>Black holes</td><td>Kerr horizon area</td><td>LIGO–Virgo mergers</td><td>Horizon area grows, as Hawking’s theorem requires</td><td>Medians only; Hawking radiation unobserved</td></tr>
+<tr><td>Extra dimensions</td><td>ADD large extra dimensions</td><td>Eöt-Wash, 38.6 µm</td><td>n = 1 and low-scale n = 2 are excluded</td><td>Survival is not evidence; collider limits not applied</td></tr>
 </tbody></table></section>
 </div>
 <footer class="lab-foot"><div><strong>COSMOS LAB.</strong><br/>NUMERICAL EXPERIMENTS · EXPLICIT ASSUMPTIONS · NO DISCOVERY CLAIMS</div><div>DATA: NASA LAMBDA · JPL · WEINBERG 1972 · ODUM 1953 · USGS FDSN (LIVE)</div></footer>
-<script src="/cosmos-kit.js"></script><script src="/verify-core.js"></script><script src="/verify.js"></script><script src="/palette.js" defer></script>
+<script src="/cosmos-kit.js"></script><script src="/data-pantheonplus.js"></script><script src="/verify-core.js"></script><script src="/verify.js"></script><script src="/palette.js" defer></script>
 </body></html>
